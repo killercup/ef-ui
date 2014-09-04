@@ -3,7 +3,9 @@
 gulp = require('gulp')
 gutil = require('gulp-util')
 plumber = require('gulp-plumber')
-source = require('vinyl-source-stream')
+
+webpack = require("webpack")
+ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 # ## CONSTS
 
@@ -38,66 +40,50 @@ log = (task, level) ->
 
 # ## Processes
 
-###
-# @method Compile Vendor Scripts
-# @description Create a file with required js libraries
-###
-compileVendorScripts = ({name, dest, env, libs}) ->
-  TASK = 'browserify:vendor'
+compile = ({env, libs}) ->
+  return webpack
+    entry:
+      app: "coffee!#{PATHS.app.entry}"
+      vendor: libs
+    output:
+      filename: PATHS.app.name
+      path: PATHS.app.dest
+    devtool: 'source-map'
+    loaders: [
+      { test: /\.coffee$/, loader: "coffee-loader" }
+      # {
+      #   test: /\.css$/,
+      #   loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+      # }
+      {
+        test: /\.css$/,
+        loader: "css-loader"
+      }
+    ]
+    resolve:
+      extensions: ['', '.js', '.coffee']
+    plugins: [
+      new ExtractTextPlugin("style.css", allChunks: true)
+      new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name)
+    ]
 
-  bundler = require('browserify')
-    entries: libs.entry, extensions: ['.js', '.coffee']
+compileStuff = ({env, libs, watch}, callback) ->
+  notify = log('webpack', 'info')
+  compiler = compile({env, libs})
 
-  bundler.transform require('coffeeify')
+  cb = (err, stats) ->
+    notify stats.toString
+      chunks: false
+      colors: true
 
-  if env.compress
-    bundler.transform {global: true}, 'envify'
-    bundler.transform {global: true}, 'uglifyify'
+    throw new gutil.PluginError("webpack", err) if err
 
-  libs.forEach (lib) ->
-    bundler.require(lib)
+    callback() unless watch
 
-  bundler.bundle(debug: env.debug)
-  .on 'error', log(TASK, 'err')
-  .pipe source(name)
-  .pipe gulp.dest(dest)
-  .pipe plumber()
-  .on 'end', -> log(TASK)("recompiled")
-
-  ###
-  # @method Compile Application Scripts
-  # @description Bundle application files
-  ###
-compileScripts = ({src, name, dest, libs, env, watch}) ->
-  TASK = "browserify:app#{if watch then ':watch' else ''}"
-
-  action = if watch then require('watchify') else require('browserify')
-  
-  bundler = action
-    entries: src,
-    extensions: ['.js', '.json', '.coffee']
-
-  bundler.transform require('coffeeify')
-
-  if env.compress
-    bundler.transform {global: true}, 'envify'
-    bundler.transform {global: true}, 'uglifyify'
-
-  libs.forEach (lib) ->
-    bundler.external(lib)
-
-  rebundle = ->
-    bundler.bundle(debug: env.debug)
-    .on 'error', log(TASK, 'err')
-    .pipe source(name)
-    .pipe plumber()
-    .pipe gulp.dest(dest)
-    .on 'end', -> log(TASK)("recompiled")
-
-  bundler.on 'update', rebundle
-
-  return rebundle()
-  .on 'error', log(TASK, 'err')
+  if watch
+    compiler.watch 200, cb
+  else
+    compiler.run cb
 
 # ## Tasks
 
@@ -112,31 +98,19 @@ gulp.task 'copy:assets', ->
 gulp.task 'copy:assets:watch', ['copy:assets'], ->
   gulp.watch("#{PATHS.app.src}/**/*.html", ['copy:assets'])
 
-gulp.task 'scripts:vendor', ->
-  compileVendorScripts
+gulp.task 'magic:compile', (callback) ->
+  compileStuff {
     env: ENV
-    name: PATHS.libs.name
-    dest: PATHS.libs.dest
     libs: LIBS
+  }, callback
 
-gulp.task 'scripts:app', ->
-  compileScripts
+gulp.task 'magic:watch', (callback) ->
+  compileStuff {
     env: ENV
-    src: PATHS.app.entry
-    name: PATHS.app.name
-    dest: PATHS.app.dest
-    libs: LIBS
-    watch: false
-
-gulp.task 'scripts:app:watch', ->
-  compileScripts
-    env: ENV
-    src: PATHS.app.entry
-    name: PATHS.app.name
-    dest: PATHS.app.dest
     libs: LIBS
     watch: true
+  }, callback
 
-gulp.task 'default', ['clean', 'copy:assets', 'scripts:vendor', 'scripts:app']
+gulp.task 'default', ['clean', 'copy:assets', 'magic:compile']
 
-gulp.task 'watch', ['clean', 'copy:assets:watch', 'scripts:vendor', 'scripts:app:watch']
+gulp.task 'watch', ['clean', 'copy:assets:watch', 'magic:watch',]

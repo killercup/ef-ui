@@ -5,6 +5,10 @@
 # automatically generated fake data.
 ###
 
+
+require './moar'
+require './style.css'
+
 React = require('react')
 {article, div, h1, p, ul, li, button} = React.DOM
 
@@ -80,6 +84,8 @@ People = React.createClass
       ])
       (div {key: 1, className: 'people row'}, @props.list)
     ])
+
+window.alert('fancy shit')
 
 # Render stuff to the DOM
 React.renderComponent(
