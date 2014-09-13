@@ -12,15 +12,23 @@ ExtractTextPlugin = require("extract-text-webpack-plugin")
 PATHS =
   app:
     src: './src/'
-    entry: './src/person.coffee'
+    entry: './src/index.coffee'
     dest: './build'
-    name: 'app.js'
+  styleguide:
+    src: './src/'
+    entry: './src/styleguide.coffee'
+    dest: './build'
   libs:
     entry: './src/vendor.js'
     name: 'vendor.js'
     dest: './build'
 
 LIBS = require(PATHS.libs.entry)
+
+ENTRIES =
+  app: "#{PATHS.app.entry}"
+  styleguide: "#{PATHS.styleguide.entry}"
+  vendor: LIBS
 
 # ## Helpers
 
@@ -40,41 +48,53 @@ log = (task, level) ->
 
 # ## Processes
 
-compile = ({env, libs}) ->
-  return webpack
-    entry:
-      app: "coffee!#{PATHS.app.entry}"
-      vendor: libs
+compile = ({env, entries}) ->
+  config =
+    entry: entries
     output:
-      filename: PATHS.app.name
+      filename: "[name].js"
       path: PATHS.app.dest
     devtool: 'source-map'
-    loaders: [
-      { test: /\.coffee$/, loader: "coffee-loader" }
-      # {
-      #   test: /\.css$/,
-      #   loader: ExtractTextPlugin.extract("style-loader", "css-loader")
-      # }
-      {
-        test: /\.css$/,
-        loader: "css-loader"
-      }
-    ]
+    module:
+      loaders: [
+        { test: /\.coffee$/, loader: "coffee-loader" }
+        { test: /\.(less|css)$/, loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!less-loader') }
+      ]
     resolve:
-      extensions: ['', '.js', '.coffee']
+      extensions: ['', '.js', '.coffee', '.css', '.less']
     plugins: [
-      new ExtractTextPlugin("style.css", allChunks: true)
+      new webpack.DefinePlugin
+        "process.env":
+          NODE_ENV: JSON.stringify(env.name or "development")
       new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name)
+      new ExtractTextPlugin("app.css", allChunks: true)
     ]
 
-compileStuff = ({env, libs, watch}, callback) ->
+  if env.compress
+    config.plugins = config.plugins.concat [
+      # new webpack.optimize.DedupePlugin()
+      new webpack.optimize.OccurenceOrderPlugin(true)
+      # new webpack.optimize.AggressiveMergingPlugin(moveToParents: true)
+      new webpack.optimize.UglifyJsPlugin()
+    ]
+  
+  return webpack(config)
+    
+
+compileStuff = ({env, entries, watch}, callback) ->
   notify = log('webpack', 'info')
-  compiler = compile({env, libs})
+  compiler = compile({env, entries})
 
   cb = (err, stats) ->
     notify stats.toString
       chunks: false
       colors: true
+      warnings: false
+      children: false
+
+    if env.debug_stats
+      json_stats = JSON.stringify stats.toJson(), null, 2
+      require('fs').writeFileSync('webpack-stats.json', json_stats)
 
     throw new gutil.PluginError("webpack", err) if err
 
@@ -101,13 +121,13 @@ gulp.task 'copy:assets:watch', ['copy:assets'], ->
 gulp.task 'magic:compile', (callback) ->
   compileStuff {
     env: ENV
-    libs: LIBS
+    entries: ENTRIES
   }, callback
 
 gulp.task 'magic:watch', (callback) ->
   compileStuff {
     env: ENV
-    libs: LIBS
+    entries: ENTRIES
     watch: true
   }, callback
 

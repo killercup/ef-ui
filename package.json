@@ -18,24 +18,20 @@
     "react-prop-schema": "^0.2.0"
   },
   "devDependencies": {
-    "browserify": "^4.2.0",
+    "autoprefixer-loader": "^1.0.0",
     "coffee-loader": "^0.7.2",
-    "coffee-script": "^1.7.1",
-    "coffeeify": "^0.6.0",
+    "coffee-script": "^1.8.0",
     "css-loader": "^0.7.1",
-    "envify": "^1.2.1",
-    "extract-text-webpack-plugin": "^0.2.5",
-    "fluxy": "^0.4.1",
-    "gulp": "^3.8.5",
-    "gulp-coffee": "^2.1.1",
-    "gulp-plumber": "^0.6.3",
+    "extract-text-webpack-plugin": "0.2.5",
+    "file-loader": "^0.7.2",
+    "gulp": "^3.8.8",
+    "gulp-coffee": "^2.2.0",
+    "gulp-plumber": "^0.6.5",
     "gulp-rimraf": "^0.1.0",
     "gulp-util": "^2.2.19",
-    "rework-loader": "^0.1.1",
-    "style-loader": "^0.7.1",
-    "uglifyify": "^2.4.0",
-    "vinyl-source-stream": "^0.1.1",
-    "watchify": "^0.10.2",
-    "webpack": "^1.4.0-beta3"
+    "less": "^1.7.5",
+    "less-loader": "^0.7.7",
+    "style-loader": "^0.8.0",
+    "webpack": "1.3.7"
   }
 }
