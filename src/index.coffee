@@ -1,5 +1,5 @@
 React = require('react')
-require('./_base/styles.css')
+require('./_base/styles.less')
 
 Episode = require('./episode')
 
@@ -10,7 +10,10 @@ App = React.createClass
   render: ->
     (article {}, [
       (p {}, "Sup, bro?")
-      (Episode {})
+      (Episode {
+        title: 'Listen', show: 'Doctor Who (2005)',
+        season: 8, number: 4
+      })
     ])
 
 React.renderComponent(
