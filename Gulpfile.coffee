@@ -36,6 +36,7 @@ ENV = name: process.env.NODE_ENV or 'development'
 ENV.compress = ENV.name is 'production'
 ENV.watch = ENV.name is 'development'
 ENV.debug = ENV.name isnt 'production'
+ENV.debug_stats = ENV.name isnt 'production'
 
 log = (task, level) ->
   return (_msg) ->
@@ -66,7 +67,7 @@ compile = ({env, entries}) ->
       new webpack.DefinePlugin
         "process.env":
           NODE_ENV: JSON.stringify(env.name or "development")
-      new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name)
+      new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name, Infinity)
       new ExtractTextPlugin("app.css", allChunks: true)
     ]
 
@@ -131,6 +132,20 @@ gulp.task 'magic:watch', (callback) ->
     watch: true
   }, callback
 
-gulp.task 'default', ['clean', 'copy:assets', 'magic:compile']
+gulp.task 'gzip', ->
+  gulp.src("#{PATHS.app.dest}/*.{js,html,css}")
+  .pipe require('gulp-gzip')(gzipOptions: { level: 9 })
+  .pipe gulp.dest(PATHS.app.dest)
 
-gulp.task 'watch', ['clean', 'copy:assets:watch', 'magic:watch',]
+gulp.task 'default', (cb) ->
+  require('run-sequence')('clean',
+    ['copy:assets', 'magic:compile']
+    'gzip'
+    cb
+  )
+
+gulp.task 'watch', (cb) ->
+  require('run-sequence')('clean',
+    ['copy:assets:watch', 'magic:watch']
+    cb
+  )

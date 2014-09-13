@@ -3,3 +3,4 @@ npm-debug.log
 build/
 dist/
 *.sublime-project
+webpack-stats.json
