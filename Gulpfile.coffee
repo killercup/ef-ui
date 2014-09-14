@@ -91,7 +91,8 @@ compile = ({env, entries}) ->
       filename: "[name]-[hash].js"
       path: PATHS.app.dest
     target: 'web'
-    devtool: 'source-map'
+    debug: env.debug
+    devtool: 'eval'
     module:
       loaders: [
         { test: /\.coffee$/, loader: "react-hot!coffee-loader" }
@@ -101,7 +102,7 @@ compile = ({env, entries}) ->
     plugins: [
       new webpack.DefinePlugin
         "process.env":
-          NODE_ENV: JSON.stringify(env.name or "development")
+          NODE_ENV: JSON.stringify(env.name)
       new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[hash].js', Infinity)
       outputHtml
         filename: 'index.html'
