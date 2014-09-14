@@ -4,6 +4,7 @@ path = require('path')
 gulp = require('gulp')
 gutil = require('gulp-util')
 plumber = require('gulp-plumber')
+l = require('lodash')
 
 webpack = require("webpack")
 
@@ -57,13 +58,37 @@ log = (task, level) ->
 
 # ## Processes
 
-compile = ({env, entries}) ->
+outputHtml = (opts) ->
   HtmlWebpackPlugin = require('html-webpack-plugin')
 
+  new HtmlWebpackPlugin l.defaults {}, opts,
+    filename: 'index.html'
+    template: 'src/index.html'
+    include: (assetsByChunkName, chunk, filetype) ->
+      assets = assetsByChunkName[chunk]
+      if l.isString(assets)
+        assets = [assets]
+
+      return "" unless assets?.length
+
+      filetypeCheck = new RegExp("\.#{filetype}$")
+      if filetype is 'js'
+        filetypeMap = (src) -> "<script src='#{src}'></script>"
+      else if filetype is 'css'
+        filetypeMap = (src) -> "<link rel='stylesheet' href='#{src}'/>"
+      else
+        filetypeMap = -> ""
+
+      return assets
+      .filter (name) -> filetypeCheck.test(name)
+      .map(filetypeMap)
+      .join('\n')
+
+compile = ({env, entries}) ->
   config =
     entry: entries
     output:
-      filename: "[name].js"
+      filename: "[name]-[hash].js"
       path: PATHS.app.dest
     target: 'web'
     devtool: 'source-map'
@@ -77,22 +102,16 @@ compile = ({env, entries}) ->
       new webpack.DefinePlugin
         "process.env":
           NODE_ENV: JSON.stringify(env.name or "development")
-      new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name, Infinity)
-      new HtmlWebpackPlugin
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[hash].js', Infinity)
+      outputHtml
         filename: 'index.html'
-        template: 'src/index.html'
+        chunk: 'app'
         env: env
-        importIfExists: (src) ->
-          return "" unless src
-          "<script src='#{src}'></script>"
-      new HtmlWebpackPlugin
+      outputHtml
         filename: 'styleguide.html'
-        template: 'src/styleguide.html'
-        env: env
         title: 'EpisodeFever Styleguide'
-        importIfExists: (src) ->
-          return "" unless src
-          "<script src='#{src}'></script>"
+        chunk: 'styleguide'
+        env: env
     ]
 
   if env.bundleCSS
@@ -100,7 +119,7 @@ compile = ({env, entries}) ->
     config.module.loaders.push
       test: /\.(less|css)$/
       loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!less-loader')
-    config.plugins.push new ExtractTextPlugin("app.css", allChunks: true)
+    config.plugins.push new ExtractTextPlugin("app-[hash].css", allChunks: true)
   else
     config.module.loaders.push
       test: /\.(less|css)$/

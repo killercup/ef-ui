@@ -4,14 +4,15 @@
   <meta charset="UTF-8">
   <title>{%=o.htmlWebpackPlugin.options.title || 'EpisodeFever'%}</title>
 
-  {% if (o.htmlWebpackPlugin.options.env.bundleCSS) { %}
-  <link rel="stylesheet" href="app.css"/>{% } %}
+  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, o.htmlWebpackPlugin.options.chunk, 'css') %}
 </head>
 <body>
   <div id="container">&nbsp;</div>
 
-  <script src="{%=o.htmlWebpackPlugin.assets['vendor']%}"></script>
-  {%# o.htmlWebpackPlugin.options.importIfExists(o.htmlWebpackPlugin.assets['app']) %}
-  {%# o.htmlWebpackPlugin.options.importIfExists(o.htmlWebpackPlugin.assets['hot']) %}
+  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, 'vendor', 'js') %}
+  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, o.htmlWebpackPlugin.options.chunk, 'js') %}
+  {% if (o.htmlWebpackPlugin.options.env.dev_server) { %}
+  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, 'hot', 'js') %}
+  {% } %}
 </body>
 </html>
