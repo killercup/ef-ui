@@ -13,7 +13,7 @@ module.exports =
   defaultKeyAndClass: (moduleName) -> (itemName, opts={}) ->
     cx = ["#{moduleName}-#{itemName}"]
     if opts.className then cx.push(opts.className)
-    l.defaults({}, opts, {
+    l.defaults({}, {
       key: itemName
       className: cx.join(' ')
-    })
+    }, opts)

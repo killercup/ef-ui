@@ -179,7 +179,7 @@ compileStuff = ({env, entries, watch}, callback) ->
   else
     compiler.run cb
 
-# ## Tasks
+# ## General Tasks
 
 gulp.task 'clean', ->
   gulp.src("#{PATHS.app.dest}/**/*", read: false)
@@ -210,6 +210,8 @@ gulp.task 'gzip', ->
   .pipe require('gulp-gzip')(gzipOptions: { level: 9 })
   .pipe gulp.dest(PATHS.app.dest)
 
+# ## Public Tasks
+
 gulp.task 'default', (cb) ->
   require('run-sequence')('clean',
     'magic:compile'
@@ -222,3 +224,7 @@ gulp.task 'watch', (cb) ->
     'magic:watch'
     cb
   )
+
+gulp.task 'test', ->
+  gulp.src('src/**/*_spec.{js,coffee}', read: false)
+  .pipe require('gulp-mocha')(reporter: 'spec')
