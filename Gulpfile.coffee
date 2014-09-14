@@ -58,11 +58,14 @@ log = (task, level) ->
 # ## Processes
 
 compile = ({env, entries}) ->
+  HtmlWebpackPlugin = require('html-webpack-plugin')
+
   config =
     entry: entries
     output:
       filename: "[name].js"
       path: PATHS.app.dest
+    target: 'web'
     devtool: 'source-map'
     module:
       loaders: [
@@ -75,6 +78,21 @@ compile = ({env, entries}) ->
         "process.env":
           NODE_ENV: JSON.stringify(env.name or "development")
       new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name, Infinity)
+      new HtmlWebpackPlugin
+        filename: 'index.html'
+        template: 'src/index.html'
+        env: env
+        importIfExists: (src) ->
+          return "" unless src
+          "<script src='#{src}'></script>"
+      new HtmlWebpackPlugin
+        filename: 'styleguide.html'
+        template: 'src/styleguide.html'
+        env: env
+        title: 'EpisodeFever Styleguide'
+        importIfExists: (src) ->
+          return "" unless src
+          "<script src='#{src}'></script>"
     ]
 
   if env.bundleCSS
@@ -175,13 +193,13 @@ gulp.task 'gzip', ->
 
 gulp.task 'default', (cb) ->
   require('run-sequence')('clean',
-    ['copy:assets', 'magic:compile']
+    'magic:compile'
     'gzip'
     cb
   )
 
 gulp.task 'watch', (cb) ->
   require('run-sequence')('clean',
-    ['copy:assets:watch', 'magic:watch']
+    'magic:watch'
     cb
   )
