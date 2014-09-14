@@ -205,6 +205,15 @@ gulp.task 'magic:watch', (callback) ->
     watch: true
   }, callback
 
+gulp.task 'coffeelint', ->
+  coffeelint = require('gulp-coffeelint')
+  gulp.src('src/**/*.coffee')
+  .pipe coffeelint()
+  .pipe coffeelint.reporter()
+
+gulp.task 'coffeelint:watch', ->
+  gulp.watch 'src/**/*.coffee', ['coffeelint']
+
 gulp.task 'gzip', ->
   gulp.src("#{PATHS.app.dest}/*.{js,html,css}")
   .pipe require('gulp-gzip')(gzipOptions: { level: 9 })
@@ -221,9 +230,11 @@ gulp.task 'default', (cb) ->
 
 gulp.task 'watch', (cb) ->
   require('run-sequence')('clean',
-    'magic:watch'
+    ['coffeelint:watch', 'magic:watch']
     cb
   )
+
+gulp.task 'lint', ['coffeelint']
 
 gulp.task 'test', ->
   gulp.src('src/**/*_spec.{js,coffee}', read: false)
