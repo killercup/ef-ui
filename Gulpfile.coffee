@@ -1,11 +1,11 @@
 # # Frontend Build Process
 
+path = require('path')
 gulp = require('gulp')
 gutil = require('gulp-util')
 plumber = require('gulp-plumber')
 
 webpack = require("webpack")
-ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 # ## CONSTS
 
@@ -13,7 +13,7 @@ PATHS =
   app:
     src: './src/'
     entry: './src/index.coffee'
-    dest: './build'
+    dest: path.resolve './build'
   styleguide:
     src: './src/'
     entry: './src/styleguide.coffee'
@@ -32,11 +32,19 @@ ENTRIES =
 
 # ## Helpers
 
-ENV = name: process.env.NODE_ENV or 'development'
-ENV.compress = ENV.name is 'production'
-ENV.watch = ENV.name is 'development'
-ENV.debug = ENV.name isnt 'production'
-ENV.debug_stats = ENV.name isnt 'production'
+process.env.NODE_ENV or= 'development'
+is_production = process.env.NODE_ENV is 'production'
+is_development = process.env.NODE_ENV is 'development'
+
+ENV =
+  name: process.env.NODE_ENV
+  compress: is_production
+  watch: is_development
+  debug: is_development
+  debug_stats: true
+  bundleCSS: is_production
+  dev_server: is_development
+  dev_port: 3000
 
 log = (task, level) ->
   return (_msg) ->
@@ -58,8 +66,7 @@ compile = ({env, entries}) ->
     devtool: 'source-map'
     module:
       loaders: [
-        { test: /\.coffee$/, loader: "coffee-loader" }
-        { test: /\.(less|css)$/, loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!less-loader') }
+        { test: /\.coffee$/, loader: "react-hot!coffee-loader" }
       ]
     resolve:
       extensions: ['', '.js', '.coffee', '.css', '.less']
@@ -68,8 +75,18 @@ compile = ({env, entries}) ->
         "process.env":
           NODE_ENV: JSON.stringify(env.name or "development")
       new webpack.optimize.CommonsChunkPlugin('vendor', PATHS.libs.name, Infinity)
-      new ExtractTextPlugin("app.css", allChunks: true)
     ]
+
+  if env.bundleCSS
+    ExtractTextPlugin = require("extract-text-webpack-plugin")
+    config.module.loaders.push
+      test: /\.(less|css)$/
+      loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!less-loader')
+    config.plugins.push new ExtractTextPlugin("app.css", allChunks: true)
+  else
+    config.module.loaders.push
+      test: /\.(less|css)$/
+      loader: 'style-loader!css-loader!autoprefixer-loader!less-loader'
 
   if env.compress
     config.plugins = config.plugins.concat [
@@ -78,6 +95,13 @@ compile = ({env, entries}) ->
       # new webpack.optimize.AggressiveMergingPlugin(moveToParents: true)
       new webpack.optimize.UglifyJsPlugin()
     ]
+
+  if env.dev_server
+    config.plugins.push new webpack.HotModuleReplacementPlugin()
+    config.entry.hot = [
+      "webpack-dev-server/client?http://localhost:#{env.dev_port}"
+      "webpack/hot/dev-server"
+    ]
   
   return webpack(config)
     
@@ -85,13 +109,14 @@ compile = ({env, entries}) ->
 compileStuff = ({env, entries, watch}, callback) ->
   notify = log('webpack', 'info')
   compiler = compile({env, entries})
+  STATS_SETTINGS =
+    chunks: false
+    colors: true
+    warnings: false
+    children: false
 
   cb = (err, stats) ->
-    notify stats.toString
-      chunks: false
-      colors: true
-      warnings: false
-      children: false
+    notify stats.toString STATS_SETTINGS
 
     if env.debug_stats
       json_stats = JSON.stringify stats.toJson(), null, 2
@@ -102,7 +127,18 @@ compileStuff = ({env, entries, watch}, callback) ->
     callback() unless watch
 
   if watch
-    compiler.watch 200, cb
+    if env.dev_server
+      DevServer = require("webpack-dev-server")
+
+      server = new DevServer compiler,
+        contentBase: PATHS.app.dest
+        hot: true
+        watchDelay: 100
+        stats: STATS_SETTINGS
+      server.listen env.dev_port, ->
+        notify "Dev server started on http://localhost:#{env.dev_port}/"
+    else
+      compiler.watch 200, cb
   else
     compiler.run cb
 
