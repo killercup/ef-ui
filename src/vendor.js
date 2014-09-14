@@ -3,5 +3,6 @@
 module.exports = [
   'lodash',
   'react',
-  'react-prop-schema'
+  'react-prop-schema',
+  'react-router-component'
 ];

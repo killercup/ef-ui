@@ -88,22 +88,24 @@ compile = ({env, entries}) ->
   config =
     entry: entries
     output:
-      filename: "[name]-[hash].js"
+      filename: "[name]-[chunkhash].js"
       path: PATHS.app.dest
     target: 'web'
     debug: env.debug
-    devtool: 'eval'
+    devtool: if env.debug then 'eval' else 'source-map'
     module:
       loaders: [
         { test: /\.coffee$/, loader: "react-hot!coffee-loader" }
       ]
     resolve:
       extensions: ['', '.js', '.coffee', '.css', '.less']
+      alias:
+        lodash: 'lodash/dist/lodash.js'
     plugins: [
       new webpack.DefinePlugin
         "process.env":
           NODE_ENV: JSON.stringify(env.name)
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[hash].js', Infinity)
+      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[chunkhash].js', Infinity)
       outputHtml
         filename: 'index.html'
         chunk: 'app'
@@ -128,9 +130,8 @@ compile = ({env, entries}) ->
 
   if env.compress
     config.plugins = config.plugins.concat [
-      # new webpack.optimize.DedupePlugin()
+      new webpack.optimize.DedupePlugin()
       new webpack.optimize.OccurenceOrderPlugin(true)
-      # new webpack.optimize.AggressiveMergingPlugin(moveToParents: true)
       new webpack.optimize.UglifyJsPlugin()
     ]
 
@@ -140,18 +141,20 @@ compile = ({env, entries}) ->
       "webpack-dev-server/client?http://localhost:#{env.dev_port}"
       "webpack/hot/dev-server"
     ]
-  
+
   return webpack(config)
     
 
 compileStuff = ({env, entries, watch}, callback) ->
   notify = log('webpack', 'info')
-  compiler = compile({env, entries})
+  compiler = compile({env: env, entries: entries})
   STATS_SETTINGS =
     chunks: false
     colors: true
     warnings: false
     children: false
+
+  notify "Building in #{env.name} environment."
 
   cb = (err, stats) ->
     notify stats.toString STATS_SETTINGS

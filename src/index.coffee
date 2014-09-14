@@ -6,7 +6,7 @@ require('./_base/styles.less')
 App = React.createClass
   displayName: 'App'
   render: ->
-    (Locations {hash: true}, [
+    (Locations {hash: process.env.NODE_ENV is 'development'}, [
       (Location {path: '/', handler: require('./pages/start')})
       (Location {path: '/episodes/:id', handler: require('./pages/episode')})
       (NotFound {handler: require('./pages/error404')})
