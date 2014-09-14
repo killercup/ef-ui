@@ -1,19 +1,15 @@
 React = require('react')
+{Locations, Location, NotFound} = require('react-router-component')
+
 require('./_base/styles.less')
-
-Episode = require('./episode')
-
-{article, div, h1, p, ul, li, button} = React.DOM
 
 App = React.createClass
   displayName: 'App'
   render: ->
-    (article {}, [
-      (p {}, "Sup, bro?")
-      (Episode {
-        title: 'Listen', show: 'Doctor Who (2005)',
-        season: 8, number: 4
-      })
+    (Locations {hash: true}, [
+      (Location {path: '/', handler: require('./pages/start')})
+      (Location {path: '/episodes/:id', handler: require('./pages/episode')})
+      (NotFound {handler: require('./pages/error404')})
     ])
 
 React.renderComponent(
