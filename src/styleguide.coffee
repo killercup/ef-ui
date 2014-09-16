@@ -1,5 +1,9 @@
 React = require('react')
 
+if (process.env.NODE_ENV isnt 'production') and window
+  # Enable dev tools
+  window.React = React
+
 if process.env.BROWSER
   require('./_base/styles.less')
   require('./_base/styleguide.less')
