@@ -1,7 +1,7 @@
 React = require('react')
 {Locations, Location, NotFound} = require('react-router-component')
 
-require('./_base/styles.less')
+require('./_base/styles.less') if process.env.BROWSER
 
 App = React.createClass
   displayName: 'App'

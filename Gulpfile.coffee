@@ -105,6 +105,7 @@ compile = ({env, entries}) ->
       new webpack.DefinePlugin
         "process.env":
           NODE_ENV: JSON.stringify(env.name)
+          BROWSER: JSON.stringify(true)
       new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[chunkhash].js', Infinity)
       outputHtml
         filename: 'index.html'

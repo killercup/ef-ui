@@ -2,7 +2,7 @@ React = require('react')
 ReactProps = require('react-prop-schema')
 {defaultKeyAndClass, padDigits} = require('../_base/helpers')
 
-require('./style.less')
+require('./style.less') if process.env.BROWSER
 
 {div, article, span} = React.DOM
 

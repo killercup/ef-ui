@@ -1,7 +1,8 @@
 React = require('react')
 
-require('./_base/styles.less')
-require('./_base/styleguide.less')
+if process.env.BROWSER
+  require('./_base/styles.less')
+  require('./_base/styleguide.less')
 
 {div, section, article, h1, h2} = React.DOM
 
