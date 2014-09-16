@@ -8,7 +8,9 @@ require('./style.less') if process.env.BROWSER
 
 module.exports = React.createClass
   displayName: 'Episode'
-  cssName: 'EfEpisode'
+
+  getDefaultProps: ->
+    cssName: @displayName
 
   propTypes:
     title: ReactProps.require(type: 'string', pattern: 'Lorem.sentence')
@@ -17,9 +19,9 @@ module.exports = React.createClass
     season: ReactProps.require(type: 'number', min: 0, max: 1024)
 
   render: ->
-    k = defaultKeyAndClass(@cssName)
+    k = defaultKeyAndClass(@props.cssName)
 
-    (article {className: 'EfEpisode'}, [
+    (article {className: @props.cssName}, [
       (div k('show'), @props.show)
       (div k('name'), [
         "S"

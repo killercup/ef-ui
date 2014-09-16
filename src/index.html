@@ -6,7 +6,7 @@
 
   {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, o.htmlWebpackPlugin.options.chunk, 'css') %}
 </head>
-<body>
+<body class="{%= o.htmlWebpackPlugin.options.chunk %}">
   <div id="container">&nbsp;</div>
 
   {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, 'vendor', 'js') %}

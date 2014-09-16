@@ -8,6 +8,8 @@ if process.env.BROWSER
   require('./_base/styles.less')
   require('./_base/styleguide.less')
 
+{defaultKeyAndClass} = require('./_base/helpers')
+
 {div, section, article, h1, h2} = React.DOM
 
 components = [
@@ -16,20 +18,30 @@ components = [
 
 Styleguide = React.createClass
   displayName: 'Styleguide'
+
+  getDefaultProps: ->
+    cssName: @displayName
+
   render: ->
+    name = @props.cssName
+    k = defaultKeyAndClass(@props.cssName)
+
     (div {key: '0'}, [
-      (h1 {key: 'header', className: 'EfStyleguide-header'}, "Styleguide")
+      (h1 k('header'), "Styleguide")
       components.map (c) ->
         (section {
-          key: c.slug or c.name, className: 'EfStyleguide-item'
+          key: c.slug or c.name, className: "#{name}-item"
         }, [
-          (h2 {key: 'header', className: 'EfStyleguide-item-header'}, c.name)
+          (h2 {key: 'header', className: "#{name}-item-header"}, c.name)
         ].concat c.demos.map (d, index) ->
-          (article {key: index, className: 'EfStyleguide-item-demo'}, d)
+          (article {key: index, className: "#{name}-item-demo"}, d)
         )
     ])
 
-React.renderComponent(
-  (Styleguide {}, [])
-  document.getElementById('container')
-)
+window.renderToDOM = renderToDOM = ->
+  React.renderComponent(
+    (Styleguide {}, []),
+    document.getElementById('container')
+  )
+
+renderToDOM()
