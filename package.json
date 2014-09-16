@@ -27,7 +27,7 @@
     "coffee-loader": "^0.7.2",
     "coffee-script": "^1.8.0",
     "css-loader": "^0.8.0",
-    "extract-text-webpack-plugin": "0.3.0",
+    "extract-text-webpack-plugin": "^0.3.1",
     "gulp": "^3.8.8",
     "gulp-coffee": "^2.2.0",
     "gulp-coffeelint": "^0.4.0",
@@ -43,7 +43,7 @@
     "react-hot-loader": "^0.4.3",
     "run-sequence": "^0.3.6",
     "style-loader": "^0.8.0",
-    "webpack": "^1.4.0-beta4",
+    "webpack": "^1.4.0-beta8",
     "webpack-dev-server": "^1.6.4"
   }
 }
