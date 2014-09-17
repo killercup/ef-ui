@@ -6,6 +6,7 @@ module.exports =
     Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number
 
   # Works like this:
+  #
   # ```js
   # defaultKeyAndClass('EfModule')('show', {id: 42, className: 'beer'})
   # //=> {key: 'show', className: 'EfModule-show beer', id: 42}

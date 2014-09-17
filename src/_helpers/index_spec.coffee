@@ -1,5 +1,5 @@
 expect = require('chai').expect
-h = require('./helpers')
+h = require('./index')
 
 describe 'Helpers', ->
   describe 'padding number with leading zeros', ->
@@ -40,6 +40,16 @@ describe 'Helpers', ->
       demo = dk(mod)(part)
 
       expect(demo.key).to.eql part
+      expect(demo.className).to.eql "#{mod}-#{part}"
+
+    it 'should allow key to be overwritten', ->
+      mod = 'Module'
+      part = 'part'
+      key = 'lorem'
+
+      demo = dk(mod)(part, key: key)
+
+      expect(demo.key).to.eql key
       expect(demo.className).to.eql "#{mod}-#{part}"
 
     it 'should support additional keys', ->

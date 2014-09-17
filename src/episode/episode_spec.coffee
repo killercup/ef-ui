@@ -3,7 +3,7 @@ React = require('react/addons')
 ReactProps = require('react-prop-schema')
 Episode = require('./index')
 
-H = require('../_base/spec_helpers')
+H = require('../_helpers/spec_helpers')
 T = React.addons.TestUtils
 
 H.dom()

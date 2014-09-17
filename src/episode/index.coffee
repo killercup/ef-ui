@@ -1,6 +1,6 @@
 React = require('react')
 ReactProps = require('react-prop-schema')
-{defaultKeyAndClass, padDigits} = require('../_base/helpers')
+{defaultKeyAndClass, padDigits} = require('../_helpers')
 
 require('./style.less') if process.env.BROWSER
 

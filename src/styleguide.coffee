@@ -1,16 +1,17 @@
 React = require('react')
 
+{defaultKeyAndClass} = require('./_helpers')
+{div, section, article, h1, h2} = React.DOM
+
+if process.env.BROWSER
+  require('./_style/index.less')
+  require('./_style/styleguide.less')
+
 if (process.env.NODE_ENV isnt 'production') and window
   # Enable dev tools
   window.React = React
 
-if process.env.BROWSER
-  require('./_base/styles.less')
-  require('./_base/styleguide.less')
-
-{defaultKeyAndClass} = require('./_base/helpers')
-
-{div, section, article, h1, h2} = React.DOM
+# - - -
 
 components = [
   require('./episode/demo')
