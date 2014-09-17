@@ -1,4 +1,5 @@
 React = require('react')
+chCase = require('change-case')
 
 {defaultKeyAndClass} = require('./_helpers')
 {div, section, article, h1, h2} = React.DOM
@@ -30,12 +31,10 @@ Styleguide = React.createClass
     (div {key: '0'}, [
       (h1 k('header'), "Styleguide")
       components.map (c) ->
-        (section {
-          key: c.slug or c.name, className: "#{name}-item"
-        }, [
-          (h2 {key: 'header', className: "#{name}-item-header"}, c.name)
+        (section k('item', key: chCase.paramCase(c.name)), [
+          (h2 k('item-header'), chCase.titleCase(c.name))
         ].concat c.demos.map (d, index) ->
-          (article {key: index, className: "#{name}-item-demo"}, d)
+          (article k('item-demo', key: index), d)
         )
     ])
 
