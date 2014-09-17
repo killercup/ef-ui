@@ -95,7 +95,10 @@ compile = ({env, entries}) ->
     devtool: if env.debug then 'eval' else 'source-map'
     module:
       loaders: [
-        { test: /\.coffee$/, loader: "react-hot!coffee-loader" }
+        {
+          test: /\.coffee$/,
+          loader: "#{if env.dev_server then 'react-hot!' else ''}coffee-loader"
+        }
         { test: /\.(png|gif)$/, loader: "url-loader?limit=4000" }
         { test: /\.jpg$/, loader: "file-loader" }
       ]
@@ -135,7 +138,9 @@ compile = ({env, entries}) ->
     config.plugins = config.plugins.concat [
       new webpack.optimize.DedupePlugin()
       new webpack.optimize.OccurenceOrderPlugin(true)
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin
+        compress:
+          warnings: false
     ]
 
   if env.dev_server
