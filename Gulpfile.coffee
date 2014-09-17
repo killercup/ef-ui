@@ -96,6 +96,8 @@ compile = ({env, entries}) ->
     module:
       loaders: [
         { test: /\.coffee$/, loader: "react-hot!coffee-loader" }
+        { test: /\.(png|gif)$/, loader: "url-loader?limit=4000" }
+        { test: /\.jpg$/, loader: "file-loader" }
       ]
     resolve:
       extensions: ['', '.js', '.coffee', '.css', '.less']
@@ -122,12 +124,12 @@ compile = ({env, entries}) ->
     ExtractTextPlugin = require("extract-text-webpack-plugin")
     config.module.loaders.push
       test: /\.(less|css)$/
-      loader: ExtractTextPlugin.extract('css-loader!autoprefixer-loader!less-loader')
+      loader: ExtractTextPlugin.extract('css-loader?sourceMap!autoprefixer-loader!less-loader')
     config.plugins.push new ExtractTextPlugin("app-[hash].css", allChunks: true)
   else
     config.module.loaders.push
       test: /\.(less|css)$/
-      loader: 'style-loader!css-loader!autoprefixer-loader!less-loader'
+      loader: 'style-loader!css-loader?sourceMap!autoprefixer-loader!less-loader'
 
   if env.compress
     config.plugins = config.plugins.concat [
