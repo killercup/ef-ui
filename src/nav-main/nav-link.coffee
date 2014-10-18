@@ -1,5 +1,6 @@
 l = require('lodash')
 React = require('react')
+ReactProps = require('react-prop-schema')
 Router = require('react-router-component')
 
 module.exports = React.createClass
@@ -10,14 +11,18 @@ module.exports = React.createClass
     className: ''
     activeClassName: 'is-active'
 
+  propTypes:
+    className: ReactProps.optional(type: 'string')
+    activeClassName: ReactProps.optional(type: 'string')
+    is_active: ReactProps.optional(type: 'boolean')
+
   isActive: ->
-    this.getPath() is this.props.href
+    @props.is_active or (@getPath() is @props.href)
 
   render: ->
+    className = "#{@props.className}"
     if this.isActive()
-      className = "#{@props.activeClassName} #{@props.className}"
-    else
-      className = @props.className
+      className += " #{@props.activeClassName}"
 
     Router.Link(
       l.defaults({}, {className: className}, @props),
