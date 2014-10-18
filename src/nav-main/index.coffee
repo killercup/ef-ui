@@ -4,7 +4,7 @@ ReactProps = require('react-prop-schema')
 
 require('./style.less') if process.env.BROWSER
 
-{nav, header} = React.DOM
+{nav, header, a} = React.DOM
 {Link} = require('react-router-component')
 NavLink = require('./nav-link')
 
@@ -28,5 +28,9 @@ module.exports = React.createClass
         (NavLink k('link', key: 'me', href: "/me"), [
           "My Profile"
         ])
+        if process.env.NODE_ENV isnt 'production'
+          (a k('link', key: 'styleguide', href: "/styleguide.html"), [
+            "Styleguide"
+          ])
       ])
     ])
