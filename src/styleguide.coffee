@@ -15,6 +15,7 @@ if (process.env.NODE_ENV isnt 'production') and window
 # - - -
 
 components = [
+  require('./nav-main/demo')
   require('./episode/demo')
 ]
 
