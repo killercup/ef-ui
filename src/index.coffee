@@ -6,13 +6,21 @@ require('./_style/index.less') if process.env.BROWSER
 App = React.createClass
   displayName: 'App'
   render: ->
-    (Locations {hash: process.env.NODE_ENV is 'development'}, [
+    use_hash = (process.env.NODE_ENV is 'development')
+
+    (Locations {path: @props.path, hash: use_hash}, [
       (Location {path: '/', handler: require('./pages/start')})
       (Location {path: '/episodes/:id', handler: require('./pages/episode')})
-      (NotFound {handler: require('./pages/error404')})
+      (NotFound {
+        handler: require('./pages/error404'),
+        setHTTPStatus: (@props.setHTTPStatus or ->)
+      })
     ])
 
-React.renderComponent(
-  (App {}, [])
-  document.getElementById('container')
-)
+module.exports = App
+
+if process.env.BROWSER
+  React.renderComponent(
+    (App {}, [])
+    document.getElementById('container')
+  )

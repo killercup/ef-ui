@@ -10,11 +10,13 @@
     "test": "npm run lint; npm run mocha",
     "build": "gulp --require coffee-script/register",
     "compile": "NODE_ENV=production gulp --require coffee-script/register",
-    "watch": "gulp watch --require coffee-script/register"
+    "watch": "gulp watch --require coffee-script/register",
+    "start": "coffee src/server.coffee"
   },
   "author": "Pascal Hertleif <killercup@gmail.com> (http://pascalhertleif.de/)",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.9.8",
     "lodash": "^2.4.1",
     "react": "^0.11.2",
     "react-async": "^1.0.2",
