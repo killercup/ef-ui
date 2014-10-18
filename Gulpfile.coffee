@@ -79,9 +79,9 @@ outputHtml = (opts) ->
 
       filetypeCheck = new RegExp("\.#{filetype}$")
       if filetype is 'js'
-        filetypeMap = (src) -> "<script src='#{src}'></script>"
+        filetypeMap = (src) -> "<script src=\"#{src}\"></script>"
       else if filetype is 'css'
-        filetypeMap = (src) -> "<link rel='stylesheet' href='#{src}'/>"
+        filetypeMap = (src) -> "<link rel=\"stylesheet\" href=\"#{src}\"/>"
       else
         filetypeMap = -> ""
 
@@ -118,7 +118,10 @@ compile = ({env, entries}) ->
         "process.env":
           NODE_ENV: JSON.stringify(env.name)
           BROWSER: JSON.stringify(true)
-      new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor-[chunkhash].js', Infinity)
+      new webpack.optimize.CommonsChunkPlugin('vendor',
+        'vendor-[chunkhash].js',
+        Infinity
+      )
       outputHtml
         filename: 'index.html'
         chunk: 'app'
@@ -141,12 +144,17 @@ compile = ({env, entries}) ->
     ExtractTextPlugin = require("extract-text-webpack-plugin")
     config.module.loaders.push
       test: /\.(less|css)$/
-      loader: ExtractTextPlugin.extract('css-loader?sourceMap!autoprefixer-loader!less-loader')
-    config.plugins.push new ExtractTextPlugin("app-[hash].css", allChunks: true)
+      loader: ExtractTextPlugin.extract(
+        'css-loader?sourceMap!autoprefixer-loader!less-loader'
+      )
+    config.plugins.push new ExtractTextPlugin("app-[hash].css",
+      allChunks: true
+    )
   else
     config.module.loaders.push
       test: /\.(less|css)$/
-      loader: 'style-loader!css-loader?sourceMap!autoprefixer-loader!less-loader'
+      loader: 'style-loader!css-loader?sourceMap'+
+        '!autoprefixer-loader!less-loader'
 
   if env.compress
     config.plugins = config.plugins.concat [
@@ -233,7 +241,7 @@ gulp.task 'magic:watch', (callback) ->
 
 gulp.task 'coffeelint', ->
   coffeelint = require('gulp-coffeelint')
-  gulp.src('src/**/*.coffee')
+  gulp.src('*.coffee', 'src/**/*.coffee')
   .pipe coffeelint()
   .pipe coffeelint.reporter()
 
