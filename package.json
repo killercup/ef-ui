@@ -11,7 +11,8 @@
     "build": "gulp --require coffee-script/register",
     "compile": "NODE_ENV=production gulp --require coffee-script/register",
     "watch": "gulp watch --require coffee-script/register",
-    "start": "coffee src/server.coffee"
+    "server": "coffee src/server.coffee",
+    "start": "npm run compile && npm run server"
   },
   "author": "Pascal Hertleif <killercup@gmail.com> (http://pascalhertleif.de/)",
   "license": "MIT",
