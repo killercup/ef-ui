@@ -2,27 +2,23 @@ React = require('react')
 {defaultKeyAndClass} = require('../_helpers')
 
 {article, div, h1, p, ul, li, button} = React.DOM
-{Link} = require('react-router-component')
 NavMain = require('../nav-main')
+Episode = require('../episode')
 
 module.exports = React.createClass
-  displayName: 'Error404Page'
+  displayName: 'ShowsPage'
 
   getDefaultProps: ->
     cssName: @displayName
 
   render: ->
-    # Function defined by server context to set HTTP status
-    @props.setHTTPStatus?(404)
-
     k = defaultKeyAndClass(@props.cssName)
 
     (div {}, [
       (NavMain {key: 'nav-main'})
       (article k('main', className: 'page'), [
-        (h1 k('headline'), "Not found.")
-        (p k('description'), [
-          (Link {key: 0, href: "/"}, "Back to the beginning.")
-        ])
+        (ul k('list'), [1..8].map (i) ->
+          (li {key: i}, "Lorem Ipsum")
+        )
       ])
     ])

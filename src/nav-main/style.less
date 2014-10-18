@@ -1,0 +1,38 @@
+@import "../_style/config";
+@import "../_style/mixins";
+
+@mod: ~"NavMain";
+
+.@{mod} {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 0 2em;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.@{mod}-nav {
+  list-style: none;
+  display: flex;
+  .container-width();
+  margin: 0 auto;
+}
+
+.@{mod}-link {
+  padding: 1em 1em 0.7em;
+  min-width: 6em;
+  color: @default-color;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  border-bottom: 2px solid transparent;
+
+  &:hover {
+    border-bottom: 2px solid @nav-link-hover;
+  }
+
+  &.is-active {
+    border-bottom: 2px solid @nav-link-active;
+  }
+}

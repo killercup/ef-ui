@@ -11,6 +11,7 @@ App = React.createClass
     (Locations {path: @props.path, hash: use_hash}, [
       (Location {path: '/', handler: require('./pages/start')})
       (Location {path: '/episodes/:id', handler: require('./pages/episode')})
+      (Location {path: '/shows', handler: require('./pages/shows')})
       (NotFound {
         handler: require('./pages/error404'),
         setHTTPStatus: (@props.setHTTPStatus or ->)
