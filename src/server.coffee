@@ -39,5 +39,7 @@ server.use (err, req, res, next) ->
   gutil.log(gutil.colors.red("[ERROR]"), req.path)
   next(err)
 
-server.listen 3000, ->
-  gutil.log("Server listening at http://localhost:3000/")
+port = process.env.NODE_PORT or 3000
+
+server.listen port, ->
+  gutil.log("Server listening at http://localhost:#{port}/")
