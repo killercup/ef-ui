@@ -71,6 +71,12 @@ outputHtml = (opts) ->
 
       return "" unless assets?.length
 
+      prefixAssets = do ->
+        if opts.prefixAssets
+          (src) -> "#{opts.prefixAssets}#{src}"
+        else
+          (src) -> src
+
       filetypeCheck = new RegExp("\.#{filetype}$")
       if filetype is 'js'
         filetypeMap = (src) -> "<script src='#{src}'></script>"
@@ -81,6 +87,7 @@ outputHtml = (opts) ->
 
       return assets
       .filter (name) -> filetypeCheck.test(name)
+      .map(prefixAssets)
       .map(filetypeMap)
       .join('\n')
 
@@ -121,6 +128,13 @@ compile = ({env, entries}) ->
         title: 'EpisodeFever Styleguide'
         chunk: 'styleguide'
         env: env
+      outputHtml
+        filename: 'template.html'
+        title: 'EpisodeFever'
+        chunk: 'app'
+        env: env
+        serverRenderedContent: true
+        prefixAssets: '/static/'
     ]
 
   if env.bundleCSS
@@ -151,7 +165,7 @@ compile = ({env, entries}) ->
     ]
 
   return webpack(config)
-    
+
 
 compileStuff = ({env, entries, watch}, callback) ->
   notify = log('webpack', 'info')

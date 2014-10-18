@@ -1,18 +1,21 @@
-<!DOCTYPE html>
+{%
+  var html = o.htmlWebpackPlugin.options;
+  var webpack = o.webpack;
+%}<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{%=o.htmlWebpackPlugin.options.title || 'EpisodeFever'%}</title>
+  <title>{%=html.title || 'EpisodeFever'%}</title>
 
-  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, o.htmlWebpackPlugin.options.chunk, 'css') %}
+  {%# html.include(webpack.assetsByChunkName, html.chunk, 'css') %}
 </head>
-<body class="{%= o.htmlWebpackPlugin.options.chunk %}">
-  <div id="container">&nbsp;</div>
+<body class="{%= html.chunk %}">
+  <div id="container">{% if (html.serverRenderedContent) { %}<%= data.html %>{% } else { %}&nbsp;{% } %}</div>
 
-  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, 'vendor', 'js') %}
-  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, o.htmlWebpackPlugin.options.chunk, 'js') %}
-  {% if (o.htmlWebpackPlugin.options.env.dev_server) { %}
-  {%# o.htmlWebpackPlugin.options.include(o.webpack.assetsByChunkName, 'hot', 'js') %}
+  {%# html.include(webpack.assetsByChunkName, 'vendor', 'js') %}
+  {%# html.include(webpack.assetsByChunkName, html.chunk, 'js') %}
+  {% if (html.env.dev_server) { %}
+  {%# html.include(webpack.assetsByChunkName, 'hot', 'js') %}
   {% } %}
 </body>
 </html>
