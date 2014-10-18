@@ -9,9 +9,15 @@ module.exports =
   #
   # ```js
   # defaultKeyAndClass('EfModule')('show', {id: 42, className: 'beer'})
-  # //=> {key: 'show', className: 'EfModule-show beer', id: 42}
+  # // => {key: 'show', className: 'EfModule-show beer', id: 42}
   # ```
-  defaultKeyAndClass: (moduleName) -> (itemName, opts={}) ->
-    cx = ["#{moduleName}-#{itemName}"]
-    if opts.className then cx.push(opts.className)
-    l.defaults({}, {className: cx.join(' ')}, opts, {key: itemName})
+  defaultKeyAndClass: (moduleName) ->
+    throw new Error('No Module Name Given') unless moduleName?
+
+    (itemName, opts={}) ->
+      throw new Error('No Item Name Given') unless itemName?
+
+      cx = ["#{moduleName}-#{itemName}"]
+      if opts.className then cx.push(opts.className)
+
+      l.defaults({}, {className: cx.join(' ')}, opts, {key: itemName})

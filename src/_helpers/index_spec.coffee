@@ -33,6 +33,18 @@ describe 'Helpers', ->
       expect(demo.key).to.be.a 'string'
       expect(demo.className).to.be.a 'string'
 
+    it 'should require a module name', ->
+      expect(->
+        dk()
+      ).to.throw()
+
+    it 'should require an item name', ->
+      demo = dk('Module')
+
+      expect(->
+        demo()
+      ).to.throw()
+
     it 'should correctly create key and class name', ->
       mod = 'Module'
       part = 'part'
