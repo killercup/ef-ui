@@ -16,3 +16,40 @@ To create a production build, use `npm run compile`. This will minify all output
 
 [webpack]: http://webpack.github.io/
 [HMR]: http://webpack.github.io/docs/hot-module-replacement.html
+
+### Server Side Rendering
+
+It works. `npm start` is all you need.
+
+## Stores and Flux: Some Concepts and Ideas
+
+### What are stores
+
+- Native
+	- Stores are native JS objects, keys are database IDs
+	- Filtering and stuff happens in the views: `shows = l.filter Store.shows, (x) -> x.aired < Date.now()`
+		- Transducers.
+	- All queries should be by id for performance reasons
+		- Relations should be stored using embedded arrays of ids: `user = {name: String, vote_ids: Array<Id>}`
+	- Updates are made using events/callbacks: `Store.trigger(event: String, store: String, id: Id, payload: Object) -> Promise`
+		- Using `React.addons.update` to become immutable
+	- App is notified of change via 'changed' event
+- Classes
+	- Stores are classes, storing data in `@data: Object`
+	- Stores are properties of an `AppState` object
+	- Queries are instance methods
+		- using transducers for great good
+	- Updates are instance methods, using `React.addons.update`
+	- Stores emit a 'changed' event, which bubbles up to the AppState, which the App listens to
+- Immutable1
+	- Stores are Immutable.Map instances, but otherwise like "native"
+- Immutable2
+	- Using cursors
+
+### Data propagations
+
+- AppState
+	- App has `@prop.AppState` or `AppState === @state`
+	- Pages/Locations get AppState as prop, filter on their own
+- Locations request data from Store
+	- Locations query stores directly, `shows = require('../stores').Shows.latest(num: 12)`
