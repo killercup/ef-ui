@@ -7,7 +7,7 @@
   "scripts": {
     "mocha": "NODE_ENV=test gulp test --require coffee-script/register",
     "lint": "NODE_ENV=test gulp lint --require coffee-script/register",
-    "test": "npm run lint; npm run mocha",
+    "test": "npm run lint && npm run mocha",
     "build": "gulp --require coffee-script/register",
     "compile": "NODE_ENV=production gulp --require coffee-script/register",
     "watch": "gulp watch --require coffee-script/register",

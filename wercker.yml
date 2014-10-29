@@ -1,0 +1,14 @@
+box: wercker/nodejs
+build:
+  steps:
+    - script:
+        name: echo nodejs information
+        code: |
+          echo "node version $(node -v) running"
+          echo "npm version $(npm -v) running"
+    - npm-install
+    - npm-test
+    - script:
+        name: Compile Stats
+        code: |
+          npm run compile && la build/ | grep '\.js.gz$'

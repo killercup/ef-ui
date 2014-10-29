@@ -44,7 +44,7 @@ ENV =
   debug: is_development
   debug_stats: true
   bundleCSS: is_production
-  dev_server: is_development
+  dev_server: false
   dev_port: 3000
 
 log = (task, level) ->
@@ -163,6 +163,7 @@ compile = ({env, entries}) ->
       new webpack.optimize.UglifyJsPlugin
         compress:
           warnings: false
+        comments: /@license|@preserving|@copyright/gi
     ]
 
   if env.dev_server
@@ -234,7 +235,7 @@ gulp.task 'magic:compile', (callback) ->
 
 gulp.task 'magic:watch', (callback) ->
   compileStuff {
-    env: ENV
+    env: l.defaults {dev_server: true}, ENV
     entries: ENTRIES
     watch: true
   }, callback
