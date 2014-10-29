@@ -1,4 +1,4 @@
-React = require('React')
+React = require('react')
 
 exports.dom = (markup='<html><body></body></html>', options={}) ->
   return if document?
