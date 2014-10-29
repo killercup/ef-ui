@@ -11,4 +11,4 @@ build:
     - script:
         name: Compile Stats
         code: |
-          npm run compile && la build/ | grep '\.js.gz$'
+          npm run compile && ls -lah build/ | grep '\.js.gz$'
