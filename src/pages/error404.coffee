@@ -2,7 +2,7 @@ React = require('react')
 {defaultKeyAndClass} = require('../_helpers')
 
 {article, div, h1, p, ul, li, button} = React.DOM
-{Link} = require('react-router-component')
+{Link} = require('react-router')
 NavMain = require('../nav-main')
 
 module.exports = React.createClass

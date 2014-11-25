@@ -1,7 +1,7 @@
 l = require('lodash')
 React = require('react')
 ReactProps = require('react-prop-schema')
-Router = require('react-router-component')
+Router = require('react-router')
 
 module.exports = React.createClass
   displayName: 'NavLink'

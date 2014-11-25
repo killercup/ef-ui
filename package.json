@@ -19,10 +19,9 @@
   "dependencies": {
     "express": "^4.10.1",
     "lodash": "^2.4.1",
-    "react": "^0.11.2",
-    "react-async": "^1.0.2",
+    "react": "^0.12.1",
     "react-prop-schema": "^1.0.0",
-    "react-router-component": "^0.22.0"
+    "react-router": "^0.11.2"
   },
   "devDependencies": {
     "autoprefixer-loader": "^1.0.0",

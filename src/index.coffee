@@ -1,5 +1,5 @@
 React = require('react')
-{Locations, Location, NotFound} = require('react-router-component')
+{Locations, Location, NotFound} = require('react-router')
 
 require('./_style/index.less') if process.env.BROWSER
 

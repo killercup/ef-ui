@@ -5,7 +5,7 @@ ReactProps = require('react-prop-schema')
 require('./style.less') if process.env.BROWSER
 
 {nav, header, a, div} = React.DOM
-{Link} = require('react-router-component')
+{Link} = require('react-router')
 NavLink = require('./nav-link')
 
 module.exports = React.createClass
