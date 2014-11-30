@@ -1,11 +1,12 @@
 var gutil = require('gulp-util');
+var l = require('lodash');
 var React = require('react');
 var Router = require('react-router');
 
 module.exports = function renderReactApp(opts) {
   var render = (function () {
     var template = require('fs').readFileSync(opts.template);
-    return l.template(template, null, variabled: 'data');
+    return l.template(template, null, {variable: 'data'});
   }());
 
   return function renderReactApp(req, res, next) {
@@ -14,7 +15,7 @@ module.exports = function renderReactApp(opts) {
     }
 
     try {
-      Router.run(appRoutes, req.path, function (Handler) {
+      Router.run(opts.routes, req.path, function (Handler) {
         var html = React.renderToString(
           <Handler setHTTPStatus={setHTTPStatus}/>
         );
@@ -24,9 +25,9 @@ module.exports = function renderReactApp(opts) {
       return next(error);
     }
 
-    var statusCodeColor = res.statusCode === 200 ? 'green' : 'red';
+    var statusCodeColor = res.statusCode < 400 ? 'green' : 'red';
     gutil.log(
-      gutil.colors[statusCodeColor]("[#{res.statusCode}]"),
+      gutil.colors[statusCodeColor]("[" + res.statusCode + "]"),
       "GET", req.path
     );
   }
