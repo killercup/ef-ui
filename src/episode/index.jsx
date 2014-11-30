@@ -7,7 +7,7 @@ if (process.env.BROWSER) { require('./style.less'); }
 module.exports = React.createClass({
   displayName: 'Episode',
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {cssName: this.displayName};
   },
 
@@ -18,7 +18,7 @@ module.exports = React.createClass({
     season: ReactProps.require({type: 'number', min: 0, max: 1024}),
   },
 
-  render: function () {
+  render() {
     var k = defaultKeyAndClass(this.props.cssName);
 
     return (

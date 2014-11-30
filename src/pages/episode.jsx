@@ -10,11 +10,11 @@ module.exports = React.createClass({
 
   mixins: [Router.State],
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {cssName: this.displayName};
   },
 
-  render: function () {
+  render() {
     var k = defaultKeyAndClass(this.props.cssName);
 
     return (

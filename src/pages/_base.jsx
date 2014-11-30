@@ -3,7 +3,7 @@ var Router = require('react-router');
 var NavMain = require('../nav-main');
 
 var BaseTemplate = React.createClass({
-  render: function () {
+  render() {
     return (
       <div className="page">
         <NavMain key="nav-main"/>

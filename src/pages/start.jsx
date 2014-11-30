@@ -7,11 +7,11 @@ var NavMain = require('../nav-main');
 module.exports = React.createClass({
   displayName: 'StartPage',
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {cssName: this.displayName};
   },
 
-  render: function () {
+  render() {
     var k = defaultKeyAndClass(this.props.cssName);
 
     return (

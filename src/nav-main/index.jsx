@@ -9,11 +9,11 @@ var {Link} = require('react-router');
 module.exports = React.createClass({
   displayName: 'NavMain',
 
-  getDefaultProps: function () {
+  getDefaultProps() {
     return {cssName: this.displayName};
   },
 
-  render: function () {
+  render() {
     var k = defaultKeyAndClass(this.props.cssName, {
       activeClassName: 'is-active'
     });
