@@ -11,7 +11,7 @@ module.exports =
   # defaultKeyAndClass('EfModule')('show', {id: 42, className: 'beer'})
   # // => {key: 'show', className: 'EfModule-show beer', id: 42}
   # ```
-  defaultKeyAndClass: (moduleName) ->
+  defaultKeyAndClass: (moduleName, baseOpts={}) ->
     throw new Error('No Module Name Given') unless moduleName?
 
     (itemName, opts={}) ->
@@ -20,4 +20,4 @@ module.exports =
       cx = ["#{moduleName}-#{itemName}"]
       if opts.className then cx.push(opts.className)
 
-      l.defaults({}, {className: cx.join(' ')}, opts, {key: itemName})
+      l.defaults({}, {className: cx.join(' ')}, opts, {key: itemName}, baseOpts)

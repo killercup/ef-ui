@@ -1,12 +1,14 @@
 require('coffee-script/register')
+require('node-jsx').install({extension: '.jsx', harmony: true})
 
 path = require('path')
 express = require('express')
 l = require('lodash')
 gutil = require('gulp-util')
 React = require('react')
+Router = require('react-router')
 
-App = require('./index.coffee')
+appRoutes = require('./routes.jsx')
 
 STATIC_PATH = path.join(__dirname, '../build')
 TEMPLATE_PATH = path.join(STATIC_PATH, 'template.html')
@@ -20,12 +22,12 @@ server = express()
 server.use '/static', express.static(STATIC_PATH)
 
 server.use (req, res, next) ->
-  try
-    page = App
-      path: req.path
-      setHTTPStatus: (code) -> res.status(code) if code?
+  setHTTPStatus = (code) -> res.status(code) if code?
 
-    res.send render(data: html: React.renderComponentToString(page))
+  try
+    page = Router.run appRoutes, req.path, (Handler) ->
+      page = Handler({setHTTPStatus: setHTTPStatus})
+      res.send render {data: {html: React.renderToString(page)}}
   catch error
     return next(error)
 

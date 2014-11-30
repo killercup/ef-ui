@@ -13,11 +13,11 @@ webpack = require("webpack")
 PATHS =
   app:
     src: './src/'
-    entry: './src/index.coffee'
+    entry: './src/index.jsx'
     dest: path.resolve './build'
   styleguide:
     src: './src/'
-    entry: './src/styleguide.coffee'
+    entry: './src/styleguide.jsx'
     dest: './build'
   libs:
     entry: './src/vendor.js'
@@ -92,6 +92,8 @@ outputHtml = (opts) ->
       .join('\n')
 
 compile = ({env, entries}) ->
+  hotLoader = if env.dev_server then 'react-hot!' else ''
+
   config =
     entry: entries
     output:
@@ -99,20 +101,25 @@ compile = ({env, entries}) ->
       path: PATHS.app.dest
     target: 'web'
     debug: env.debug
-    devtool: if env.debug then 'eval' else 'source-map'
+    devtool: if env.debug then 'eval-source-map' else 'source-map'
     module:
       loaders: [
         {
+          test: /\.jsx$/,
+          loader: "#{hotLoader}jsx-loader?harmony"
+        }
+        {
           test: /\.coffee$/,
-          loader: "#{if env.dev_server then 'react-hot!' else ''}coffee-loader"
+          loader: "#{hotLoader}coffee-loader"
         }
         { test: /\.(png|gif)$/, loader: "url-loader?limit=4000" }
         { test: /\.jpg$/, loader: "file-loader" }
       ]
     resolve:
-      extensions: ['', '.js', '.coffee', '.css', '.less']
+      extensions: ['', '.js', '.jsx', '.coffee', '.css', '.less']
       alias:
         lodash: 'lodash/dist/lodash.js'
+        'when/lib/Promise': 'when/lib/Promise'
     plugins: [
       new webpack.DefinePlugin
         "process.env":
@@ -153,7 +160,7 @@ compile = ({env, entries}) ->
   else
     config.module.loaders.push
       test: /\.(less|css)$/
-      loader: 'style-loader!css-loader?sourceMap'+
+      loader: 'style-loader!css-loader'+
         '!autoprefixer-loader!less-loader'
 
   if env.compress
@@ -216,9 +223,8 @@ compileStuff = ({env, entries, watch}, callback) ->
 
 # ## General Tasks
 
-gulp.task 'clean', ->
-  gulp.src("#{PATHS.app.dest}/**/*", read: false)
-  .pipe require('gulp-rimraf')()
+gulp.task 'clean', (cb) ->
+  require('del')(["#{PATHS.app.dest}/**/*"], cb)
 
 gulp.task 'copy:assets', ->
   gulp.src("#{PATHS.app.src}/**/*.html")
@@ -242,7 +248,7 @@ gulp.task 'magic:watch', (callback) ->
 
 gulp.task 'coffeelint', ->
   coffeelint = require('gulp-coffeelint')
-  gulp.src('*.coffee', 'src/**/*.coffee')
+  gulp.src(['*.coffee', 'src/**/*.coffee'])
   .pipe coffeelint()
   .pipe coffeelint.reporter()
 
@@ -272,5 +278,7 @@ gulp.task 'watch', (cb) ->
 gulp.task 'lint', ['coffeelint']
 
 gulp.task 'test', ->
+  require('node-jsx').install({extension: '.jsx', harmony: true})
+
   gulp.src('src/**/*_spec.{js,coffee}', read: false)
   .pipe require('gulp-mocha')(reporter: 'spec')
