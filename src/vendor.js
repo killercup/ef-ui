@@ -8,5 +8,6 @@ module.exports = [
   "lodash",
   "react",
   "react-prop-schema",
-  "react-router"
+  "react-router",
+  "kefir"
 ];

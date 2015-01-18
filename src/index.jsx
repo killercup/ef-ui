@@ -11,6 +11,9 @@ var router = Router.create({
     Router.HashLocation
 });
 
+// Require Stores and Event Handlers
+require('./data');
+
 module.exports = router.run.bind(router);
 
 if (process.env.BROWSER) {
