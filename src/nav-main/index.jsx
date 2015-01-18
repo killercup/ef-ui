@@ -1,5 +1,4 @@
 var React = require('react');
-var ReactProps = require('react-prop-schema');
 var {defaultKeyAndClass} = require('../_helpers');
 
 if (process.env.BROWSER) { require('./style.less'); }

@@ -40,7 +40,6 @@ var Styleguide = React.createClass({
   },
 
   render() {
-    var name = this.props.cssName;
     var k = defaultKeyAndClass(this.props.cssName);
 
     var componentList = components.map(function (c) {
@@ -73,11 +72,13 @@ var Styleguide = React.createClass({
   }
 });
 
-window.renderToDOM = renderToDOM = function () {
+function renderToDOM() {
   return React.render(
     <Styleguide/>,
     document.getElementById('container')
   );
 }
+
+window.renderToDOM = renderToDOM;
 
 renderToDOM();

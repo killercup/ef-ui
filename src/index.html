@@ -12,10 +12,11 @@
 <body class="{%= html.chunk %}">
   <div id="container">{% if (html.serverRenderedContent) { %}<%= data.html %>{% } else { %}&nbsp;{% } %}</div>
 
-  {%# html.include(webpack.assetsByChunkName, 'vendor', 'js') %}
-  {%# html.include(webpack.assetsByChunkName, html.chunk, 'js') %}
-  {% if (html.env.dev_server) { %}
+{% html.chunks.forEach(function (chunk) { %}
+  {%# html.include(webpack.assetsByChunkName, chunk, 'js') %}
+{% }); %}
+{% if (html.env.dev_server) { %}
   {%# html.include(webpack.assetsByChunkName, 'hot', 'js') %}
-  {% } %}
+{% } %}
 </body>
 </html>

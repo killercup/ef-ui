@@ -1,0 +1,21 @@
+@import "components/layout";
+
+#container {
+  h1 {
+    font-size: 21px;
+    text-transform: uppercase;
+  }
+}
+
+#workbench {
+  height: 100vh;
+}
+
+@import "components/modal/index";
+@import "components/edit-bar/index";
+@import "components/screen/index";
+@import "components/click-area/index";
+@import "components/prototype/index";
+@import "components/workbench/index";
+
+//  @import "../scripts/telekom/stylesheets/styleguide";

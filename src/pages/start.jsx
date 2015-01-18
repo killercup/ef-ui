@@ -2,7 +2,6 @@ var React = require('react');
 var {defaultKeyAndClass} = require('../_helpers');
 
 var {Link} = require('react-router');
-var NavMain = require('../nav-main');
 
 module.exports = React.createClass({
   displayName: 'StartPage',

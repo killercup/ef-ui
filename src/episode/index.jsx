@@ -21,18 +21,16 @@ module.exports = React.createClass({
   render() {
     var k = defaultKeyAndClass(this.props.cssName);
 
-    return (
-      <article className={this.props.className}>
-        <div {...k('show')}>
-          {this.props.show}
-        </div>
-        <div {...k('name')}>
-          S<span {...k('season')}>{padDigits(2, this.props.season)}</span>
-          E<span {...k('number')}>{padDigits(2, this.props.number)}</span>
-          &nbsp;
-          <span {...k('title')}>{this.props.title}</span>
-        </div>
-      </article>
-    );
+    return <article className={this.props.className}>
+      <div {...k('show')}>
+        {this.props.show}
+      </div>
+      <div {...k('name')}>
+        S<span {...k('season')}>{padDigits(2, this.props.season)}</span>
+        E<span {...k('number')}>{padDigits(2, this.props.number)}</span>
+        &nbsp;
+        <span {...k('title')}>{this.props.title}</span>
+      </div>
+    </article>;
   }
 });

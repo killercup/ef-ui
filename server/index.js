@@ -1,4 +1,3 @@
-require('coffee-script/register');
 require('node-jsx').install({extension: '.jsx', harmony: true});
 
 var path = require('path');

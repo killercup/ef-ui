@@ -2,7 +2,6 @@ var React = require('react');
 var Router = require('react-router');
 var {defaultKeyAndClass} = require('../_helpers');
 
-var NavMain = require('../nav-main');
 var Episode = require('../episode');
 
 module.exports = React.createClass({

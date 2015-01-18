@@ -6,6 +6,6 @@ module.exports = {
   name: Component.displayName,
   demos: [
     ReactProps.fake(Component, {key: 1}),
-    ReactProps.fake(Component, {key: 1}),
+    ReactProps.fake(Component, {key: 1})
   ]
 };

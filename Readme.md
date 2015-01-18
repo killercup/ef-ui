@@ -4,7 +4,7 @@ This is the React-based front end for EpisodeFever.
 
 ## Technology
 
-It uses [webpack] to compile CommonJS modules (in JS or CoffeeScript) and the therein referenced Less files. It will also create HTML files for each entry point.
+It uses [Webpack][webpack] to compile CommonJS modules (in JS or JSX) and the therein referenced Less files. It will also create HTML files for each entry point.
 
 ### Getting Started
 
@@ -27,7 +27,7 @@ It works. `npm start` is all you need.
 
 - Native
 	- Stores are native JS objects, keys are database IDs
-	- Filtering and stuff happens in the views: `shows = l.filter Store.shows, (x) -> x.aired < Date.now()`
+	- Filtering and stuff happens in the views: `shows = Store.shows.filter(x => x.aired < Date.now())`
 		- Transducers.
 	- All queries should be by id for performance reasons
 		- Relations should be stored using embedded arrays of ids: `user = {name: String, vote_ids: Array<Id>}`
@@ -35,7 +35,7 @@ It works. `npm start` is all you need.
 		- Using `React.addons.update` to become immutable
 	- App is notified of change via 'changed' event
 - Classes
-	- Stores are classes, storing data in `@data: Object`
+	- Stores are classes, storing data in `this.data: Object`
 	- Stores are properties of an `AppState` object
 	- Queries are instance methods
 		- using transducers for great good
@@ -49,7 +49,7 @@ It works. `npm start` is all you need.
 ### Data propagations
 
 - AppState
-	- App has `@prop.AppState` or `AppState === @state`
+	- App has `this.prop.AppState` or `AppState === @state`
 	- Pages/Locations get AppState as prop, filter on their own
 - Locations request data from Store
-	- Locations query stores directly, `shows = require('../stores').Shows.latest(num: 12)`
+	- Locations query stores directly, `shows = require('../stores').Shows.latest({num: 12})`
