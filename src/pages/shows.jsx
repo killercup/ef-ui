@@ -1,6 +1,6 @@
 var l = require('lodash');
 var React = require('react');
-var {defaultKeyAndClass} = require('../_helpers');
+var {defaultKeyAndClass} = require('../helpers');
 
 module.exports = React.createClass({
   displayName: 'ShowsPage',

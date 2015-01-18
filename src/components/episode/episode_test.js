@@ -4,7 +4,7 @@ var ReactProps = require('react-prop-schema');
 
 var Episode = require('./index');
 
-var H = require('../_helpers/test_helpers');
+var H = require('../../helpers/test_helpers');
 var T = React.addons.TestUtils;
 
 H.dom();

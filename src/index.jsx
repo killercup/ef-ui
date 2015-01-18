@@ -2,7 +2,7 @@ var React = require('react');
 var Router = require('react-router');
 var routes = require('./routes');
 
-if (process.env.BROWSER) { require('./_style/index.less'); }
+if (process.env.BROWSER) { require('./style/index.less'); }
 
 var router = Router.create({
   routes: routes,

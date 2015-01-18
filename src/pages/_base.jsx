@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var NavMain = require('../nav-main');
+var NavMain = require('../components/nav-main');
 
 var BaseTemplate = React.createClass({
   render() {

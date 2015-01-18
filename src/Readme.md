@@ -4,10 +4,10 @@ The files and folders in this directory are entry points, components and helpers
 
 ## Folder Structure of `src/`
 
-- Entry points are the JS or JSX files in `src/`
-- Folders starting with an underscore contain helpers that are included in most other files (e.g. `_helpers/` and `_styles/`)
-- `pages/` contain the templates for the different routes
-- all other folders are components
+- Entry points are special JS or JSX files in `src/` that are specified in the Gulpfile.
+- Each interface component lives in a directory in `src/components/`.
+- `src/pages/` contain templates for the different routes.
+- Common styles are in `src/styles/`, common functionality in `src/helpers/`.
 
 ## Structure of a Component
 

@@ -2,11 +2,11 @@ var React = require('react');
 var chCase = require('change-case');
 var Router = require('react-router');
 
-var {defaultKeyAndClass} = require('./_helpers');
+var {defaultKeyAndClass} = require('./helpers');
 
 if (process.env.BROWSER) {
-  require('./_style/index.less');
-  require('./_style/styleguide.less');
+  require('./style/index.less');
+  require('./style/styleguide.less');
 }
 
 if ((process.env.NODE_ENV !== 'production') && window) {
@@ -30,8 +30,8 @@ Router.Link = React.createClass({
 // - - -
 
 var components = [
-  require('./nav-main/demo'),
-  require('./episode/demo')
+  require('./components/nav-main/demo'),
+  require('./components/episode/demo')
 ];
 
 var Styleguide = React.createClass({

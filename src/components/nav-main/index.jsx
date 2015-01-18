@@ -1,5 +1,5 @@
 var React = require('react');
-var {defaultKeyAndClass} = require('../_helpers');
+var {defaultKeyAndClass} = require('../../helpers');
 
 if (process.env.BROWSER) { require('./style.less'); }
 

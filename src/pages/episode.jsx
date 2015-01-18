@@ -1,8 +1,8 @@
 var React = require('react');
 var Router = require('react-router');
-var {defaultKeyAndClass} = require('../_helpers');
+var {defaultKeyAndClass} = require('../helpers');
 
-var Episode = require('../episode');
+var Episode = require('../components/episode');
 
 module.exports = React.createClass({
   displayName: 'EpisodePage',

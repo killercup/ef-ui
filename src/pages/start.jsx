@@ -1,5 +1,5 @@
 var React = require('react');
-var {defaultKeyAndClass} = require('../_helpers');
+var {defaultKeyAndClass} = require('../helpers');
 
 var {Link} = require('react-router');
 
