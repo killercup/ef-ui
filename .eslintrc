@@ -1,12 +1,20 @@
 {
   "env": {
-    "browser": false,
+    "browser": true,
     "node": true,
     "mocha": true
   },
-  "settings": {
-    "ecmascript": 6,
+  "ecmaFeatures": {
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
     "jsx": true
+  },
+  "plugins": [
+    "mocha",
+    "nodeca"
+  ],
+  "globals": {
+    "Promise": true
   },
   "rules": {
     "eqeqeq": 1,
@@ -33,6 +41,8 @@
     "new-cap": 0,
     "no-trailing-spaces": 1,
     "no-mixed-spaces-and-tabs": 2,
+    "nodeca/indent": [ 2, "spaces", 2 ],
+    "nodeca/no-lodash-aliases": 1,
     "space-before-blocks": [1, "always"],
     "space-after-keywords": [1, "always", { "checkFunctionKeyword": true } ],
     "space-in-parens": [1, "never"],
@@ -46,6 +56,8 @@
     "default-case": 2,
     "no-else-return": 1,
     "no-floating-decimal": 1,
-    "no-multi-str": 0
+    "no-multi-str": 0,
+
+    "mocha/no-exclusive-tests": 2
   }
 }
