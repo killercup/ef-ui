@@ -1,21 +1,16 @@
 var React = require('react');
 var Router = require('react-router');
-var {defaultKeyAndClass} = require('../helpers');
 
-var {getEvents, dispatch} = require('../data');
+var {dispatch} = require('../data');
 
 module.exports = React.createClass({
   displayName: 'LoginPage',
   pageTitle: 'Login',
-  mixins: [Router.Navigation],
-
-  getDefaultProps() {
-    return {cssName: this.displayName};
-  },
-
-  getInitialState() {
-    return {};
-  },
+  mixins: [
+    Router.Navigation,
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/keys')
+  ],
 
   triggerLogin(event) {
     event.preventDefault();
@@ -28,14 +23,13 @@ module.exports = React.createClass({
     dispatch({type: 'LOGIN', data: {email, password}});
   },
 
-  componentDidMount() {
-    console.log('hi, login!');
-    getEvents('LOGIN_FAILURE').onValue(data => this.setState({failure: data}));
-    getEvents('LOGGED_IN').onValue(() => this.transitionTo('start'));
+  events: {
+    LOGIN_FAILURE(data) { this.setState({failure: data}); },
+    LOGGED_IN() { this.transitionTo('start'); }
   },
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName);
+    var k = this.getKeyHelper();
 
     return (
       <section {...k('main')}>
