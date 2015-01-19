@@ -35,9 +35,9 @@ bus.getEvents('SHOW_FETCHED')
 module.exports = {
   events: events,
   find: function (query) {
-    return l(shows).where(query).value();
+    return l.where(shows, query);
   },
   findOne: function (query) {
-    return l(shows).findWhere(query).value();
+    return l.findWhere(shows, query);
   }
 };

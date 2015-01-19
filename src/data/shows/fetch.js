@@ -14,16 +14,11 @@ function list() {
 
 function detail(data) {
   var id = data.id;
+
   return API.request({url: '/shows/' + id, query: {include: 'episodes'}})
   .then(function (res) {
-    var show;
-    if (l.isObject(res.body.shows)) {
-      show = res.body.shows;
-    }
-    if (l.isArray(res.body.episodes) && l.isNumber(res.body.episodes[0])) {
-      show.episodes = res.body.episodes;
-    }
-    bus.dispatch({type: 'SHOW_FETCHED', data: show});
+    if (!l.isObject(res.body.shows)) { return; }
+    bus.dispatch({type: 'SHOW_FETCHED', data: res.body.shows});
   })
   .catch(function (err) {
     bus.dispatch({type: 'SHOW_FAILURE', data: err});
