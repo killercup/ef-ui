@@ -5,6 +5,7 @@
  */
 
 module.exports = [
+  "Promise",
   "lodash",
   "react",
   "react-prop-schema",

@@ -9,6 +9,7 @@ function isType(type) {
 
 module.exports = {
   events: eventBus,
+  plug: eventBus.plug.bind(eventBus),
   dispatch: eventBus.emit.bind(eventBus),
   isType: isType,
   getEvents: function (type) {

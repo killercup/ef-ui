@@ -1,19 +1,42 @@
-var l = require('lodash');
 var React = require('react');
-var {defaultKeyAndClass} = require('../helpers');
+var {Link} = require('react-router');
+
+var bus = require('../data');
+var Shows = require('../data/shows');
 
 module.exports = React.createClass({
   displayName: 'ShowsPage',
+  pageTitle: 'Login',
+  mixins: [
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/keys')
+  ],
 
-  getDefaultProps() {
-    return {cssName: this.displayName};
+  getInitialState() {
+    return {
+      shows: Shows.find()
+    };
+  },
+
+  componentDidMount() {
+    bus.dispatch({type: 'SHOWS_FETCH'});
+  },
+
+  events: {
+    SHOWS_UPDATED() { this.setState({shows: Shows.find()}); }
   },
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName);
+    var k = this.getKeyHelper();
 
-    var showList = l.range(1, 8).map(function (i) {
-      return <li key={i}>Lorem Ipsum</li>;
+    var showList = this.state.shows.map((show) => {
+      return (
+        <li key={show.id}>
+          <Link {...k('name')} to="show" params={{id: show.id}}>
+            {show.name}
+          </Link>
+        </li>
+      );
     });
 
     return (

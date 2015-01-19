@@ -12,7 +12,7 @@ function makeApiRequest(opts) {
   var settings = l.defaults({}, opts, {
     baseUrl: CONFIG.baseUrl,
     withAuth: true,
-    method: 'post'
+    method: 'get'
   });
 
   return new Promise(function (resolve, reject) {
