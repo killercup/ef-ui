@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var {Link} = require('react-router');
 var ReactProps = require('react-prop-schema');
 
@@ -14,7 +14,12 @@ module.exports = React.createClass({
   propTypes: {
     name: ReactProps.require({type: 'string', pattern: 'company.companyName'}),
     wallpaper: ReactProps.require({type: 'string'}),
+    updated_at: ReactProps.require({type: 'string'}),
     is_running: ReactProps.require({type: 'boolean'})
+  },
+
+  shouldComponentUpdate(nextProps) {
+    return this.props.updated_at !== nextProps.updated_at;
   },
 
   render() {

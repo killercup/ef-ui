@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
@@ -7,6 +7,8 @@ var Show = require('../show');
 
 module.exports = React.createClass({
   displayName: 'Shows',
+
+  mixins: [],
 
   propTypes: {
     shows: ReactProps.require({

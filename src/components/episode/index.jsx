@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
 var {padDigits} = require('../../helpers');
 
@@ -8,6 +8,7 @@ module.exports = React.createClass({
   displayName: 'Episode',
 
   mixins: [
+    React.addons.PureRenderMixin,
     require('../../helpers/mixins/keys')
   ],
 
