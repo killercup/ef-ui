@@ -1,5 +1,5 @@
 var React = require('react');
-var Router = require('react-router');
+var {RouteHandler} = require('react-router');
 var NavMain = require('../components/nav-main');
 
 var BaseTemplate = React.createClass({
@@ -7,7 +7,7 @@ var BaseTemplate = React.createClass({
     return (
       <div className="page">
         <NavMain key="nav-main"/>
-        <Router.RouteHandler key="content" appState={this.props.data} />
+        <RouteHandler key="content" appState={this.props.data} />
       </div>
     );
   }

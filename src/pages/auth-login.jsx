@@ -6,9 +6,11 @@ var {dispatch} = require('../data');
 module.exports = React.createClass({
   displayName: 'LoginPage',
   pageTitle: 'Login',
+
   mixins: [
     Router.Navigation,
     require('../helpers/mixins/events'),
+    require('../helpers/mixins/page_title'),
     require('../helpers/mixins/keys')
   ],
 

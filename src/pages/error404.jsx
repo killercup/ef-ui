@@ -1,23 +1,24 @@
 var l = require('lodash');
 var React = require('react');
-var {defaultKeyAndClass} = require('../helpers');
 
 var {Link} = require('react-router');
 
 module.exports = React.createClass({
   displayName: 'Error404Page',
+  pageTitle: "Not Found",
 
-  getDefaultProps() {
-    return {cssName: this.displayName};
-  },
+  mixins: [
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys')
+  ],
 
   render() {
+    var k = this.getKeyHelper();
+
     // Function defined in server-side context to set HTTP status
     if (l.isFunction(this.props.setHTTPStatus)) {
       this.props.setHTTPStatus(404);
     }
-
-    var k = defaultKeyAndClass(this.props.cssName);
 
     return (
       <article {...k('main')}>

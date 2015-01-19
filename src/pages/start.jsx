@@ -1,19 +1,24 @@
 var React = require('react');
-var {defaultKeyAndClass} = require('../helpers');
-
 var {Link} = require('react-router');
 
 var Auth = require('../data/auth');
 
 module.exports = React.createClass({
   displayName: 'StartPage',
+  pageTitle: "Start",
+  mixins: [
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys')
+  ],
 
-  getDefaultProps() {
-    return {cssName: this.displayName};
+  events: {
+    LOGGED_IN() { this.setState({}); },
+    LOGGED_OUT() { this.setState({}); }
   },
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName);
+    var k = this.getKeyHelper();
 
     if (Auth.exists()) {
       return (

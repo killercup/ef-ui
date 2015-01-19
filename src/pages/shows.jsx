@@ -7,9 +7,11 @@ var Shows = require('../components/shows');
 
 module.exports = React.createClass({
   displayName: 'ShowsPage',
-  pageTitle: 'Login',
+  pageTitle: 'Shows',
+
   mixins: [
     require('../helpers/mixins/events'),
+    require('../helpers/mixins/page_title'),
     require('../helpers/mixins/keys')
   ],
 
@@ -29,6 +31,7 @@ module.exports = React.createClass({
 
   render() {
     var k = this.getKeyHelper();
+
     return (
       <article {...k('main')}>
         <Shows {...k('list')} shows={this.state.shows}/>

@@ -1,16 +1,16 @@
 var React = require('react');
-var {defaultKeyAndClass} = require('../helpers');
 
 module.exports = React.createClass({
   displayName: 'RegisterPage',
   pageTitle: 'Register',
 
-  getDefaultProps() {
-    return {cssName: this.displayName};
-  },
+  mixins: [
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys')
+  ],
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName);
+    var k = this.getKeyHelper();
 
     return (
       <section {...k('main')}>

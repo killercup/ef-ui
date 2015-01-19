@@ -1,20 +1,20 @@
 var React = require('react');
 var Router = require('react-router');
-var {defaultKeyAndClass} = require('../helpers');
 
 var Episode = require('../components/episode');
 
 module.exports = React.createClass({
   displayName: 'EpisodePage',
+  pageTitle: "Episode",
 
-  mixins: [Router.State],
-
-  getDefaultProps() {
-    return {cssName: this.displayName};
-  },
+  mixins: [
+    Router.State,
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys')
+  ],
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName);
+    var k = this.getKeyHelper();
 
     return (
       <article {...k('main')}>
