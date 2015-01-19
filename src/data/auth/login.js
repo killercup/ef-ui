@@ -1,28 +1,24 @@
-var request = require('superagent');
 var bus = require('../bus');
 
 var API = require('../api');
 
 function login(data) {
-  request.post(API.baseUrl + '/auth')
-  .send({email: data.email, password: data.password})
-  .set('Accept', 'application/json')
-  .end(function (err, res) {
-    if (err) {
-      return bus.dispatch({
-        type: 'LOGIN_FAILURE', data: (res && res.body || err)
-      });
-    }
+  return API.request({
+    url: '/auth', method: 'post', withAuth: false,
+    data: {email: data.email, password: data.password}
+  })
+  .then(function (res) {
     if (typeof res.body.token !== 'string') {
-      return bus.dispatch({
-        type: 'LOGIN_FAILURE', data: {message: 'No token'}
-      });
+      throw new Error("No token in login response.");
     }
-    bus.dispatch({type: 'LOGIN_SUCCESS', data: {token: res.body.token}});
+    bus.dispatch({type: 'LOGIN_SUCCESS', data: res.body});
+  })
+  .catch(function (err) {
+    return bus.dispatch({
+      type: 'LOGIN_FAILURE', data: err
+    });
   });
 }
 
 // Handle stuff like this: `{type: 'login', data: {email, password}}`
-bus.getEvents('LOGIN').tap(function (x) {
-  console.log('tapped into LOGIN', x);
-}).onValue(login);
+bus.getEvents('LOGIN').onValue(login);

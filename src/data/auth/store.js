@@ -16,7 +16,10 @@ bus.getEvents('LOGIN_SUCCESS')
 });
 
 module.exports = {
-  getToken: function () {
-    return auth.token;
+  exists: function () {
+    return !!auth.token;
+  },
+  get: function (field) {
+    return auth[field];
   }
 };
