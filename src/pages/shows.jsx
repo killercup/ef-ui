@@ -1,8 +1,9 @@
 var React = require('react');
-var {Link} = require('react-router');
 
 var bus = require('../data');
-var Shows = require('../data/shows');
+var ShowsStore = require('../data/shows');
+
+var Shows = require('../components/shows');
 
 module.exports = React.createClass({
   displayName: 'ShowsPage',
@@ -14,7 +15,7 @@ module.exports = React.createClass({
 
   getInitialState() {
     return {
-      shows: Shows.find()
+      shows: ShowsStore.find()
     };
   },
 
@@ -23,25 +24,14 @@ module.exports = React.createClass({
   },
 
   events: {
-    SHOWS_UPDATED() { this.setState({shows: Shows.find()}); }
+    SHOWS_UPDATED() { this.setState({shows: ShowsStore.find()}); }
   },
 
   render() {
     var k = this.getKeyHelper();
-
-    var showList = this.state.shows.map((show) => {
-      return (
-        <li key={show.id}>
-          <Link {...k('name')} to="show" params={{id: show.id}}>
-            {show.name}
-          </Link>
-        </li>
-      );
-    });
-
     return (
       <article {...k('main')}>
-        <ul {...k('list')}>{showList}</ul>
+        <Shows {...k('list')} shows={this.state.shows}/>
       </article>
     );
   }

@@ -1,0 +1,19 @@
+@import "../../style/config";
+
+@mod: ~"Shows";
+
+.@{mod} {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  align-content: flex-start;
+
+  .Show {
+    flex-grow: 1;
+
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: inset 0 0 3px #000;
+  }
+}
