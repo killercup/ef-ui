@@ -19,6 +19,7 @@ function setupWebpack (opts) {
     // Dev env
     debug: env.debug,
     devtool: env.debug ? 'eval-source-map' : 'source-map',
+    profile: env.profile,
 
     // `require` config
     resolve: {

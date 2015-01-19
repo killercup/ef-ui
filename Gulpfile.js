@@ -3,6 +3,7 @@
  */
 
 var path = require('path');
+var fs = require('fs');
 var gulp = require('gulp');
 var _ = require('lodash');
 var compileScripts = require('./scripts/webpack-setup');
@@ -51,7 +52,8 @@ var DEFAULT_OPTS = {
     watch: true,
     dev_server: true,
     dev_server_port: 3000,
-    watch_delay: 200
+    watch_delay: 200,
+    profile: true
   },
   alias: ALIAS,
   stats_settings: {
@@ -102,26 +104,32 @@ gulp.task('assets:watch', ['assets:build'], function () {
 
 // ### Webpack
 
-gulp.task('webpack:build', ['clean'], function (callback) {
+gulp.task('webpack:build', ['clean'], function (done) {
   var opts = _.merge({}, DEFAULT_OPTS, {env: {
     debug: false, watch: false, dev_server: false
   }});
 
-  compileScripts(opts, callback);
+  compileScripts(opts, function (err, stats) {
+    if (err) { return done(err); }
+    fs.writeFile('webpack-stats.json', JSON.stringify(stats.toJson()), done);
+  });
 });
 
-gulp.task('webpack:compile', ['clean'], function (callback) {
+gulp.task('webpack:compile', ['clean'], function (done) {
   var opts = _.merge({}, DEFAULT_OPTS, {env: {
     name: 'production', debug: false, compress: true,
     watch: false, dev_server: false
   }});
 
-  compileScripts(opts, callback);
+  compileScripts(opts, function (err, stats) {
+    if (err) { return done(err); }
+    fs.writeFile('webpack-stats.json', JSON.stringify(stats.toJson()), done);
+  });
 });
 
 gulp.task('webpack:watch', function (callback) {
   var opts = _.merge({}, DEFAULT_OPTS, {
-    env: {watch: true, dev_server: true}
+    env: {watch: true, dev_server: true, profile: false}
   });
 
   compileScripts(opts, callback);
