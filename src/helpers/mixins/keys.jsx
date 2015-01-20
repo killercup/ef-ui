@@ -5,7 +5,7 @@ module.exports = {
     return {cssName: this.displayName};
   },
 
-  getKeyHelper() {
-    return defaultKeyAndClass(this.props.cssName);
+  getKeyHelper(opts) {
+    return defaultKeyAndClass(this.props.cssName, opts);
   }
 };
