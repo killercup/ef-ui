@@ -8,7 +8,6 @@ module.exports = React.createClass({
   displayName: 'Episode',
 
   mixins: [
-    React.addons.PureRenderMixin,
     require('../../helpers/mixins/keys')
   ],
 
@@ -17,11 +16,13 @@ module.exports = React.createClass({
     name: ReactProps.require({type: 'string', pattern: 'lorem.sentence'}),
     show_id: ReactProps.require({type: 'number', min: 1}),
     number: ReactProps.require({type: 'number', min: 0, max: 1024}),
-    season: ReactProps.require({type: 'number', min: 0, max: 1024}),
-    vote: ReactProps.optional({
-      id: {type: 'number', min: 1},
-      rating: {type: 'number', min: 1, max: 3}
-    }),
+    season: ReactProps.require({type: 'number', min: 0, max: 1024})
+  },
+
+  shouldComponentUpdate(nextProps) {
+    return nextProps.updated_at ?
+      this.props.updated_at !== nextProps.updated_at
+      : true;
   },
 
   render() {

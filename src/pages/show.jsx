@@ -1,20 +1,18 @@
 var React = require('react');
-var Router = require('react-router');
-
-var firstBy = require('then-by');
+var {State} = require('react-router');
 
 var bus = require('../data');
 var ShowsStore = require('../data/shows');
 var EpisodesStore = require('../data/episodes');
 
-var Episode = require('../components/episode');
+var EpisodeList = require('../components/episode-list');
 
 module.exports = React.createClass({
   displayName: 'ShowPage',
   pageTitle: "Show",
 
   mixins: [
-    Router.State,
+    State,
     require('../helpers/mixins/page_title'),
     require('../helpers/mixins/keys'),
     require('../helpers/mixins/events')
@@ -58,18 +56,11 @@ module.exports = React.createClass({
   render() {
     var k = this.getKeyHelper();
     var show = this.state.show || {};
+    var eps = this.state.episodes || [];
 
     if (show.name) {
       this.changePageTitle(show.name);
     }
-
-    var eps = this.state.episodes
-      .sort(firstBy('season').thenBy('number'))
-      .map(ep => {
-        return <Router.Link key={ep.id} to="episode" params={{id: ep.id}}>
-          <Episode {...ep}/>
-        </Router.Link>;
-      });
 
     return (
       <article {...k('main')}>
@@ -78,9 +69,7 @@ module.exports = React.createClass({
         </h1>
         <p {...k('description')}>{show.description}</p>
         {eps.length > 0 &&
-          <section {...k('episodes')}>
-            {eps}
-          </section>
+          <EpisodeList {...k('episodes')} episodes={eps} />
         }
       </article>
     );
