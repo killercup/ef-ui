@@ -1,4 +1,4 @@
-var {defaultKeyAndClass} = require('../index');
+var defaultKeyAndClass = require('../key_helper');
 
 module.exports = {
   getDefaultProps() {

@@ -1,5 +1,4 @@
 var React = require('react');
-var {defaultKeyAndClass} = require('../../helpers');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -8,12 +7,12 @@ var {Link} = require('react-router');
 module.exports = React.createClass({
   displayName: 'NavMain',
 
-  getDefaultProps() {
-    return {cssName: this.displayName};
-  },
+  mixins: [
+    require('../../helpers/mixins/keys')
+  ],
 
   render() {
-    var k = defaultKeyAndClass(this.props.cssName, {
+    var k = this.getKeyHelper({
       activeClassName: 'is-active'
     });
 

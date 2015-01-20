@@ -1,6 +1,6 @@
 var React = require('react');
 var Router = require('react-router');
-var {padDigits} = require('../helpers');
+var padDigits = require('../helpers/pad_digits');
 
 var bus = require('../data');
 var ShowsStore = require('../data/shows');

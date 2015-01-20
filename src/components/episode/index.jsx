@@ -1,6 +1,6 @@
 var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
-var {padDigits} = require('../../helpers');
+var padDigits = require('../../helpers/pad_digits');
 
 if (process.env.BROWSER) { require('./style.less'); }
 

@@ -2,7 +2,7 @@ var React = require('react');
 var chCase = require('change-case');
 var Router = require('react-router');
 
-var {defaultKeyAndClass} = require('./helpers');
+var defaultKeyAndClass = require('./helpers/key_helper');
 
 if (process.env.BROWSER) {
   require('./style/index.less');
