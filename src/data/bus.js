@@ -1,3 +1,4 @@
+var l = require('lodash');
 var Kefir = require('kefir');
 
 var eventBus = Kefir.bus();
@@ -6,6 +7,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 function isType(type) {
+  if (l.isArray(type)) {
+    return function (e) { return type.indexOf(e.type) >= 0; };
+  }
   return function (e) { return e.type === type; };
 }
 
