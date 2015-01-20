@@ -118,7 +118,7 @@ gulp.task('webpack:build', ['clean'], function (done) {
 gulp.task('webpack:compile', ['clean'], function (done) {
   var opts = _.merge({}, DEFAULT_OPTS, {env: {
     name: 'production', debug: false, compress: true,
-    watch: false, dev_server: false
+    watch: false, dev_server: false, bundleCSS: true
   }});
 
   compileScripts(opts, function (err, stats) {
