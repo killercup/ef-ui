@@ -19,14 +19,9 @@ describe("Episode Component", function () {
     };
 
     it("should show episode reference information", function () {
-      var title = T.findRenderedDOMComponentWithClass(Ep, cls('name'));
+      var title = T.findRenderedDOMComponentWithClass(Ep, cls('title'));
       expect(title.getDOMNode().textContent).to.match(/^S(\d*)E(\d)/);
-      expect(title.getDOMNode().textContent).to.contain(Ep.props.title);
-    });
-
-    it("should show the episode's show name", function () {
-      var show = T.findRenderedDOMComponentWithClass(Ep, cls('show'));
-      expect(show.getDOMNode().textContent).to.contain(Ep.props.show);
+      expect(title.getDOMNode().textContent).to.contain(Ep.props.name);
     });
   });
 
