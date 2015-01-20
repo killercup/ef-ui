@@ -34,5 +34,14 @@ module.exports = {
   },
   get: function (field) {
     return auth[field];
+  },
+  destroy: function () {
+    auth.token = name;
+    auth.email = name;
+    auth.name = name;
+    try {
+      localStorage.removeItem('auth');
+    } catch (e) {}
+    bus.dispatch({type: 'LOGGED_OUT'});
   }
 };

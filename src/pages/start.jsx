@@ -1,5 +1,5 @@
 var React = require('react');
-var {Link} = require('react-router');
+var {Link, Navigation} = require('react-router');
 
 var Auth = require('../data/auth');
 
@@ -7,6 +7,7 @@ module.exports = React.createClass({
   displayName: 'StartPage',
   pageTitle: "Start",
   mixins: [
+    Navigation,
     require('../helpers/mixins/events'),
     require('../helpers/mixins/page_title'),
     require('../helpers/mixins/keys')
@@ -14,7 +15,7 @@ module.exports = React.createClass({
 
   events: {
     LOGGED_IN() { this.setState({}); },
-    LOGGED_OUT() { this.setState({}); }
+    LOGGED_OUT() { this.transitionTo('logout'); }
   },
 
   render() {
@@ -27,9 +28,9 @@ module.exports = React.createClass({
             Hello, {Auth.get('name')}!. You are logged in.
           </p>
           <p {...k('link')}>
-            <Link key="0" to="episode" params={{id: 2}}>
-              Episode!
-            </Link>
+            <button onClick={Auth.destroy}>
+              Log out!
+            </button>
           </p>
         </section>
       );
@@ -39,9 +40,14 @@ module.exports = React.createClass({
           <p {...k('hello')}>
             Hello. You are <strong>not</strong> logged in.
           </p>
-          <p>
+          <p key="login">
             <Link key="0" to="login">
               Login
+            </Link>
+          </p>
+          <p key="register">
+            <Link key="0" to="register">
+              Register
             </Link>
           </p>
         </section>
