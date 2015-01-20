@@ -2,7 +2,7 @@ var l = require('lodash');
 var Kefir = require('kefir');
 var bus = require('../bus');
 
-var shows = [];
+var store = [];
 
 var events = Kefir.emitter();
 bus.plug(events.throttle(100));
@@ -22,22 +22,22 @@ function updateList(list, newList) {
 
 bus.getEvents('SHOWS_FETCHED')
 .onValue(function (data) {
-  updateList(shows, data);
+  updateList(store, data);
   events.emit({type: 'SHOWS_UPDATED'});
 });
 
 bus.getEvents('SHOW_FETCHED')
 .onValue(function (item) {
-  updateItem(shows, item);
+  updateItem(store, item);
   events.emit({type: 'SHOWS_UPDATED'});
 });
 
 module.exports = {
   events: events,
   find: function (query) {
-    return l.where(shows, query);
+    return l.where(store, query);
   },
   findOne: function (query) {
-    return l.findWhere(shows, query);
+    return l.findWhere(store, query);
   }
 };

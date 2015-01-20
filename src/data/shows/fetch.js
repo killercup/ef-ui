@@ -1,9 +1,13 @@
 var l = require('lodash');
+var Promise = require('Promise');
+
 var bus = require('../bus');
 var API = require('../api');
 
-function list() {
-  return API.request({url: '/shows'})
+function list(data) {
+  data = data || {};
+
+  return API.request({url: '/shows', query: data.query})
   .then(function (res) {
     bus.dispatch({type: 'SHOWS_FETCHED', data: res.body.shows});
   })
@@ -13,9 +17,14 @@ function list() {
 }
 
 function detail(data) {
-  var id = data.id;
+  data = data || {};
+  if (!data.id) {
+    var err = new Error("Can't load show without ID");
+    bus.dispatch({type: 'SHOW_FAILURE', data: err});
+    return Promise.reject(err);
+  }
 
-  return API.request({url: '/shows/' + id, query: {include: 'episodes'}})
+  return API.request({url: '/shows/' + data.id, query: {include: 'episodes'}})
   .then(function (res) {
     if (!l.isObject(res.body.shows)) { return; }
     bus.dispatch({type: 'SHOW_FETCHED', data: res.body.shows});
