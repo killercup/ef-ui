@@ -32,9 +32,6 @@ module.exports = React.createClass({
   },
 
   componentDidMount() {
-    if (!this.getParams().id) {
-      throw new Error('dafuq!');
-    }
     bus.dispatch({
       type: 'SHOW_FETCH', data: {id: this.state.showId}
     });
@@ -50,7 +47,7 @@ module.exports = React.createClass({
     SHOWS_UPDATED() {
       var data = this.getInitialState();
       this.setState(data);
-      this.fetchEpisodes(data.episode_ids);
+      this.fetchEpisodes();
     },
     EPISODES_UPDATED() {
       var data = this.getInitialState();
@@ -68,7 +65,11 @@ module.exports = React.createClass({
 
     var eps = this.state.episodes
       .sort(firstBy('season').thenBy('number'))
-      .map(ep => <Episode key={ep.id} {...ep}/>);
+      .map(ep => {
+        return <Router.Link key={ep.id} to="episode" params={{id: ep.id}}>
+          <Episode {...ep}/>
+        </Router.Link>;
+      });
 
     return (
       <article {...k('main')}>
