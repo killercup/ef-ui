@@ -43,16 +43,19 @@ function makeListRequest(name, _opts) {
   }
   var opts = _opts || {};
   var pluralName = opts.pluralName || name + 's';
-  var actions = {
+  var actions = l.defaults({}, opts.actions, {
     SUCCESS: pluralName.toUpperCase() + '_FETCHED',
     FAILURE: pluralName.toUpperCase() + '_FAILURE'
-  };
+  });
 
   return function list(data) {
     data = data || {};
     var query = l.defaults({}, data.query, opts.query);
 
-    return makeApiRequest({url: '/' + pluralName, query: query})
+    return makeApiRequest({
+      url: data.url || opts.url || '/' + pluralName,
+      query: query
+    })
     .then(function (res) {
       if (l.isFunction(opts.processResponse)) {
         opts.processResponse(res);
