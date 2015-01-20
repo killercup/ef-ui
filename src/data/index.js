@@ -6,3 +6,4 @@ require('./auth');
 require('./users');
 require('./shows');
 require('./episodes');
+require('./votes');
