@@ -1,3 +1,5 @@
+var l = require('lodash');
+
 var bus = require('../bus');
 var API = require('../api');
 
@@ -19,7 +21,7 @@ function login(data) {
 
   return API.request({
     url: '/auth', method: 'post', withAuth: false,
-    data: {email: data.email, password: data.password}
+    data: l.pick(data, 'email', 'password')
   })
   .then(function (res) {
     if (typeof res.body.token !== 'string') {

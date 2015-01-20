@@ -1,3 +1,5 @@
+var l = require('lodash');
+
 var bus = require('../bus');
 var API = require('../api');
 
@@ -19,7 +21,7 @@ function createUser(data) {
 
   return API.request({
     url: '/users', method: 'post', withAuth: false,
-    data: {email: data.email, name: data.name, password: data.password}
+    data: l.pick(data, 'email', 'name', 'password')
   })
   .then(function (res) {
     bus.dispatch({type: actions.SUCCESS, data: res.body});
