@@ -1,30 +1,36 @@
 var l = require('lodash');
 
-module.exports = function (propFields, stateFields) {
-  propFields = propFields || [];
-  stateFields = stateFields || [];
+module.exports = function (propFields, stateFields, updatedAtField) {
+  var pFields = propFields || [];
+  var sFields = stateFields || [];
+  var freshness = updatedAtField || 'updated_at';
 
-  if (!l.isArray(propFields) || !l.isArray(stateFields)) {
+  if (!l.isArray(pFields) || !l.isArray(sFields)) {
     if (process.env.NODE_ENV !== 'production') {
       console.error("called updated_at mixin without field array",
-        propFields, stateFields
+        pFields, sFields
       );
     }
     return {};
   }
 
   return {
-    shouldComponentUpdate: function (nextProps, nextState) {
-      var props = this.props;
-      var state = this.state;
+    shouldComponentUpdate: function (nextP, nextS) {
+      var curP = this.props;
+      var curS = this.state;
 
-      var propsUpdated = l.any(propFields, function (field) {
-        return props[field].updated_at !== nextProps[field].updated_at;
-      });
-      var statesUpdated = l.any(stateFields, function (field) {
-        return state[field].updated_at !== nextState[field].updated_at;
-      });
-      return propsUpdated || statesUpdated;
+      var i, len;
+      for (i = 0, len = pFields.length; i < len; i++) {
+        if (curP[pFields[i]][freshness] !== nextP[pFields[i]][freshness]) {
+          return true;
+        }
+      }
+      for (i = 0, len = sFields.length; i < len; i++) {
+        if (curS[sFields[i]][freshness] !== nextS[sFields[i]][freshness]) {
+          return true;
+        }
+      }
+      return false;
     }
   };
 };
