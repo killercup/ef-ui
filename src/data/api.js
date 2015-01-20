@@ -54,6 +54,9 @@ function makeListRequest(name, _opts) {
 
     return makeApiRequest({url: '/' + pluralName, query: query})
     .then(function (res) {
+      if (l.isFunction(opts.processResponse)) {
+        opts.processResponse(res);
+      }
       bus.dispatch({type: actions.SUCCESS, data: res.body[pluralName]});
     })
     .catch(function (err) {
@@ -87,6 +90,9 @@ function makeDetailRequest(name, _opts) {
         return Promise.reject(new Error(
           "API response for resource detail was not an object."
         ));
+      }
+      if (l.isFunction(opts.processResponse)) {
+        opts.processResponse(res);
       }
       bus.dispatch({type: actions.SUCCESS, data: res.body[pluralName]});
     })
