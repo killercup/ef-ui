@@ -1,7 +1,9 @@
 var Kefir = require('kefir');
 
 var eventBus = Kefir.bus();
-eventBus.log();
+if (process.env.NODE_ENV !== 'production') {
+  eventBus.log();
+}
 
 function isType(type) {
   return function (e) { return e.type === type; };
