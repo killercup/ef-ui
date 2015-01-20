@@ -31,6 +31,7 @@ function makeApiRequest(opts) {
 
     r.end(function (err, res) {
       if (err) { reject(err); }
+      else if (res.error) { reject(res.error); }
       else { resolve(res); }
     });
   });
