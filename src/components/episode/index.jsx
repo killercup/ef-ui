@@ -13,8 +13,8 @@ module.exports = React.createClass({
   ],
 
   propTypes: {
-    title: ReactProps.require({type: 'string', pattern: 'lorem.sentence'}),
-    show: ReactProps.require({type: 'string', pattern: 'company.companyName'}),
+    name: ReactProps.require({type: 'string', pattern: 'lorem.sentence'}),
+    show_id: ReactProps.require({type: 'number', min: 1}),
     number: ReactProps.require({type: 'number', min: 0, max: 1024}),
     season: ReactProps.require({type: 'number', min: 0, max: 1024}),
   },
@@ -24,14 +24,11 @@ module.exports = React.createClass({
 
     return (
       <article className="Episode">
-        <div {...k('show')}>
-          {this.props.show}
-        </div>
-        <div {...k('name')}>
+        <div {...k('title')}>
           S<span {...k('season')}>{padDigits(2, this.props.season)}</span>
           E<span {...k('number')}>{padDigits(2, this.props.number)}</span>
           &nbsp;
-          <span {...k('title')}>{this.props.title}</span>
+          <span {...k('name')}>{this.props.name}</span>
         </div>
       </article>
     );

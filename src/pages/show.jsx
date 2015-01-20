@@ -1,8 +1,13 @@
 var React = require('react');
 var Router = require('react-router');
 
+var firstBy = require('then-by');
+
 var bus = require('../data');
 var ShowsStore = require('../data/shows');
+var EpisodesStore = require('../data/episodes');
+
+var Episode = require('../components/episode');
 
 module.exports = React.createClass({
   displayName: 'ShowPage',
@@ -15,29 +20,41 @@ module.exports = React.createClass({
     require('../helpers/mixins/events')
   ],
 
-  getShow() {
-    return ShowsStore.findOne({id: +this.getParams().id});
-  },
-
   getInitialState() {
+    var showId = +this.getParams().id;
+    var show = ShowsStore.findOne({id: showId});
+
     return {
-      show: this.getShow()
+      showId: showId,
+      show: show,
+      episodes: EpisodesStore.find({show_id: showId})
     };
   },
 
   componentDidMount() {
-    this.setState({loading: true});
     if (!this.getParams().id) {
       throw new Error('dafuq!');
     }
     bus.dispatch({
-      type: 'SHOW_FETCH', data: {id: +this.getParams().id}
+      type: 'SHOW_FETCH', data: {id: this.state.showId}
+    });
+  },
+
+  fetchEpisodes() {
+    bus.dispatch({
+      type: 'EPISODES_FETCH', data: {query: {show_id: this.state.showId}}
     });
   },
 
   events: {
     SHOWS_UPDATED() {
-      this.setState({loading: false, show: this.getShow()});
+      var data = this.getInitialState();
+      this.setState(data);
+      this.fetchEpisodes(data.episode_ids);
+    },
+    EPISODES_UPDATED() {
+      var data = this.getInitialState();
+      this.setState(data);
     }
   },
 
@@ -49,15 +66,21 @@ module.exports = React.createClass({
       this.changePageTitle(show.name);
     }
 
+    var eps = this.state.episodes
+      .sort(firstBy('season').thenBy('number'))
+      .map(ep => <Episode key={ep.id} {...ep}/>);
+
     return (
       <article {...k('main')}>
-        {this.state.loading &&
-          <div {...k('loading')}>Loading...</div>
-        }
         <h1 {...k('headline')}>
           { show.name ? show.name : "Show ID #" + this.getParams().id }
         </h1>
         <p {...k('description')}>{show.description}</p>
+        {eps.length > 0 &&
+          <section {...k('episodes')}>
+            {eps}
+          </section>
+        }
       </article>
     );
   }
