@@ -34,7 +34,8 @@ module.exports = class Store {
       LIST_FETCH: this.pluralName.toUpperCase() + '_FETCH',
       LIST_FETCHED: this.pluralName.toUpperCase() + '_FETCHED',
       DETAIL_FETCH: this.name.toUpperCase() + '_FETCH',
-      DETAIL_FETCHED: this.name.toUpperCase() + '_FETCHED'
+      DETAIL_FETCHED: this.name.toUpperCase() + '_FETCHED',
+      CREATED: this.name.toUpperCase() + '_CREATED'
     });
 
     // Bind Events
@@ -45,7 +46,7 @@ module.exports = class Store {
       this.events.emit({type: this.actions.UPDATED});
     });
 
-    bus.getEvents(this.actions.DETAIL_FETCHED)
+    bus.getEvents([this.actions.DETAIL_FETCHED, this.actions.CREATED])
     .onValue(item => {
       updateItem(this.store, item);
       this.events.emit({type: this.actions.UPDATED});
