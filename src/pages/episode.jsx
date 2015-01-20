@@ -5,6 +5,10 @@ var padDigits = require('../helpers/pad_digits');
 var bus = require('../data');
 var ShowsStore = require('../data/shows');
 var EpisodesStore = require('../data/episodes');
+var VotesStore = require('../data/votes');
+
+var Vote = require('../components/vote');
+var VoteForm = require('../components/vote-form');
 
 module.exports = React.createClass({
   displayName: 'EpisodePage',
@@ -21,11 +25,13 @@ module.exports = React.createClass({
     var epId = +this.getParams().id;
     var ep = EpisodesStore.findOne({id: epId});
     var show = ep && ep.id && ShowsStore.findOne({id: ep.show_id});
+    var vote = ep && ep.id && VotesStore.findOne({episode_id: ep.id});
 
     return {
       episodeId: epId,
       episode: ep,
-      show: show
+      show: show,
+      vote: vote
     };
   },
 
@@ -53,6 +59,10 @@ module.exports = React.createClass({
     SHOWS_UPDATED() {
       var data = this.getInitialState();
       this.setState(data);
+    },
+    VOTES_UPDATED() {
+      var data = this.getInitialState();
+      this.setState(data);
     }
   },
 
@@ -60,8 +70,17 @@ module.exports = React.createClass({
     var k = this.getKeyHelper();
     var e = this.state.episode;
     var s = this.state.show;
+    var v = this.state.vote;
 
     if (e) {
+      var vote;
+      if (v && v.rating) {
+        vote = <Vote {...k('vote', v)}/>;
+      } else {
+        vote = <VoteForm {...k('vote-form')}
+          episodeId={e.id} showId={e.show_id} />;
+      }
+
       return (
         <article {...k('main')}>
           {s &&
@@ -77,6 +96,7 @@ module.exports = React.createClass({
             &nbsp;
             <span {...k('name')}>{e.name}</span>
           </h1>
+          {vote}
           <p {...k('aired')}>
             {e.aired}
           </p>
