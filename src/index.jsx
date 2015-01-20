@@ -12,27 +12,27 @@ var router = Router.create({
 });
 
 // Require Stores and Event Handlers
-require('./data');
+var Data = require('./data');
 
 module.exports = router.run.bind(router);
 
 if (process.env.BROWSER) {
-  var perf = false;
-
   // kick of the rendering!
   router.run(function (Handler) {
-    if (perf && process.env.NODE_ENV !== 'production') { React.addons.Perf.start(); }
     React.render(
       <Handler data={{id: 42}}/>,
       document.getElementById('container')
     );
-    if (perf && process.env.NODE_ENV !== 'production') {
-      if (perf) { clearInterval(perf); }
-      perf = setInterval(() => {
-        React.addons.Perf.stop();
-        React.addons.Perf.printWasted();
-        React.addons.Perf.start();
-      }, 5000);
-    }
+  });
+}
+
+// Measure Performance
+if (process.env.BROWSER && process.env.NODE_ENV !== 'production') {
+  React.addons.Perf.start();
+  Data.events.debounce(500).onValue(function () {
+    React.addons.Perf.stop();
+    React.addons.Perf.printExclusive();
+    React.addons.Perf.printWasted();
+    React.addons.Perf.start();
   });
 }
