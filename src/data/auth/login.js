@@ -1,8 +1,22 @@
 var bus = require('../bus');
-
 var API = require('../api');
 
+var actions = {
+  TRIGGER: 'LOGIN',
+  FAILURE: 'LOGIN_FAILURE',
+  SUCCESS: 'LOGIN_SUCCESS'
+};
+
 function login(data) {
+  data = data || {};
+
+  if (!data.email || !data.password) {
+    return bus.dispatch({
+      type: actions.FAILURE,
+      err: new Error("Data missing")
+    });
+  }
+
   return API.request({
     url: '/auth', method: 'post', withAuth: false,
     data: {email: data.email, password: data.password}
@@ -20,5 +34,9 @@ function login(data) {
   });
 }
 
-// Handle stuff like this: `{type: 'login', data: {email, password}}`
-bus.getEvents('LOGIN').onValue(login);
+// Handle stuff like this: `{type: 'LOGIN', data: {email, password}}`
+bus.getEvents(actions.TRIGGER).onValue(login);
+
+module.exports = {
+  login: login
+};
