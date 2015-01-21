@@ -24,6 +24,10 @@ server.use(function (err, req, res, next) {
 
 var port = process.env.NODE_PORT || 3000;
 
-server.listen(port, function () {
-  gutil.log("Server listening at http://localhost:" + port + "/");
-});
+if (process.env.NODE_ENV === 'test') {
+  module.exports = server;
+} else {
+  server.listen(port, function () {
+    gutil.log("Server listening at http://localhost:" + port + "/");
+  });
+}

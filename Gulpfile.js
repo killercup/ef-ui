@@ -150,7 +150,7 @@ gulp.task('jsxlint', function () {
 });
 
 gulp.task('mocha', ['lint'], function () {
-  return globby(['src/test.js', 'src/**/*test.{js,jsx}'])
+  return globby(['src/test.js', 'src/**/*test.{js,jsx}', 'server/*test.js'])
   .then(function (paths) {
     if (paths.length) {
       return exec('mocha', paths);
