@@ -149,7 +149,7 @@ gulp.task('jsxlint', function () {
   });
 });
 
-gulp.task('mocha', ['lint'], function () {
+gulp.task('mocha', ['lint', 'compile'], function () {
   return globby(['src/test.js', 'src/**/*test.{js,jsx}', 'server/*test.js'])
   .then(function (paths) {
     if (paths.length) {
