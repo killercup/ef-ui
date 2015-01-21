@@ -66,8 +66,10 @@ var DEFAULT_OPTS = {
     template: path.join(PATH.src, 'index.html')
   },
   htmls: [
-    {name: 'index.html', chunks: ['vendor', 'app']},
-    {name: 'styleguide.html', chunks: ['vendor', 'styleguide']}
+    {filename: 'index.html', chunks: ['vendor', 'app']},
+    {filename: 'styleguide.html', chunks: ['vendor', 'styleguide']},
+    {filename: 'template.html', chunks: ['vendor', 'app'],
+      serverRenderedContent: true, prefixAssets: 'static/'}
   ]
 };
 

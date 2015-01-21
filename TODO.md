@@ -11,6 +11,7 @@
 
 - [ ] Error classes
 - [ ] 404: Events and redirects
+- [ ] Loading indicators using event streams as properties
 
 ## Votes
 

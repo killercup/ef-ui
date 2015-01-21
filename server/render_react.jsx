@@ -19,7 +19,7 @@ module.exports = function renderReactApp(opts) {
         var html = React.renderToString(
           <Handler setHTTPStatus={setHTTPStatus}/>
         );
-        res.send(render({data: {html: html}}));
+        res.send(render({html: html}));
       });
     } catch (error) {
       return next(error);

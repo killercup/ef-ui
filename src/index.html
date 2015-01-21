@@ -7,7 +7,9 @@
   <meta charset="UTF-8">
   <title>{%=html.title || 'EpisodeFever'%}</title>
 
-  {%# html.include(webpack.assetsByChunkName, html.chunk, 'css') %}
+{% html.chunks.forEach(function (chunk) { %}
+  {%# html.include(webpack.assetsByChunkName, chunk, 'css') %}
+{% }); %}
 </head>
 <body class="{%= html.chunk %}">
   <div id="container">{% if (html.serverRenderedContent) { %}<%= data.html %>{% } else { %}&nbsp;{% } %}</div>

@@ -1,3 +1,4 @@
+var l = require("lodash");
 var webpack = require("webpack");
 var outputHtml = require('./webpack-html');
 
@@ -26,7 +27,7 @@ function setupWebpack (opts) {
       extensions: ['', '.js', '.jsx'],
       alias: opts.alias
     },
-    target: 'web',
+    target: env.target || 'web',
 
     // Loaders
     module: {
@@ -78,12 +79,10 @@ function setupWebpack (opts) {
 
   opts.htmls.forEach(function (html) {
     config.plugins.push(
-      outputHtml({
-        filename: html.name,
+      outputHtml(l.defaults({}, html, {
         template: opts.html.template,
-        chunks: html.chunks,
         env: env
-      })
+      }))
     );
   });
 
