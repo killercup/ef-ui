@@ -1,4 +1,4 @@
-var Promise = require('Promise');
+var Promise = require('when/lib/Promise');
 var l = require('lodash');
 var request = require('superagent');
 
