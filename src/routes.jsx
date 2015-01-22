@@ -13,6 +13,9 @@ module.exports = (
     <Route name="logout" path="/logout"
       handler={require('./pages/auth-logout')} />
 
+    <Route name="voting" path="/vote"
+      handler={require('./pages/voting')} />
+
     <Route name="shows" path="/shows"
       handler={require('./pages/shows')} />
     <Route name="show" path="/shows/:id"

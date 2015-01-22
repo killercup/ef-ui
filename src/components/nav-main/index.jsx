@@ -19,10 +19,13 @@ module.exports = React.createClass({
     return (
       <header className={this.props.cssName}>
         <nav {...k('nav')}>
-          <Link {...k('link', {key: 'start', to: "start"})}>
+          <Link to="start" {...k('link', {key: 'start'})}>
             Start
           </Link>
-          <Link {...k('link', {key: 'shows', to: "shows"})}>
+          <Link to="voting" {...k('link', {key: 'vote'})}>
+            Vote
+          </Link>
+          <Link to="shows" {...k('link', {key: 'shows'})}>
             Shows
           </Link>
           {(process.env.NODE_ENV !== 'production') &&
