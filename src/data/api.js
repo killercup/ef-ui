@@ -43,6 +43,7 @@ function makeListRequest(name, _opts) {
   }
   var opts = _opts || {};
   var pluralName = opts.pluralName || name + 's';
+  var contentField = opts.fieldName || pluralName;
   var actions = l.defaults({}, opts.actions, {
     SUCCESS: pluralName.toUpperCase() + '_FETCHED',
     FAILURE: pluralName.toUpperCase() + '_FAILURE'
@@ -57,10 +58,17 @@ function makeListRequest(name, _opts) {
       query: query
     })
     .then(function (res) {
+      var resData = res.body[contentField];
+      if (!l.isArray(resData)) {
+        throw new Error(
+          "API response for resource list was not an array (field " +
+          contentField + ")"
+        );
+      }
       if (l.isFunction(opts.processResponse)) {
         opts.processResponse(res);
       }
-      bus.dispatch({type: actions.SUCCESS, data: res.body[pluralName]});
+      bus.dispatch({type: actions.SUCCESS, data: resData});
     })
     .catch(function (err) {
       bus.dispatch({type: actions.FAILURE, data: err});
@@ -74,6 +82,7 @@ function makeDetailRequest(name, _opts) {
   }
   var opts = _opts || {};
   var pluralName = opts.pluralName || name + 's';
+  var contentField = opts.fieldName || pluralName;
   var actions = {
     SUCCESS: name.toUpperCase() + '_FETCHED',
     FAILURE: name.toUpperCase() + '_FAILURE'
@@ -89,15 +98,17 @@ function makeDetailRequest(name, _opts) {
 
     return makeApiRequest({url: '/' + pluralName + '/' + data.id})
     .then(function (res) {
-      if (!l.isObject(res.body[pluralName])) {
+      var resData = res.body[contentField];
+      if (!l.isObject(resData)) {
         return Promise.reject(new Error(
-          "API response for resource detail was not an object."
+          "API response for resource detail was not an object (field " +
+          contentField + ")"
         ));
       }
       if (l.isFunction(opts.processResponse)) {
         opts.processResponse(res);
       }
-      bus.dispatch({type: actions.SUCCESS, data: res.body[pluralName]});
+      bus.dispatch({type: actions.SUCCESS, data: resData});
     })
     .catch(function (err) {
       bus.dispatch({type: actions.FAILURE, data: err});
