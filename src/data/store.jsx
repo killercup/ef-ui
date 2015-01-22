@@ -57,6 +57,12 @@ module.exports = class Store {
     return l.where(this.store, query);
   }
 
+  findIds(ids) {
+    return l.filter(this.store, function (item) {
+      return l.contains(ids, item.id);
+    });
+  }
+
   findOne(query) {
     return l.findWhere(this.store, query);
   }
