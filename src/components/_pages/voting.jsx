@@ -1,25 +1,25 @@
 var l = require('lodash');
 var React = require('react');
 
-var bus = require('../data');
-var LatestVotesStore = require('../data/latest-votes');
-var ShowsStore = require('../data/shows');
-var EpStore = require('../data/episodes');
-var VotesStore = require('../data/votes');
+var bus = require('../../data');
+var LatestVotesStore = require('../../data/latest-votes');
+var ShowsStore = require('../../data/shows');
+var EpStore = require('../../data/episodes');
+var VotesStore = require('../../data/votes');
 
 var VICINITY_SIZE = 3;
-var getNearbyEpisodes = require('../helpers/episodes_in_vicinity')
+var getNearbyEpisodes = require('../../helpers/episodes_in_vicinity')
   .bind(null, VICINITY_SIZE);
 
-var Template = require('../components/templates/voting');
+var Template = require('../_templates/voting');
 
 module.exports = React.createClass({
   displayName: 'VotingPage',
   pageTitle: 'Vote',
 
   mixins: [
-    require('../helpers/mixins/events'),
-    require('../helpers/mixins/page_title')
+    require('../../helpers/mixins/events'),
+    require('../../helpers/mixins/page_title')
   ],
 
   getInitialState() {
@@ -27,7 +27,6 @@ module.exports = React.createClass({
     .map((vote) => {
       var show = ShowsStore.findOne({id: vote.show_id});
       var episode_ids = getNearbyEpisodes(vote, show);
-      console.log(show && show.name, vote.episode_id, episode_ids);
       var episodes = episode_ids.map(ep_id => EpStore.findOne({id: ep_id}));
       var votes = VotesStore.findIds(episode_ids, 'episode_id');
       return {latestVote: vote, show, episode_ids, episodes, votes};

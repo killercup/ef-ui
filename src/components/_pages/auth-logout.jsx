@@ -5,8 +5,8 @@ module.exports = React.createClass({
   pageTitle: 'Logout',
 
   mixins: [
-    require('../helpers/mixins/page_title'),
-    require('../helpers/mixins/keys')
+    require('../../helpers/mixins/page_title'),
+    require('../../helpers/mixins/keys')
   ],
 
   render() {

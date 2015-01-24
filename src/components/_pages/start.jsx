@@ -1,16 +1,16 @@
 var React = require('react');
 var {Link, Navigation} = require('react-router');
 
-var Auth = require('../data/auth');
+var Auth = require('../../data/auth');
 
 module.exports = React.createClass({
   displayName: 'StartPage',
   pageTitle: "Start",
   mixins: [
     Navigation,
-    require('../helpers/mixins/events'),
-    require('../helpers/mixins/page_title'),
-    require('../helpers/mixins/keys')
+    require('../../helpers/mixins/events'),
+    require('../../helpers/mixins/page_title'),
+    require('../../helpers/mixins/keys')
   ],
 
   events: {

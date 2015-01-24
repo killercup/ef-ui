@@ -8,8 +8,8 @@ module.exports = React.createClass({
   pageTitle: "Not Found",
 
   mixins: [
-    require('../helpers/mixins/page_title'),
-    require('../helpers/mixins/keys')
+    require('../../helpers/mixins/page_title'),
+    require('../../helpers/mixins/keys')
   ],
 
   render() {

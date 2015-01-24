@@ -1,18 +1,18 @@
 var React = require('react');
 
-var bus = require('../data');
-var ShowsStore = require('../data/shows');
+var bus = require('../../data');
+var ShowsStore = require('../../data/shows');
 
-var Shows = require('../components/shows');
+var Shows = require('../shows');
 
 module.exports = React.createClass({
   displayName: 'ShowsPage',
   pageTitle: 'Shows',
 
   mixins: [
-    require('../helpers/mixins/events'),
-    require('../helpers/mixins/page_title'),
-    require('../helpers/mixins/keys')
+    require('../../helpers/mixins/events'),
+    require('../../helpers/mixins/page_title'),
+    require('../../helpers/mixins/keys')
   ],
 
   getInitialState() {

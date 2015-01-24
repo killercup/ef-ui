@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
 var l = require('lodash');
 
@@ -10,6 +10,7 @@ module.exports = React.createClass({
   displayName: 'VotingLayout',
 
   mixins: [
+    React.addons.PureRenderMixin,
     require('../../helpers/mixins/keys')
   ],
 
@@ -17,15 +18,6 @@ module.exports = React.createClass({
     latestVotes: ReactProps.require({type: 'array', schema: {
       latestVote: {type: 'object', required: true, schema: {
         rating: {type: 'number'}
-      }},
-      show: {type: 'object', schema: {
-        name: {required: true, type: 'string'}
-      }},
-      episodes: {type: 'array', schema: {
-        name: {required: true, type: 'string'}
-      }},
-      votes: {type: 'array', schema: {
-        rating: {required: true, type: 'number', min: 1, max: 3}
       }}
     }}),
     show_ids: ReactProps.optional({type: 'array'}),
@@ -43,7 +35,7 @@ module.exports = React.createClass({
         return <VoteBox key={voteByShow.latestVote.show_id} {...voteByShow}/>;
       }
       return (
-        <div key={voteByShow.latestVote.show_id} className="loading">
+        <div key={"load" + voteByShow.latestVote.show_id} className="loading">
           Loading...
         </div>
       );

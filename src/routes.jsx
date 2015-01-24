@@ -2,28 +2,28 @@ var React = require('react');
 var {Route, DefaultRoute, NotFoundRoute} = require('react-router');
 
 module.exports = (
-  <Route name="index" path="/" handler={require('./pages/_base')}>
+  <Route name="index" path="/" handler={require('./components/_pages/_base')}>
     <DefaultRoute name="start"
-      handler={require('./pages/start')} />
+      handler={require('./components/_pages/start')} />
 
     <Route name="register" path="/register"
-      handler={require('./pages/auth-register')} />
+      handler={require('./components/_pages/auth-register')} />
     <Route name="login" path="/login"
-      handler={require('./pages/auth-login')} />
+      handler={require('./components/_pages/auth-login')} />
     <Route name="logout" path="/logout"
-      handler={require('./pages/auth-logout')} />
+      handler={require('./components/_pages/auth-logout')} />
 
     <Route name="voting" path="/vote"
-      handler={require('./pages/voting')} />
+      handler={require('./components/_pages/voting')} />
 
     <Route name="shows" path="/shows"
-      handler={require('./pages/shows')} />
+      handler={require('./components/_pages/shows')} />
     <Route name="show" path="/shows/:id"
-      handler={require('./pages/show')} />
+      handler={require('./components/_pages/show')} />
     <Route name="episode" path="/episodes/:id"
-      handler={require('./pages/episode')} />
+      handler={require('./components/_pages/episode')} />
 
     <NotFoundRoute
-      handler={require('./pages/error404')} />
+      handler={require('./components/_pages/error404')} />
   </Route>
 );
