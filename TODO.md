@@ -16,4 +16,6 @@
 
 ## Votes
 
-- [ ] Epic Vote Box
+- [x] Vote Box
+- [ ] _Epic_ Vote Box
+- [ ] Scroll episodes in vote box

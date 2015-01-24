@@ -5,7 +5,7 @@ var bus = require('../../data');
 var ShowsStore = require('../../data/shows');
 var EpisodesStore = require('../../data/episodes');
 
-var EpisodeList = require('../episode-list');
+var Template = require('../_templates/show');
 
 module.exports = React.createClass({
   displayName: 'ShowPage',
@@ -55,23 +55,20 @@ module.exports = React.createClass({
 
   render() {
     var k = this.getKeyHelper();
+    var show_id = this.getParams().id;
     var show = this.state.show || {};
-    var eps = this.state.episodes || [];
 
-    if (show.name) {
-      this.changePageTitle(show.name);
+    if (!show.name) {
+      return (
+        <article key={'loading' + show_id} {...k('loading')}>
+          Loading Show ID #{show_id}
+        </article>
+      );
     }
 
+    this.changePageTitle(show.name);
     return (
-      <article {...k('main')}>
-        <h1 {...k('headline')}>
-          { show.name ? show.name : "Show ID #" + this.getParams().id }
-        </h1>
-        <p {...k('description')}>{show.description}</p>
-        {eps.length > 0 &&
-          <EpisodeList {...k('episodes')} episodes={eps} />
-        }
-      </article>
+      <Template key={show_id} show={show} episodes={this.state.episodes} />
     );
   }
 });
