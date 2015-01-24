@@ -8,7 +8,6 @@ var EpisodesStore = require('../../data/episodes');
 var VotesStore = require('../../data/votes');
 
 var Vote = require('../vote');
-var VoteForm = require('../vote-form');
 
 module.exports = React.createClass({
   displayName: 'EpisodePage',
