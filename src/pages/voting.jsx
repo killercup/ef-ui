@@ -7,9 +7,11 @@ var ShowsStore = require('../data/shows');
 var EpisodesStore = require('../data/episodes');
 var VotesStore = require('../data/votes');
 
-var Template = require('../components/templates/voting');
-
 var VICINITY_SIZE = 3;
+var getNearbyEpisodes = require('../helpers/episodes_in_vicinity')
+  .bind(null, VICINITY_SIZE);
+
+var Template = require('../components/templates/voting');
 
 module.exports = React.createClass({
   displayName: 'VotingPage',
@@ -24,7 +26,7 @@ module.exports = React.createClass({
     var latestVotes = LatestVotesStore.find()
     .map((vote) => {
       var show = ShowsStore.findOne({id: vote.show_id});
-      var episode_ids = this.getEpisodesAroundVote(vote, show);
+      var episode_ids = getNearbyEpisodes(vote, show);
       var episodes = EpisodesStore.findIds(episode_ids);
       var votes = VotesStore.findIds(episode_ids, 'episode_id');
       return {latestVote: vote, show, episode_ids, episodes, votes};
@@ -65,19 +67,6 @@ module.exports = React.createClass({
     EPISODES_UPDATED() { this.setState(this.getInitialState()); },
     VOTES_UPDATED() { this.setState(this.getInitialState()); },
     VOTE_CREATED() { bus.dispatch({type: 'LATEST_VOTES_FETCH'}); }
-  },
-
-  getEpisodesAroundVote(vote, show) {
-    if (!vote || !show || !show.links || !show.links.episodes) { return; }
-    var epList = show.links.episodes;
-    var lastVotedEp = vote.episode_id;
-    var index = epList.indexOf(lastVotedEp);
-    if (index < 0) { console.error('vote not in ep list', vote, show); return; }
-    var epsInVicinity = epList.slice(
-      Math.max(index - VICINITY_SIZE, 0),
-      Math.min(index + VICINITY_SIZE, epList.length - 1)
-    );
-    return epsInVicinity;
   },
 
   render() {
