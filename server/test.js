@@ -6,7 +6,7 @@ var app = require('./index');
 describe("Server Rendering", function () {
   var agent = request.agent(app);
 
-  it("should basically work", function (cb) {
+  it("basically works", function (cb) {
     return agent.get('/')
     .set('Accept', 'text/html')
     .expect('Content-Type', /html/)
