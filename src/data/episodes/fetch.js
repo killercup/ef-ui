@@ -20,11 +20,9 @@ var detail = API.makeDetailRequest('episode', {
 });
 
 bus.getEvents('EPISODES_FETCH')
-.throttle(200)
 .onValue(list);
 
 bus.getEvents('EPISODE_FETCH')
-.throttle(200)
 .onValue(detail);
 
 module.exports = {

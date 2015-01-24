@@ -7,7 +7,6 @@ var list = API.makeListRequest('latest_vote', {
 });
 
 bus.getEvents('LATEST_VOTES_FETCH')
-.throttle(200)
 .onValue(list);
 
 // LatestVotes are actually votes, to trigger that update as well.
