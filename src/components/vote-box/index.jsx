@@ -33,7 +33,6 @@ module.exports = React.createClass({
           key={episode.id} className={isLatest} />
       );
     })
-    .reverse()
     .value();
 
     return (
@@ -45,9 +44,10 @@ module.exports = React.createClass({
             </Link>
           </h1>
         </header>
-        <section {...k('episodes')}>
-          {episodes}
-        </section>
+        {episodes.length ?
+          <section {...k('episodes')}>{episodes}</section> :
+          <section {...k('loading')}>Loading</section>
+        }
       </article>
     );
   }
