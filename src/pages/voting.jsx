@@ -62,7 +62,9 @@ module.exports = React.createClass({
 
       this.setState(data);
     },
-    EPISODES_UPDATED() { this.setState(this.getInitialState()); }
+    EPISODES_UPDATED() { this.setState(this.getInitialState()); },
+    VOTES_UPDATED() { this.setState(this.getInitialState()); },
+    VOTE_CREATED() { bus.dispatch({type: 'LATEST_VOTES_FETCH'}); }
   },
 
   getEpisodesAroundVote(vote, show) {

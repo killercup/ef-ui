@@ -5,6 +5,8 @@ if (process.env.BROWSER) { require('./style.less'); }
 
 var ratingToText = require('../../helpers/rating_to_text');
 
+var VoteForm = require('../vote-form');
+
 module.exports = React.createClass({
   displayName: "Vote",
 
@@ -14,17 +16,28 @@ module.exports = React.createClass({
   ],
 
   propTypes: {
-    id: ReactProps.require({type: 'number', min: 1}),
-    rating: ReactProps.require({type: 'number', min: 1, max: 3})
+    vote: ReactProps.optional({
+      rating: {required: true, type: 'number', min: 1, max: 3},
+      id: {required: true, type: 'number', min: 1}
+    }),
+    episodeId: ReactProps.require({type: 'number', min: 1}),
+    showId: ReactProps.require({type: 'number', min: 1})
   },
 
   render() {
     var k = this.getKeyHelper();
+    var p = this.props;
+
+    if (p.vote && p.vote.id) {
+      return (
+        <span {...k()}>
+          {ratingToText(p.vote.rating)}
+        </span>
+      );
+    }
 
     return (
-      <span {...k()}>
-        {ratingToText(this.props.rating)}
-      </span>
+      <VoteForm episodeId={p.episodeId} showId={p.showId} />
     );
   }
 });

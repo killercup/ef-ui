@@ -5,18 +5,16 @@
 .@{mod} {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   align-content: flex-start;
 
   .VoteBox, .loading {
-    width: 50%;
+    width: 49%;
     min-width: 400px;
     max-width: 640px;
     box-sizing: border-box;
-    margin: 0 1em 1em;
-
-    flex: 1 1;
-    item-align: flex-start;
+    margin: 0 0 1em;
+    align-self: flex-start;
   }
 }

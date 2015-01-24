@@ -5,6 +5,7 @@ if (process.env.BROWSER) { require('./style.less'); }
 
 var {Link} = require('react-router');
 var Episode = require('../episode');
+var Vote = require('../vote');
 
 module.exports = React.createClass({
   displayName: 'EpisodeLine',
@@ -30,21 +31,22 @@ module.exports = React.createClass({
 
   render() {
     var k = this.getKeyHelper();
+    var p = this.props;
 
     return (
-      <section {...k('line', {className: this.props.className})}>
+      <section {...k(false, {className: p.className})}>
         <header {...k('header')}>
           <h2 {...k('name')}>
-            <Link key="link" to="episode" params={{id: this.props.episode.id}}>
-              <Episode {...this.props.episode}/>
+            <Link key="link" to="episode" params={{id: p.episode.id}}>
+              <Episode {...p.episode}/>
             </Link>
           </h2>
           <div {...k('vote')}>
-            {this.props.vote && this.props.vote.rating}
+            <Vote vote={p.vote} episodeId={p.episode.id} showId={p.show.id} />
           </div>
         </header>
         <p {...k('description')} style={{display: 'none'}}>
-          {(this.props.episode.description || "").slice(0, 80)}
+          {(p.episode.description || "").slice(0, 80)}
         </p>
       </section>
     );
