@@ -1,4 +1,4 @@
-var React = require('react');
+var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
@@ -11,6 +11,7 @@ module.exports = React.createClass({
   displayName: 'EpisodeLine',
 
   mixins: [
+    React.addons.PureRenderMixin,
     require('../../helpers/mixins/keys')
   ],
 
