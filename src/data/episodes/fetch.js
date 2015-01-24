@@ -4,7 +4,7 @@ var bus = require('../bus');
 var API = require('../api');
 
 var list = API.makeListRequest('episode', {
-  query: {sort: '-aired', limit: 200}
+  query: {sort: '-aired', limit: 400}
 });
 
 var detail = API.makeDetailRequest('episode', {

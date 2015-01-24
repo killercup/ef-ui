@@ -73,14 +73,6 @@ module.exports = React.createClass({
     var v = this.state.vote;
 
     if (e) {
-      var vote;
-      if (v && v.rating) {
-        vote = <Vote {...k('vote', v)}/>;
-      } else {
-        vote = <VoteForm {...k('vote-form')}
-          episodeId={e.id} showId={e.show_id} />;
-      }
-
       return (
         <article {...k('main')}>
           {s &&
@@ -96,7 +88,7 @@ module.exports = React.createClass({
             &nbsp;
             <span {...k('name')}>{e.name}</span>
           </h1>
-          {vote}
+          <Vote {...k('vote')} vote={v} episodeId={e.id} showId={e.show_id} />
           <p {...k('aired')}>
             {e.aired}
           </p>
@@ -107,7 +99,7 @@ module.exports = React.createClass({
       );
     } else {
       return (
-        <article {...k('main')}>
+        <article {...k('loading')}>
           <p>Loading</p>
         </article>
       );
