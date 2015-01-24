@@ -57,9 +57,10 @@ module.exports = class Store {
     return l.where(this.store, query);
   }
 
-  findIds(ids) {
+  findIds(ids, field) {
+    field = field || 'id';
     return l.filter(this.store, function (item) {
-      return l.contains(ids, item.id);
+      return l.contains(ids, item[field]);
     });
   }
 

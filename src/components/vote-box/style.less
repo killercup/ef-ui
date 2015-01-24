@@ -1,0 +1,33 @@
+@import "../../style/config";
+
+@mod: ~"VoteBox";
+
+.@{mod} {
+  display: block;
+  background: @box-color;
+}
+
+.@{mod}-show {
+  display: block;
+  box-sizing: border-box;
+  color: @box-color;
+  background-color: @box-bg;
+  padding: @defaul-spacing;
+
+  h1 {
+    text-align: center;
+    margin: 0;
+  }
+}
+
+.@{mod}-episodes {
+}
+
+.@{mod}-episodes > section {
+  padding: (@defaul-spacing / 2) @defaul-spacing;
+  border-bottom: 1px solid #ccc;
+}
+
+.@{mod}-episodes .is-latest {
+  background: #eee;
+}

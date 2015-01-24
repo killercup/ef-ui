@@ -1,0 +1,22 @@
+@import "../../style/config";
+
+@mod: ~"VotingLayout";
+
+.@{mod} {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+
+  .VoteBox, .loading {
+    width: 50%;
+    min-width: 400px;
+    max-width: 640px;
+    box-sizing: border-box;
+    margin: 0 1em 1em;
+
+    flex: 1 1;
+    item-align: flex-start;
+  }
+}
