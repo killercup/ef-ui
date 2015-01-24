@@ -6,8 +6,17 @@ The files and folders in this directory are entry points, components and helpers
 
 - Entry points are special JS or JSX files in `src/` that are specified in the Gulpfile.
 - Each interface component lives in a directory in `src/components/`.
-- `src/pages/` contain templates for the different routes.
 - Common styles are in `src/styles/`, common functionality in `src/helpers/`.
+
+## Pages and Templates
+
+There are two special subdirectories in `src/components/`: `_pages/` and `_templates/`.
+
+Pages contain React components that are children of route handlers (as defined in `src/routes.jsx`). It is their job to load data from stores, handle updates of data and (partially) process data for their child components.
+
+The render method of most pages should is only one line: `return <Template {...this.state}/>`.
+
+Templates receive all their data from the page that includes them. They define the layout of a view and compose smaller components to which they propagate their data.
 
 ## Structure of a Component
 
