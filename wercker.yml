@@ -8,7 +8,3 @@ build:
           echo "npm version $(npm -v) running"
     - npm-install
     - npm-test
-    - script:
-        name: Compile Stats
-        code: |
-          ls -lah build/ | grep '\.js.gz$'

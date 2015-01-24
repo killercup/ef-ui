@@ -159,6 +159,10 @@ gulp.task('mocha', ['lint', 'compile'], function () {
   });
 });
 
+gulp.task('stats', ['compile'], function () {
+  return exec('ls', ['-lah', PATH.dest]);
+});
+
 /**
  * ### 'Root Level' Tasks
  */
@@ -170,6 +174,6 @@ gulp.task('compile:all', ['assets:compile', 'webpack:compile']);
 gulp.task('compile', ['compile:all', 'gzip']);
 
 gulp.task('lint', ['jsxlint']);
-gulp.task('test', ['lint', 'mocha']);
+gulp.task('test', ['lint', 'mocha', 'stats']);
 
 gulp.task('default', ['build']);
