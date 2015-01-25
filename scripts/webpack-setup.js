@@ -9,8 +9,16 @@ var outputHtml = require('./webpack-html');
 function setupWebpack (opts) {
   var env = opts.env;
 
+  var svgoConfig = JSON.stringify({
+    plugins: [
+      {removeTitle: true},
+      {convertColors: {shorthex: true}},
+      {convertPathData: true}
+    ]
+  });
+
   var config = {
-    // Input files --> Output files
+    // Input files -> Output files
     entry: opts.entries,
     output: {
       filename: "[name]-[chunkhash].js",
@@ -38,7 +46,12 @@ function setupWebpack (opts) {
         },
         { test: /\.json$/, loader: "json-loader" },
         { test: /\.(png|gif)$/, loader: "url-loader?limit=4000" },
-        { test: /\.jpg$/, loader: "file-loader" }
+        { test: /\.jpe?g$/, loader: "file-loader" },
+        {
+          test: /\.svg$/i,
+          loader: 'url-loader?limit=2000' +
+            (env.debug ? 'svgo-loader?' + svgoConfig : '')
+        }
       ]
     },
 
