@@ -91,19 +91,6 @@ gulp.task('gzip', ['compile:all'], function () {
   .pipe(gulp.dest(PATH.dest));
 });
 
-// ### Assets
-
-gulp.task('assets:build', ['clean'], function () {
-  return gulp.src(PATH.src + "/**/*.{" + PATH.assetFiletypes.join(',') + "}")
-  .pipe(gulp.dest(PATH.dest));
-});
-
-gulp.task('assets:compile', ['assets:build']);
-
-gulp.task('assets:watch', ['assets:build'], function () {
-  return gulp.watch(PATH.src + "/**/*.html", ['assets:build']);
-});
-
 // ### Webpack
 
 gulp.task('webpack:build', ['clean'], function (done) {
@@ -167,10 +154,10 @@ gulp.task('stats', ['compile'], function () {
  * ### 'Root Level' Tasks
  */
 
-gulp.task('build', ['assets:build', 'webpack:build']);
-gulp.task('watch', ['assets:watch', 'webpack:watch']);
+gulp.task('build', ['clean', 'webpack:build']);
+gulp.task('watch', ['clean', 'webpack:watch']);
 
-gulp.task('compile:all', ['assets:compile', 'webpack:compile']);
+gulp.task('compile:all', ['clean', 'webpack:compile']);
 gulp.task('compile', ['compile:all', 'gzip']);
 
 gulp.task('lint', ['jsxlint']);
