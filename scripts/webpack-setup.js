@@ -106,7 +106,7 @@ function setupWebpack (opts) {
       new webpack.optimize.OccurenceOrderPlugin(true),
       new webpack.optimize.UglifyJsPlugin({
         compress: {warnings: false},
-        comments: /@license|@preserv|@copyright/gi
+        comments: /@license|@preserv|copyright/gi
       })
     ]);
   }

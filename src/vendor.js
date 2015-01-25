@@ -10,5 +10,7 @@ module.exports = [
   "react/addons",
   "react-prop-schema",
   "react-router",
-  "kefir"
+  "kefir",
+  "superagent",
+  "then-by"
 ];
