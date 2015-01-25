@@ -14,7 +14,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: (process.env.NODE_END !== 'production') && {
+  propTypes: {
     latestVotes: ReactProps.require({type: 'array', schema: {
       latestVote: {type: 'object', required: true, schema: {
         rating: {type: 'number'}

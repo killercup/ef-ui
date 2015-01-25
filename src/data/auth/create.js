@@ -27,11 +27,11 @@ function login(data) {
     if (typeof res.body.token !== 'string') {
       throw new Error("No token in login response.");
     }
-    bus.dispatch({type: 'LOGIN_SUCCESS', data: res.body});
+    bus.dispatch({type: actions.SUCCESS, data: res.body});
   })
   .catch(function (err) {
     return bus.dispatch({
-      type: 'LOGIN_FAILURE', data: err
+      type: actions.FAILURE, data: err
     });
   });
 }

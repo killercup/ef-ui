@@ -6,6 +6,7 @@ var Auth = require('../../data/auth');
 module.exports = React.createClass({
   displayName: 'StartPage',
   pageTitle: "Start",
+
   mixins: [
     Navigation,
     require('../../helpers/mixins/events'),

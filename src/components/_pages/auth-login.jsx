@@ -45,15 +45,27 @@ module.exports = React.createClass({
 
   render() {
     var k = this.getKeyHelper();
+    var s = this.state;
+
+    var failure = s.failure && (
+      <div {...k('failure', {className: 'failure'})}>
+        <h3 {...k('failure-headline')}>
+          There was a problem.
+        </h3>
+        {s.failure.data && s.failure.data.message &&
+          <p {...k('failure-message')}>
+            {s.failure.data.message}
+          </p>
+        }
+      </div>
+    );
 
     return (
       <section {...k('main')}>
         <h1 {...k('headline')}>
           Login
         </h1>
-        {this.state.failure &&
-          <p {...k('fail')}>{this.state.failure}</p>
-        }
+        {failure}
         <form {...k('form')} onSubmit={this.triggerLogin} ref="form">
           <FormField {...fieldOpts('EMail')} namespace="login" />
           <FormField {...fieldOpts('Password')} namespace="login" />

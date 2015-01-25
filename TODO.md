@@ -4,8 +4,9 @@
 
 - [x] Login
 - [x] Logout
-- [ ] User in Nav
-- [ ] User Profile Page
+- [x] User in Nav
+- [x] User Profile Page: Edit Name, Email, Password
+- [ ] Verification Page
 
 ## Generic
 
@@ -13,6 +14,7 @@
 - [ ] 404: Events and redirects
 - [ ] Loading indicators using event streams as properties
 - [ ] Automatic `updated_after` query params
+- [ ] Paging support in requests
 
 ## Votes
 

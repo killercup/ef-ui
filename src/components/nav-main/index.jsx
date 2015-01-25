@@ -1,15 +1,23 @@
 var React = require('react');
+var {Link} = require('react-router');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
-var {Link} = require('react-router');
+var Auth = require('../../data/auth');
 
 module.exports = React.createClass({
   displayName: 'NavMain',
 
   mixins: [
-    require('../../helpers/mixins/keys')
+    require('../../helpers/mixins/keys'),
+    require('../../helpers/mixins/events')
   ],
+
+  events: {
+    LOGGED_IN() { this.forceUpdate(); },
+    LOGGED_OUT() { this.forceUpdate(); },
+    USER_UPDATED() { this.forceUpdate(); }
+  },
 
   render() {
     var k = this.getKeyHelper({
@@ -28,6 +36,12 @@ module.exports = React.createClass({
           <Link to="shows" {...k('link', {key: 'shows'})}>
             Shows
           </Link>
+          {Auth.exists() &&
+            <Link to="profile" {...k('link', {key: 'profile'})}
+              title={"Hi, " + Auth.get('name') + "!"}>
+              Profile
+            </Link>
+          }
           {(process.env.NODE_ENV !== 'production') &&
             <a {...k('link', {
               key: 'styleguide',

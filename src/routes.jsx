@@ -12,6 +12,8 @@ module.exports = (
       handler={require('./components/_pages/auth-login')} />
     <Route name="logout" path="/logout"
       handler={require('./components/_pages/auth-logout')} />
+    <Route name="profile" path="/profile"
+      handler={require('./components/_pages/profile')} />
 
     <Route name="voting" path="/vote"
       handler={require('./components/_pages/voting')} />

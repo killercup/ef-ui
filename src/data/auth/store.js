@@ -1,3 +1,5 @@
+var l = require('lodash');
+
 var bus = require('../bus');
 
 var auth = {token: null};
@@ -18,6 +20,7 @@ bus.getEvents('LOGIN_SUCCESS')
 .onValue(function (data) {
   // Update auth/current user data
   auth.token = data.token;
+  auth.id = data.id;
   auth.email = data.email;
   auth.name = data.name;
 
@@ -28,12 +31,25 @@ bus.getEvents('LOGIN_SUCCESS')
   bus.dispatch({type: 'LOGGED_IN'});
 });
 
+bus.getEvents('USER_UPDATE_SUCCESS')
+.onValue(function (data) {
+  auth.id = data.id;
+  auth.email = data.email;
+  auth.name = data.name;
+
+  try {
+    localStorage.auth = JSON.stringify(auth);
+  } catch (e) {}
+
+  bus.dispatch({type: 'USER_UPDATED'});
+});
+
 module.exports = {
   exists: function () {
     return !!auth.token;
   },
   get: function (field) {
-    return auth[field];
+    return field ? auth[field] : l.pick(auth, 'id', 'email', 'name');
   },
   destroy: function () {
     auth.token = name;

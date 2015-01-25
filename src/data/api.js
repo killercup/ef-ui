@@ -31,7 +31,11 @@ function makeApiRequest(opts) {
 
     r.end(function (err, res) {
       if (err) { reject(err); }
-      else if (res.error) { reject(res.error); }
+      else if (res.error) {
+        var resErr = res.error;
+        if (l.isObject(res.body)) { resErr.data = res.body; }
+        reject(resErr);
+      }
       else { resolve(res); }
     });
   });
