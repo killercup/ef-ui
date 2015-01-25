@@ -4,6 +4,8 @@ var ReactProps = require('react-prop-schema');
 if (process.env.BROWSER) { require('./style.less'); }
 
 var bus = require('../../data');
+
+var ratingToIcon = require('./rating_to_icon');
 var ratingToText = require('../../helpers/rating_to_text');
 
 module.exports = React.createClass({
@@ -38,7 +40,7 @@ module.exports = React.createClass({
       return (
         <button key={rating} name="rating" value={rating}
            onClick={this.triggerVote}>
-          {ratingToText(rating)}
+          {ratingToIcon(rating)}
         </button>
       );
     });

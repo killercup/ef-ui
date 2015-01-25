@@ -1,11 +1,10 @@
 var React = require('react/addons');
 var ReactProps = require('react-prop-schema');
 
-if (process.env.BROWSER) { require('./style.less'); }
+if (process.env.BROWSER) { require('../icon/stars.less'); }
 
-var ratingToText = require('../../helpers/rating_to_text');
-
-var VoteForm = require('../vote-form');
+var VoteForm = require('./form');
+var ratingToIcon = require('./rating_to_icon');
 
 module.exports = React.createClass({
   displayName: "Vote",
@@ -31,7 +30,7 @@ module.exports = React.createClass({
     if (p.vote && p.vote.id) {
       return (
         <span {...k()}>
-          {ratingToText(p.vote.rating)}
+          {ratingToIcon(p.vote.rating)}
         </span>
       );
     }
