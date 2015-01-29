@@ -2,9 +2,7 @@ var Promise = require('when/lib/Promise');
 var l = require('lodash');
 var request = require('superagent');
 
-var CONFIG = {
-  baseUrl: 'http://localhost:3001'
-};
+var CONFIG = require('config').api;
 
 var bus = require('./bus');
 var Auth = require('./auth');

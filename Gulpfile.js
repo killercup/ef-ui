@@ -39,7 +39,8 @@ var ENTRIES = {
 var ALIAS = {
   'lodash': 'lodash/dist/lodash.js',
   'Promise': 'when/lib/Promise',
-  'when/lib/Promise': 'when/lib/Promise' // used by react-router
+  'when/lib/Promise': 'when/lib/Promise', // used by react-router
+  'config': path.join(__dirname, 'config')
 };
 
 var DEFAULT_OPTS = {
@@ -51,7 +52,7 @@ var DEFAULT_OPTS = {
     compress: false,
     watch: true,
     dev_server: true,
-    dev_server_port: 3000,
+    dev_server_port: process.env.NODE_PORT || 3000,
     watch_delay: 200,
     profile: true
   },
