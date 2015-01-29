@@ -4,11 +4,11 @@ var bus = require('../bus');
 var API = require('../api');
 
 var list = API.makeListRequest('episode', {
-  query: {sort: '-aired', limit: 400}
+  query: {sort: '-aired', limit: 400}, withAuth: false
 });
 
 var detail = API.makeDetailRequest('episode', {
-  query: {embed: 'vote'},
+  query: {embed: 'vote'}, withAuth: 'optional',
   processResponse: function (res) {
     if (res && res.body && l.isObject(res.body.votes)) {
       bus.dispatch({

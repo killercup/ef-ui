@@ -20,7 +20,7 @@ function createVote(data) {
   }
 
   return API.request({
-    url: '/votes', method: 'post',
+    url: '/votes', method: 'post', withAuth: true,
     data: l.pick(data, 'episode_id', 'show_id', 'rating')
   })
   .then(function (res) {

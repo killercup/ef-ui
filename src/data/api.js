@@ -10,7 +10,7 @@ var Auth = require('./auth');
 function makeApiRequest(opts) {
   var settings = l.defaults({}, opts, {
     baseUrl: CONFIG.baseUrl,
-    withAuth: true,
+    withAuth: 'optional', // Options: true, false, 'optional'
     method: 'get'
   });
 
@@ -23,8 +23,11 @@ function makeApiRequest(opts) {
     if (settings.query) { r = r.query(settings.query); }
     if (settings.withAuth) {
       var token = Auth.get('token');
-      if (!token) { return reject(new Error("No auth token present.")); }
-      r = r.set('Authorization', 'Bearer ' + token);
+      if (token) {
+        r = r.set('Authorization', 'Bearer ' + token);
+      } else if (settings.withAuth === true) {
+        return reject(new Error("No auth token present."));
+      }
     }
 
     r.end(function (err, res) {

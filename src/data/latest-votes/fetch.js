@@ -3,7 +3,8 @@ var API = require('../api');
 
 var list = API.makeListRequest('latest_vote', {
   url: '/votes/latest',
-  fieldName: 'votes'
+  fieldName: 'votes',
+  withAuth: true
 });
 
 bus.getEvents('LATEST_VOTES_FETCH')

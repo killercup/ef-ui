@@ -31,6 +31,7 @@ function updateProfile(data) {
 
   return API.request({
     url: '/users/' + data.id, method: 'put',
+    withAuth: true,
     data: newData
   })
   .then(function (res) {

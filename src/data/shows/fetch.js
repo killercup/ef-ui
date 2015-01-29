@@ -2,11 +2,11 @@ var bus = require('../bus');
 var API = require('../api');
 
 var list = API.makeListRequest('show', {
-  query: {include: 'episodes'}
+  query: {include: 'episodes'}, withAuth: false
 });
 
 var detail = API.makeDetailRequest('show', {
-  query: {include: 'episodes'}
+  query: {include: 'episodes'}, withAuth: false
 });
 
 bus.getEvents('SHOWS_FETCH')

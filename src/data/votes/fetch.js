@@ -1,9 +1,9 @@
 var bus = require('../bus');
 var API = require('../api');
 
-var list = API.makeListRequest('vote');
+var list = API.makeListRequest('vote', {withAuth: true});
 
-var detail = API.makeDetailRequest('vote');
+var detail = API.makeDetailRequest('vote', {withAuth: true});
 
 bus.getEvents('VOTES_FETCH')
 .onValue(list);
