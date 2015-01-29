@@ -39,8 +39,7 @@ var ENTRIES = {
 var ALIAS = {
   'lodash': 'lodash/dist/lodash.js',
   'Promise': 'when/lib/Promise',
-  'when/lib/Promise': 'when/lib/Promise', // used by react-router
-  'config': path.join(__dirname, 'config')
+  'when/lib/Promise': 'when/lib/Promise' // used by react-router
 };
 
 var DEFAULT_OPTS = {
