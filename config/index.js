@@ -1,4 +1,4 @@
-var assign = require('object.assign');
+var assign = require('lodash').assign;
 
 var defaultConfig = require('./env/default.json');
 var envConfig = {};
