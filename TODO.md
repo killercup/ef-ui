@@ -21,3 +21,7 @@
 - [x] Vote Box
 - [ ] _Epic_ Vote Box
 - [ ] Scroll episodes in vote box
+
+## Build Tools
+
+- [ ] Strip `propTypes` from production build

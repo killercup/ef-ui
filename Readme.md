@@ -10,7 +10,7 @@ It uses [Webpack][webpack] to compile CommonJS modules (in JS or JSX) and the th
 
 After cloning the repository, `npm install` will install all dependencies.
 
-With `npm run watch` you can start webpack's development server (on port 3000) which also enables [Hot Module Replacement][HMR] for CSS and React classes.
+With `npm start` you can start webpack's development server (on port 3000) which also enables [Hot Module Replacement][HMR] for CSS and React classes.
 
 To create a production build, use `npm run compile`. This will minify all output files, create a separate CSS file, and optimize the JS code (e.g. remove all branches that are `false` when `NODE_ENV === 'production'`).
 
@@ -19,9 +19,11 @@ To create a production build, use `npm run compile`. This will minify all output
 
 ### Server Side Rendering
 
-It works. `npm start` is all you need.
+It works. `npm run server` is all you need. (Needs `npm run compile` to be run first to generate static assets.)
 
 ## Stores and Flux: Some Concepts and Ideas
+
+The following is just a bunch of ideas. They do not represent the current state of this implementation.
 
 ### What are stores
 
