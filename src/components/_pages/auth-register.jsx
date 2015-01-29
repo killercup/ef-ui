@@ -23,7 +23,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  triggerRegister() {
+  triggerRegister(event) {
     event.preventDefault();
 
     var form = this.refs.form.getDOMNode();
