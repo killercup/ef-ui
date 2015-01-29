@@ -1,0 +1,20 @@
+@import "../../style/config";
+
+@mod: ~"Alert";
+
+.@{mod} {
+  display: block;
+  background-color: @nav-bg;
+
+  box-sizing: border-box;
+  border: 2px solid white;
+  padding: floor(@default-spacing / 2) @default-spacing;
+}
+
+.@{mod}.is-failure {
+  border-color: red;
+}
+
+.@{mod}.is-success {
+  border-color: green;
+}

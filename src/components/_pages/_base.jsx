@@ -7,7 +7,9 @@ var BaseTemplate = React.createClass({
     return (
       <div className="page">
         <NavMain key="nav-main"/>
-        <RouteHandler key="content" appState={this.props.data} />
+        <div key="page-content" className="page-content">
+          <RouteHandler key="content" appState={this.props.data} />
+        </div>
       </div>
     );
   }

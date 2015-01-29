@@ -7,6 +7,7 @@
 - [x] User in Nav
 - [x] User Profile Page: Edit Name, Email, Password
 - [ ] Verification Page
+- [ ] Token refresh
 
 ## Generic
 

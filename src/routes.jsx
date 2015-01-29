@@ -8,6 +8,8 @@ module.exports = (
 
     <Route name="register" path="/register"
       handler={require('./components/_pages/auth-register')} />
+    <Route name="verify" path="/verify"
+      handler={require('./components/_pages/auth-verify')} />
     <Route name="login" path="/login"
       handler={require('./components/_pages/auth-login')} />
     <Route name="logout" path="/logout"

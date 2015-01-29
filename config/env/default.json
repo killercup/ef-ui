@@ -1,5 +1,9 @@
 {
   "api": {
     "baseUrl": "http://localhost:3001"
+  },
+  "client": {
+    "baseUrl": "http://localhost:3000",
+    "verifyPath": "/verify"
   }
 }

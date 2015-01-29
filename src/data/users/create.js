@@ -2,6 +2,7 @@ var l = require('lodash');
 
 var bus = require('../bus');
 var API = require('../api');
+var CONFIG = require('../../config');
 
 var actions = {
   TRIGGER: 'USER_CREATE',
@@ -19,9 +20,12 @@ function createUser(data) {
     });
   }
 
+  var postData = l.pick(data, 'email', 'name', 'password');
+  postData.verifyUrl = CONFIG.client.baseUrl + CONFIG.client.verifyPath;
+
   return API.request({
     url: '/users', method: 'post', withAuth: false,
-    data: l.pick(data, 'email', 'name', 'password')
+    data: postData
   })
   .then(function (res) {
     bus.dispatch({type: actions.SUCCESS, data: res.body});
