@@ -1,7 +1,9 @@
 var l = require('lodash');
 var React = require('react');
+var Router = require('react-router');
 
 var bus = require('../../data');
+var Auth = require('../../data/auth');
 var LatestVotesStore = require('../../data/latest-votes');
 var ShowsStore = require('../../data/shows');
 var EpStore = require('../../data/episodes');
@@ -18,6 +20,7 @@ module.exports = React.createClass({
   pageTitle: 'Vote',
 
   mixins: [
+    Router.Navigation,
     require('../../helpers/mixins/events'),
     require('../../helpers/mixins/page_title')
   ],
@@ -40,8 +43,12 @@ module.exports = React.createClass({
     return {latestVotes, show_ids, episode_ids};
   },
 
-  componentDidMount() {
-    bus.dispatch({type: 'LATEST_VOTES_FETCH'});
+  componentWillMount() {
+    if (Auth.exists()) {
+      bus.dispatch({type: 'LATEST_VOTES_FETCH'});
+    } else {
+      this.transitionTo('login');
+    }
   },
 
   events: {

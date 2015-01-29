@@ -24,24 +24,23 @@ module.exports = React.createClass({
 
   render() {
     var k = this.getKeyHelper();
+    var p = this.props;
 
-    var episodes = l(this.props.episodes)
-    .map((episode) => {
-      var vote = l.findWhere(this.props.votes, {episode_id: episode.id});
-      var isLatest = vote && (vote.id === this.props.latestVote.id) && 'is-latest';
+    var episodes = l.map(p.episodes, (episode) => {
+      var vote = l.findWhere(p.votes, {episode_id: episode.id});
+      var isLatest = vote && (vote.id === p.latestVote.id) && 'is-latest';
       return (
-        <EpisodeLine show={this.props.show} episode={episode} vote={vote}
+        <EpisodeLine show={p.show} episode={episode} vote={vote}
           key={episode.id} className={isLatest} />
       );
-    })
-    .value();
+    });
 
     return (
       <article {...k()}>
         <header {...k('show')}>
           <h1 key="h1">
-            <Link key="link" to="show" params={{id: this.props.show.id}}>
-              {this.props.show.name}
+            <Link key="link" to="show" params={{id: p.show.id}}>
+              {p.show.name}
             </Link>
           </h1>
         </header>

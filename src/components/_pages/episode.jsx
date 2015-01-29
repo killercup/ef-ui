@@ -3,6 +3,7 @@ var Router = require('react-router');
 var padDigits = require('../../helpers/pad_digits');
 
 var bus = require('../../data');
+var Auth = require('../../data/auth');
 var ShowsStore = require('../../data/shows');
 var EpisodesStore = require('../../data/episodes');
 var VotesStore = require('../../data/votes');
@@ -87,7 +88,9 @@ module.exports = React.createClass({
             &nbsp;
             <span {...k('name')}>{e.name}</span>
           </h1>
-          <Vote {...k('vote')} vote={v} episodeId={e.id} showId={e.show_id} />
+          { Auth.exists() &&
+            <Vote {...k('vote')} vote={v} episodeId={e.id} showId={e.show_id} />
+          }
           <p {...k('aired')}>
             {e.aired}
           </p>
