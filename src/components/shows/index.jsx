@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -10,13 +9,7 @@ module.exports = React.createClass({
 
   mixins: [],
 
-  propTypes: {
-    shows: ReactProps.require({
-      type: 'array', schema: {
-        id: {type: 'number', required: true}
-      }
-    }),
-  },
+  propTypes: require('./props'),
 
   render() {
     var showList = this.props.shows.map((show) => {

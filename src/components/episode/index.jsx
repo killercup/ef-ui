@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 var padDigits = require('../../helpers/pad_digits');
 
 if (process.env.BROWSER) { require('./style.less'); }
@@ -11,11 +10,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    name: ReactProps.require({type: 'string', pattern: 'lorem.sentence'}),
-    number: ReactProps.require({type: 'number', min: 0, max: 1024}),
-    season: ReactProps.require({type: 'number', min: 0, max: 1024})
-  },
+  propTypes: require('./props'),
 
   shouldComponentUpdate(nextProps) {
     return nextProps.updated_at ?

@@ -1,6 +1,5 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
-var l = require('lodash');
+var l = require('lodash/chain');
 
 if (process.env.BROWSER) { require('./voting.less'); }
 
@@ -14,15 +13,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    latestVotes: ReactProps.require({type: 'array', schema: {
-      latestVote: {type: 'object', required: true, schema: {
-        rating: {type: 'number'}
-      }}
-    }}),
-    show_ids: ReactProps.optional({type: 'array'}),
-    episodes_ids: ReactProps.optional({type: 'array'})
-  },
+  propTypes: require('./voting_props'),
 
   render() {
     var k = this.getKeyHelper();

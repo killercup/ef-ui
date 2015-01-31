@@ -14,7 +14,6 @@
  */
 
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) {
   // This file starts with an underscore so you can easily distinguish it from
@@ -30,13 +29,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    name: ReactProps.require({type: 'string', pattern: 'lorem.word'}),
-    title: ReactProps.optional({type: 'string', pattern: 'lorem.word'}),
-    size: ReactProps.optional({type: 'number', min: 1}),
-    width: ReactProps.optional({type: 'number', min: 1}),
-    height: ReactProps.optional({type: 'number', min: 1})
-  },
+  propTypes: require('./props'),
 
   render() {
     var p = this.props;

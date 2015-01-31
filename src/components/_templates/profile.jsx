@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 var Auth = require('../../data/auth');
 
@@ -23,15 +22,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    user: ReactProps.require({type: 'object', schema: {
-      id: {type: 'number', required: true, min: 1},
-      name: {type: 'string', required: true, pattern: 'lorem.words'},
-      email: {type: 'string', required: true, pattern: 'internet.email'}
-    }}),
-    failure: ReactProps.optional({type: 'object'}),
-    notice: ReactProps.optional({type: 'object'})
-  },
+  propTypes: require('./profile_props'),
 
   save() {
     event.preventDefault();

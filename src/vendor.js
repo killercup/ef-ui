@@ -8,7 +8,6 @@ module.exports = [
   "Promise",
   "lodash",
   "react/addons",
-  "react-prop-schema",
   "react-router",
   "kefir",
   "superagent",

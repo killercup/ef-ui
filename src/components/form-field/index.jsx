@@ -1,18 +1,11 @@
 var React = require('react');
-var Props = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
 module.exports = React.createClass({
   displayName: 'FormField',
 
-  propTypes: {
-    name: Props.require({type: 'string', pattern: 'lorem.word'}),
-    label: Props.require({type: 'string', pattern: 'lorem.word'}),
-    placeholder: Props.optional({type: 'string', pattern: 'lorem.sentence'}),
-    namespace: Props.require({type: 'string', pattern: 'lorem.word'}),
-    type: Props.require({type: 'string', pattern: 'internet.domainWord'})
-  },
+  propTypes: require('./props'),
 
   render() {
     var p = this.props;

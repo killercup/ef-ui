@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('../icon/stars.less'); }
 
@@ -14,14 +13,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    vote: ReactProps.optional({
-      rating: {required: true, type: 'number', min: 1, max: 3},
-      id: {required: true, type: 'number', min: 1}
-    }),
-    episodeId: ReactProps.require({type: 'number', min: 1}),
-    showId: ReactProps.require({type: 'number', min: 1})
-  },
+  propTypes: require('./props'),
 
   render() {
     var k = this.getKeyHelper();

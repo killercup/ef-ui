@@ -1,5 +1,4 @@
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -15,10 +14,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    episodeId: ReactProps.require({type: 'number', min: 1}),
-    showId: ReactProps.require({type: 'number', min: 1})
-  },
+  propTypes: require('./form_props'),
 
   triggerVote(event) {
     event.preventDefault();

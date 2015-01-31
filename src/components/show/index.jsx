@@ -1,6 +1,5 @@
 var React = require('react/addons');
 var {Link} = require('react-router');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -11,12 +10,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    name: ReactProps.require({type: 'string', pattern: 'company.companyName'}),
-    wallpaper: ReactProps.require({type: 'string'}),
-    updated_at: ReactProps.require({type: 'string'}),
-    is_running: ReactProps.require({type: 'boolean'})
-  },
+  propTypes: require('./props'),
 
   shouldComponentUpdate(nextProps) {
     return this.props.updated_at !== nextProps.updated_at;

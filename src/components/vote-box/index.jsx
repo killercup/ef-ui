@@ -1,6 +1,5 @@
 var l = require('lodash');
 var React = require('react/addons');
-var ReactProps = require('react-prop-schema');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -15,12 +14,7 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
-  propTypes: {
-    latestVote: ReactProps.require({type: 'object'}),
-    show: ReactProps.require({type: 'object'}),
-    episodes: ReactProps.require({type: 'array'}),
-    votes: ReactProps.require({type: 'array'})
-  },
+  propTypes: require('./props'),
 
   render() {
     var k = this.getKeyHelper();
