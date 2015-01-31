@@ -35,7 +35,7 @@ module.exports = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentWillMount() {
     bus.dispatch({
       type: 'EPISODE_FETCH', data: {id: this.state.episodeId}
     });

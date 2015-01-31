@@ -21,7 +21,7 @@ module.exports = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentWillMount() {
     bus.dispatch({type: 'SHOWS_FETCH'});
   },
 

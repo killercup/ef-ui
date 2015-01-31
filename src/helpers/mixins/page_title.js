@@ -9,7 +9,7 @@ module.exports = {
     }
   },
 
-  componentDidMount: function () {
+  componentWillMount: function () {
     this.setPageTitle();
   },
 

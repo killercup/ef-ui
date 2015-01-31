@@ -29,7 +29,7 @@ module.exports = React.createClass({
     };
   },
 
-  componentDidMount() {
+  componentWillMount() {
     bus.dispatch({
       type: 'SHOW_FETCH', data: {id: this.state.showId}
     });

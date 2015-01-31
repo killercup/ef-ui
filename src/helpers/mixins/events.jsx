@@ -5,7 +5,7 @@ module.exports = {
     return {};
   },
 
-  componentDidMount() {
+  componentWillMount() {
     this._fancyEvents = this._fancyEvents || {};
 
     Object.keys(this.events || {}).forEach((event) => {
