@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-  var ReactProps = require('react-prop-schema');
+  var Props = require('react-prop-schema');
 
   module.exports = {
     name: Props.require({type: 'string', pattern: 'lorem.word'}),

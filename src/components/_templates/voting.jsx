@@ -1,5 +1,5 @@
 var React = require('react/addons');
-var l = require('lodash/chain');
+var l = require('lodash');
 
 if (process.env.BROWSER) { require('./voting.less'); }
 
