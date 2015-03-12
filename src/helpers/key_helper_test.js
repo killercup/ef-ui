@@ -15,7 +15,7 @@ describe("Helper: Default Key and Class", function () {
   });
 
   it("requires a module name", function () {
-    expect(dk).to["throw"]();
+    expect(dk).to.throw();
   });
 
   it("returns class name only when no item name is given", function () {

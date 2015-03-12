@@ -136,6 +136,16 @@ gulp.task('jsxlint', function () {
   });
 });
 
+gulp.task('eslint', function () {
+  return globby(['*.js', 'src/**/*.js'])
+  .then(function (paths) {
+    if (paths.length) {
+      return exec('eslint', paths);
+    }
+    console.log("No files to lint.");
+  });
+});
+
 gulp.task('mocha', ['lint', 'compile'], function () {
   return globby(['src/test.js', 'src/**/*test.{js,jsx}', 'server/*test.js'])
   .then(function (paths) {
@@ -160,7 +170,7 @@ gulp.task('watch', ['clean', 'webpack:watch']);
 gulp.task('compile:all', ['clean', 'webpack:compile']);
 gulp.task('compile', ['compile:all', 'gzip']);
 
-gulp.task('lint', ['jsxlint']);
+gulp.task('lint', ['jsxlint', 'eslint']);
 gulp.task('test', ['lint', 'mocha', 'stats']);
 
 gulp.task('default', ['build']);

@@ -20,7 +20,7 @@
     "chai": "^1.10.0",
     "css-loader": "^0.9.1",
     "del": "^1.0.0",
-    "eslint": "^0.13.0",
+    "eslint": "^0.14.0",
     "eslint-plugin-mocha": "^0.2.2",
     "eslint-plugin-nodeca": "^1.0.3",
     "extract-text-webpack-plugin": "^0.3.8",

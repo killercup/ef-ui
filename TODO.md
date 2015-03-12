@@ -16,6 +16,7 @@
 - [ ] Loading indicators using event streams as properties
 - [ ] Automatic `updated_after` query params
 - [ ] Paging support in requests
+- [ ] `new webpack.NoErrorsPlugin()`
 
 ## Votes
 

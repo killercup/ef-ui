@@ -25,7 +25,7 @@ function verifyUser(data) {
     if (res.body.users && res.body.users.verified === true) {
       return bus.dispatch({type: actions.SUCCESS, data: res.body.users});
     }
-    var err =  new Error("User not verified");
+    var err = new Error("User not verified");
     err.data = res.body;
     throw err;
   })

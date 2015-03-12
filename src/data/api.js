@@ -96,9 +96,9 @@ function makeDetailRequest(name, _opts) {
   return function detail(data) {
     data = data || {};
     if (!data.id) {
-      var err = new Error("Can't load " + name + " without ID");
-      bus.dispatch({type: actions.FAILURE, data: err});
-      return Promise.reject(err);
+      var noIdErr = new Error("Can't load " + name + " without ID");
+      bus.dispatch({type: actions.FAILURE, data: noIdErr});
+      return Promise.reject(noIdErr);
     }
 
     return makeApiRequest({url: '/' + pluralName + '/' + data.id})

@@ -6,6 +6,6 @@ if (process.env.NODE_ENV !== 'production') {
       type: 'array', schema: {
         id: {type: 'number', required: true}
       }
-    }),
+    })
   };
 }
