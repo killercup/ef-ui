@@ -22,7 +22,7 @@ module.exports = React.createClass({
     bus.dispatch({
       type: 'VOTE_CREATE',
       data: {
-        rating: +event.target.value.trim(),
+        rating: +event.currentTarget.value.trim(),
         episode_id: this.props.episodeId,
         show_id: this.props.showId
       }
