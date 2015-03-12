@@ -37,7 +37,6 @@ var ENTRIES = {
 };
 
 var ALIAS = {
-  'lodash': 'lodash/dist/lodash.js',
   'Promise': 'when/lib/Promise',
   'when/lib/Promise': 'when/lib/Promise' // used by react-router
 };
