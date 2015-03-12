@@ -1,4 +1,5 @@
 var React = require('react/addons');
+var l = require('lodash');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
@@ -12,7 +13,8 @@ module.exports = React.createClass({
   propTypes: require('./props'),
 
   render() {
-    var showList = this.props.shows.map((show) => {
+    var shows = l.sortBy(this.props.shows, 'name');
+    var showList = shows.map((show) => {
       return (
         <Show key={show.id} {...show} />
       );

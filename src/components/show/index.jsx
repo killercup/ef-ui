@@ -22,14 +22,13 @@ module.exports = React.createClass({
 
     return (
       <article className="Show">
-        <div {...k('bg')} style={{
+        <Link {...k('bg')} to="show" params={{id: d.id}} style={{
           backgroundImage: 'url(http://thetvdb.com/banners/' + d.wallpaper + ')'
-        }}/>
-        <h1 {...k('name')}>
-          <Link to="show" params={{id: d.id}}>
+        }}>
+          <h1 {...k('name')}>
             {d.name}
-          </Link>
-        </h1>
+          </h1>
+        </Link>
       </article>
     );
   }
