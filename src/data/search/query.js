@@ -53,8 +53,8 @@ function searchQuery(data) {
   .query({match: data.query, limit: data.limit})
   .end(function (err, res) {
     if (err || res.error) {
-      var resErr = res.error;
-      if (l.isObject(res.body)) { resErr.data = res.body; }
+      var resErr = err || res.error;
+      if (res && l.isObject(res.body)) { resErr.data = res.body; }
       return bus.dispatch({
         type: actions.FAILURE, data: resErr
       });

@@ -2,6 +2,7 @@ var React = require('react');
 
 var SearchBox = require('../search-box');
 var SearchResults = require('../search-results');
+var Alert = require('../alert');
 
 module.exports = React.createClass({
   displayName: 'SearchPage',
@@ -14,19 +15,23 @@ module.exports = React.createClass({
   ],
 
   events: {
-    SEARCH_FAILURE(data) { this.setState({failure: data}); },
+    SEARCH_FAILURE(err) { this.setState({failure: err.data}); },
     SEARCH_RESULTS(data) {
-      this.setState({results: data});
+      this.setState({failure: null, results: data});
     }
   },
 
   render() {
     var k = this.getKeyHelper();
+    var s = this.state;
 
     return (
       <article {...k('main')}>
         <SearchBox {...k('input')} />
-        <SearchResults {...k('list')} results={this.state.results || []}/>
+        {s.failure &&
+          <Alert {...k('failure')} type="failure" message={s.failure.message} />
+        }
+        <SearchResults {...k('list')} results={s.results || []}/>
       </article>
     );
   }
