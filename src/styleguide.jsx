@@ -31,7 +31,9 @@ Router.Link = React.createClass({
 
 var components = [
   require('./components/nav-main/demo'),
-  require('./components/episode/demo')
+  require('./components/episode/demo'),
+  require('./components/alert/demo'),
+  require('./components/show/demo')
 ];
 
 var Styleguide = React.createClass({
@@ -62,7 +64,7 @@ var Styleguide = React.createClass({
     });
 
     return (
-      <div key={0}>
+      <div>
         <h1 {...k('header')}>
           Styleguide
         </h1>
