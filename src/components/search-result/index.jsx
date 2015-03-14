@@ -2,6 +2,9 @@ var React = require('react');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
+var Show = require('../show');
+var Episode = require('../episode');
+
 module.exports = React.createClass({
   displayName: 'SearchResult',
 
@@ -10,12 +13,14 @@ module.exports = React.createClass({
   ],
 
   render() {
-    var k = this.getKeyHelper();
+    var result;
 
-    return (
-      <article {...k()}>
-        {this.props.show.name}
-      </article>
-    );
+    if (this.props.show) {
+      result = <Show {...this.props.show} />;
+    } else if (this.props.episode) {
+      result = <Episode {...this.props.show} />;
+    }
+
+    return result;
   }
 });

@@ -33,9 +33,14 @@ module.exports = React.createClass({
     var k = this.getKeyHelper();
 
     return (
-      <section {...k()}>
-        <input {...k('input')} type="text" autofill="false" ref="queryInput" />
-      </section>
+      <form {...k()} action="GET">
+        <label {...k('row')}>
+          <span {...k('label')}>
+            Search
+          </span>
+          <input {...k('input')} type="text" ref="queryInput" />
+        </label>
+      </form>
     );
   }
 });

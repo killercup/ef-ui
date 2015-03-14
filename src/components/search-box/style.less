@@ -2,10 +2,33 @@
 
 @mod: ~"SearchBox";
 
-.@{mod} { }
+.@{mod} {
+  margin-bottom: @default-spacing;
+  background: @nav-bg;
+}
+
+.@{mod}-row {
+  display: flex;
+
+  .@{mod}-label, .@{mod}-input {
+    align-self: center;
+  }
+
+  .@{mod}-input {
+    flex: 1;
+  }
+}
+
+.@{mod}-label, .@{mod}-input {
+  box-sizing: border-box;
+  padding: @default-spacing;
+  line-height: 1em;
+}
+
+.@{mod}-label {
+  padding-right: 2 * @default-spacing;
+}
 
 .@{mod}-input {
-  box-sizing: border-box;
-  padding: 0.3em;
-  width: 100%;
+  font-size: @default-font-size;
 }

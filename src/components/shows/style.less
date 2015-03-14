@@ -1,13 +1,10 @@
 @import "../../style/config";
+@import "../../style/mixins";
 
 @mod: ~"Shows";
 
 .@{mod} {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  align-content: flex-start;
+  .flex-container();
 
   .Show {
     flex-grow: 1;

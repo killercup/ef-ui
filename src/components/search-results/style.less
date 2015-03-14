@@ -1,5 +1,12 @@
 @import "../../style/config";
+@import "../../style/mixins";
 
 @mod: ~"SearchResults";
 
-.@{mod} { }
+.@{mod} {
+  .flex-container();
+
+  .Show, .Episode {
+    flex-grow: 1;
+  }
+}
