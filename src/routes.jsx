@@ -1,3 +1,6 @@
+// ESLint 0.16.2 seems to have problems with this file
+/* eslint-disable */
+
 var React = require('react');
 var {Route, DefaultRoute, NotFoundRoute} = require('react-router');
 
