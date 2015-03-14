@@ -36,6 +36,9 @@ module.exports = React.createClass({
           <Link to="shows" {...k('link', {key: 'shows'})}>
             Shows
           </Link>
+          <Link to="search" {...k('link', {key: 'search'})}>
+            Search
+          </Link>
           {Auth.exists() &&
             <Link to="profile" {...k('link', {key: 'profile'})}
               title={"Hi, " + Auth.get('name') + "!"}>

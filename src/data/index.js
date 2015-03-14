@@ -8,3 +8,4 @@ require('./shows');
 require('./episodes');
 require('./votes');
 require('./latest-votes');
+require('./search');

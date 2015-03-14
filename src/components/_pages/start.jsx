@@ -35,24 +35,24 @@ module.exports = React.createClass({
           </p>
         </section>
       );
-    } else {
-      return (
-        <section {...k('main')}>
-          <p {...k('hello')}>
-            Hello. You are <strong>not</strong> logged in.
-          </p>
-          <p key="login">
-            <Link key="0" to="login">
-              Login
-            </Link>
-          </p>
-          <p key="register">
-            <Link key="0" to="register">
-              Register
-            </Link>
-          </p>
-        </section>
-      );
     }
+
+    return (
+      <section {...k('main')}>
+        <p {...k('hello')}>
+          Hello. You are <strong>not</strong> logged in.
+        </p>
+        <p key="login">
+          <Link key="0" to="login">
+            Login
+          </Link>
+        </p>
+        <p key="register">
+          <Link key="0" to="register">
+            Register
+          </Link>
+        </p>
+      </section>
+    );
   }
 });

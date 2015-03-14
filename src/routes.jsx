@@ -27,6 +27,9 @@ module.exports = (
     <Route name="episode" path="/episodes/:id"
       handler={require('./components/_pages/episode')} />
 
+    <Route name="search" path="/search"
+      handler={require('./components/_pages/search')} />
+
     <NotFoundRoute
       handler={require('./components/_pages/error404')} />
   </Route>
