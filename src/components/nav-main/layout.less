@@ -1,0 +1,43 @@
+/**
+ * ## Navigation Bar Layout
+ *
+ * Flexbox ([guide]) is used to layout the items.
+ *
+ * This enables some very nice possibilites, but also has some limitations.
+ * One of the latter ones is that there seems to be no way to easily align one
+ * item to the right, like `float: right` would allow, without additional
+ * markup.
+ *
+ * My current workaround is based on the addition of an empty placeholder div,
+ * which is the last child of the nav element and has `flex-grow: 1` (it will
+ * fill 100 percent of the space left over by the items with no `flex-grow`
+ * value). Then, the items which are to be shown on the right are moved using
+ * `order: 100` (which basically reorders the flexbox element).
+ *
+ * Imagine there are three items, and the second one has the `is-right` class
+ * which applies `order: 100`. Then, the navigation bar will look like this:
+ *
+ * ```
+ * |--item-1--| |--item-3--| |------------placeholder------------| |--item-2--|
+ * ```
+ *
+ * [guide]: http://css-tricks.com/snippets/css/a-guide-to-flexbox/
+ */
+
+.@{mod}-nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+
+  .is-right {
+    // If there are more than 100 items in the nav bar, this will break. I'm sure
+    // then you'll have worse problem than this, though.
+    order: 100;
+  }
+}
+
+.@{mod}-placeholder {
+  flex-grow: 1;
+}

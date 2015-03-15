@@ -35,7 +35,6 @@ module.exports = React.createClass({
 
   triggerInitialQuery(query) {
     if (!query || !query.length) { return; }
-    console.log('triggering search for', query);
 
     dispatch({ type: 'SEARCH_QUERY', data: {query} });
   },
@@ -46,7 +45,10 @@ module.exports = React.createClass({
 
     return (
       <article {...k('main')}>
-        <SearchBox {...k('input')} query={this.getQuery().query} />
+        <h1 {...k('headline')}>
+          {"Search results for "}
+          <q {...k('query')}>{this.getQuery().query}</q>
+        </h1>
         {s.failure && // FIXME: add support for loading state
           <Alert {...k('failure')} type="failure" message={s.failure.message} />
         }

@@ -1,14 +1,16 @@
 var React = require('react');
-var {Link} = require('react-router');
+var {State, Link} = require('react-router');
 
 if (process.env.BROWSER) { require('./style.less'); }
 
 var Auth = require('../../data/auth');
+var SearchBox = require('../search-box');
 
 module.exports = React.createClass({
   displayName: 'NavMain',
 
   mixins: [
+    State,
     require('../../helpers/mixins/keys'),
     require('../../helpers/mixins/events')
   ],
@@ -36,15 +38,14 @@ module.exports = React.createClass({
           <Link to="shows" {...k('link', {key: 'shows'})}>
             Shows
           </Link>
-          <Link to="search" {...k('link', {key: 'search'})}>
-            Search
-          </Link>
           {Auth.exists() &&
             <Link to="profile" {...k('link', {key: 'profile'})}
               title={"Hi, " + Auth.get('name') + "!"}>
               Profile
             </Link>
           }
+          <SearchBox {...k('search', {className: 'is-right'})}
+            query={this.getQuery().query} />
           {(process.env.NODE_ENV !== 'production') &&
             <a {...k('link', {
               key: 'styleguide',
