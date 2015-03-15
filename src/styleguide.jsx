@@ -1,6 +1,7 @@
 /* eslint react/no-multi-comp:0 */
 
 var React = require('react');
+var Router = require('react-router');
 var chCase = require('change-case');
 var Router = require('react-router');
 
@@ -35,7 +36,8 @@ var components = [
   require('./components/nav-main/demo'),
   require('./components/episode/demo'),
   require('./components/alert/demo'),
-  require('./components/show/demo')
+  require('./components/show/demo'),
+  require('./components/search-box/demo')
 ];
 
 var Styleguide = React.createClass({
@@ -78,13 +80,14 @@ var Styleguide = React.createClass({
   }
 });
 
-function renderToDOM() {
-  return React.render(
-    <Styleguide/>,
-    document.getElementById('container')
-  );
+var {Route} = Router;
+var routes = (
+  <Route name="index" path="/" handler={Styleguide}/>
+);
+
+if (process.env.BROWSER) {
+  // kick of the rendering!
+  Router.run(routes, function (Handler) {
+    React.render(<Handler/>, document.getElementById('container'));
+  });
 }
-
-window.renderToDOM = renderToDOM;
-
-renderToDOM();

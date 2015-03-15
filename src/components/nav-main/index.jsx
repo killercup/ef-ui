@@ -26,6 +26,12 @@ module.exports = React.createClass({
       activeClassName: 'is-active'
     });
 
+    // Catch "undefined context" error (e.g. when using this in styleguide where
+    // no component context based on react-router is set.)
+    var getQuery = () => {
+      try { return this.getQuery().query; } catch (e) {}
+    };
+
     return (
       <header className={this.props.cssName}>
         <nav {...k('nav')}>
@@ -45,7 +51,7 @@ module.exports = React.createClass({
             </Link>
           }
           <SearchBox {...k('search', {className: 'is-right'})}
-            query={this.getQuery().query} />
+            query={getQuery()} />
           {(process.env.NODE_ENV !== 'production') &&
             <a {...k('link', {
               key: 'styleguide',

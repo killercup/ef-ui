@@ -16,6 +16,8 @@ module.exports = React.createClass({
     require('../../helpers/mixins/keys')
   ],
 
+  propTypes: require('./props'),
+
   componentDidMount() {
     var inputField = this.refs.queryInput.getDOMNode();
 
@@ -48,13 +50,13 @@ module.exports = React.createClass({
     var k = this.getKeyHelper();
 
     return (
-      <form {...k(null, {className: this.props.className})}
+      <form {...k('', {className: this.props.className})}
         action="GET" onSubmit={preventDefault}>
         <label {...k('row')}>
           <span {...k('label')}>
             Search
           </span>
-          <input {...k('input')} type="text" placeholder="Search..."
+          <input {...k('input')} type="search" placeholder="Search..."
             defaultValue={this.props.query || ""} ref="queryInput" />
         </label>
       </form>
