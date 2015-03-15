@@ -1,4 +1,4 @@
-/* eslint react/no-multi-comp:0 */
+/* eslint-disable */
 
 var React = require('react');
 var Router = require('react-router');

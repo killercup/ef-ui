@@ -125,25 +125,18 @@ gulp.task('webpack:watch', function (callback) {
 
 // ### Tests
 
-gulp.task('jsxlint', function () {
+function callLinter(linterCmd) {
   return globby(['*.{js,jsx}', 'src/**/*.{js,jsx}'])
   .then(function (paths) {
     if (paths.length) {
-      return exec('jsxhint', paths);
+      return exec(linterCmd, paths);
     }
     console.log("No files to lint.");
   });
-});
+}
 
-gulp.task('eslint', function () {
-  return globby(['*.js', 'src/**/*.{js,jsx}'])
-  .then(function (paths) {
-    if (paths.length) {
-      return exec('eslint', paths);
-    }
-    console.log("No files to lint.");
-  });
-});
+gulp.task('jsxhint', callLinter.bind(null, 'jsxhint'));
+gulp.task('eslint', callLinter.bind(null, 'eslint'));
 
 gulp.task('mocha', ['lint', 'compile'], function () {
   return globby(['src/test.js', 'src/**/*test.{js,jsx}', 'server/*test.js'])
@@ -169,7 +162,7 @@ gulp.task('watch', ['clean', 'webpack:watch']);
 gulp.task('compile:all', ['clean', 'webpack:compile']);
 gulp.task('compile', ['compile:all', 'gzip']);
 
-gulp.task('lint', ['jsxlint', 'eslint']);
+gulp.task('lint', ['jsxhint', 'eslint']);
 gulp.task('test', ['lint', 'mocha', 'stats']);
 
 gulp.task('default', ['build']);

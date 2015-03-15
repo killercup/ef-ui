@@ -3,7 +3,6 @@ var {State} = require('react-router');
 
 var {dispatch} = require('../../data');
 
-var SearchBox = require('../search-box');
 var SearchResults = require('../search-results');
 var Alert = require('../alert');
 
