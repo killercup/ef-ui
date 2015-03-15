@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var React = require('react');
 var Component = require('./index');
 

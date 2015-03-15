@@ -99,12 +99,12 @@ module.exports = React.createClass({
           </p>
         </article>
       );
-    } else {
-      return (
-        <article {...k('loading')}>
-          <p>Loading</p>
-        </article>
-      );
     }
+
+    return (
+      <article {...k('loading')}>
+        <p>Loading</p>
+      </article>
+    );
   }
 });

@@ -19,7 +19,7 @@ module.exports = function (propFields, stateFields, updatedAtField) {
       var curP = this.props;
       var curS = this.state;
 
-      var i, len;
+      var i; var len;
       for (i = 0, len = pFields.length; i < len; i++) {
         if (curP[pFields[i]][freshness] !== nextP[pFields[i]][freshness]) {
           return true;

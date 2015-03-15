@@ -9,7 +9,7 @@ function fieldOpts(name) {
     key: name.toLowerCase(),
     type: name.toLowerCase(),
     name: name.toLowerCase(),
-    label: name,
+    label: name
   };
 }
 
@@ -58,20 +58,20 @@ module.exports = React.createClass({
           </p>
         </section>
       );
-    } else {
-      return (
-        <section {...k('main')}>
-          <h1 {...k('headline')}>Register</h1>
-          <form {...k('form')} onSubmit={this.triggerRegister} ref="form">
-            <FormField {...fieldOpts('Name')} namespace="register" />
-            <FormField {...fieldOpts('EMail')} namespace="register" />
-            <FormField {...fieldOpts('Password')} namespace="register" />
-            <p key="submit">
-              <button type="submit">Submit</button>
-            </p>
-          </form>
-        </section>
-      );
     }
+
+    return (
+      <section {...k('main')}>
+        <h1 {...k('headline')}>Register</h1>
+        <form {...k('form')} onSubmit={this.triggerRegister} ref="form">
+          <FormField {...fieldOpts('Name')} namespace="register" />
+          <FormField {...fieldOpts('EMail')} namespace="register" />
+          <FormField {...fieldOpts('Password')} namespace="register" />
+          <p key="submit">
+            <button type="submit">Submit</button>
+          </p>
+        </form>
+      </section>
+    );
   }
 });

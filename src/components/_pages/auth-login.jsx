@@ -10,7 +10,7 @@ function fieldOpts(name) {
     key: name.toLowerCase(),
     type: name.toLowerCase(),
     name: name.toLowerCase(),
-    label: name,
+    label: name
   };
 }
 

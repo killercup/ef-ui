@@ -1,3 +1,5 @@
+/* eslint block-scoped-var:0 */
+
 var l = require('lodash');
 var Kefir = require('kefir');
 var bus = require('./bus');

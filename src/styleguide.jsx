@@ -1,3 +1,5 @@
+/* eslint react/no-multi-comp:0 */
+
 var React = require('react');
 var chCase = require('change-case');
 var Router = require('react-router');
@@ -37,6 +39,8 @@ var components = [
 ];
 
 var Styleguide = React.createClass({
+  displayName: "Styleguide",
+
   getDefaultProps() {
     return {cssName: this.displayName};
   },

@@ -8,13 +8,16 @@
     "objectLiteralShorthandMethods": true,
     "objectLiteralShorthandProperties": true,
     "arrowFunctions": true,
+    "blockBindings": true,
     "classes": true,
     "destructuring": true,
     "jsx": true
   },
   "plugins": [
     "mocha",
-    "nodeca"
+    "nodeca",
+    "react",
+    "one-variable-per-var"
   ],
   "globals": {
     "Promise": true
@@ -62,6 +65,19 @@
     "no-floating-decimal": 1,
     "no-multi-str": 0,
 
-    "mocha/no-exclusive-tests": 2
+    "mocha/no-exclusive-tests": 2,
+
+    "react/no-multi-comp": 1,
+    "react/prop-types": 0,
+    "react/display-name": 2,
+    "react/wrap-multilines": 2,
+    "react/self-closing-comp": 2,
+    "react/no-did-mount-set-state": 2,
+    "react/no-did-update-set-state": 2,
+    "react/jsx-uses-react": 2,
+    "react/jsx-uses-vars": 2,
+    "react/react-in-jsx-scope": 2,
+
+    "one-variable-per-var/one-variable-per-var": 1
   }
 }

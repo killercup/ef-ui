@@ -3,7 +3,7 @@ var React = require('react');
 if (process.env.BROWSER) { require('./style.less'); }
 
 module.exports = React.createClass({
-  display: "LatestVotes",
+  displayName: "LatestVotes",
 
   mixins: [
     require('../../helpers/mixins/keys')

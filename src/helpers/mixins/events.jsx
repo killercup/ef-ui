@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle:0 */
+
 var {getEvents} = require('../../data');
 
 module.exports = {

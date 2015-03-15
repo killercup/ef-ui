@@ -136,7 +136,7 @@ gulp.task('jsxlint', function () {
 });
 
 gulp.task('eslint', function () {
-  return globby(['*.js', 'src/**/*.js'])
+  return globby(['*.js', 'src/**/*.{js,jsx}'])
   .then(function (paths) {
     if (paths.length) {
       return exec('eslint', paths);
