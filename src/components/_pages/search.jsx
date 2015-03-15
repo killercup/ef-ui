@@ -1,4 +1,7 @@
 var React = require('react');
+var {State} = require('react-router');
+
+var {dispatch} = require('../../data');
 
 var SearchBox = require('../search-box');
 var SearchResults = require('../search-results');
@@ -9,6 +12,7 @@ module.exports = React.createClass({
   pageTitle: "Search",
 
   mixins: [
+    State,
     require('../../helpers/mixins/page_title'),
     require('../../helpers/mixins/events'),
     require('../../helpers/mixins/keys')
@@ -21,14 +25,29 @@ module.exports = React.createClass({
     }
   },
 
+  componentWillMount() {
+    this.triggerInitialQuery(this.getQuery().query);
+  },
+
+  componentWillReceiveProps() {
+    this.triggerInitialQuery(this.getQuery().query);
+  },
+
+  triggerInitialQuery(query) {
+    if (!query || !query.length) { return; }
+    console.log('triggering search for', query);
+
+    dispatch({ type: 'SEARCH_QUERY', data: {query} });
+  },
+
   render() {
     var k = this.getKeyHelper();
     var s = this.state;
 
     return (
       <article {...k('main')}>
-        <SearchBox {...k('input')} />
-        {s.failure &&
+        <SearchBox {...k('input')} query={this.getQuery().query} />
+        {s.failure && // FIXME: add support for loading state
           <Alert {...k('failure')} type="failure" message={s.failure.message} />
         }
         <SearchResults {...k('list')} results={s.results || []}/>

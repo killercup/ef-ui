@@ -19,6 +19,11 @@ module.exports = React.createClass({
 
     return (
       <section {...k()}>
+        {(this.props.results.length === 0) &&
+          <p {...k("no-results")}>
+            No results
+          </p>
+        }
         {results}
       </section>
     );
