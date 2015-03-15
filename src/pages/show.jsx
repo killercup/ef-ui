@@ -1,11 +1,11 @@
 var React = require('react');
 var {State} = require('react-router');
 
-var bus = require('../../data');
-var ShowsStore = require('../../data/shows');
-var EpisodesStore = require('../../data/episodes');
+var bus = require('../data');
+var ShowsStore = require('../data/shows');
+var EpisodesStore = require('../data/episodes');
 
-var Template = require('../_templates/show');
+var Template = require('../components/_templates/show');
 
 module.exports = React.createClass({
   displayName: 'ShowPage',
@@ -13,9 +13,9 @@ module.exports = React.createClass({
 
   mixins: [
     State,
-    require('../../helpers/mixins/page_title'),
-    require('../../helpers/mixins/keys'),
-    require('../../helpers/mixins/events')
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys'),
+    require('../helpers/mixins/events')
   ],
 
   getInitialState() {

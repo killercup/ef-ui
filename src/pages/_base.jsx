@@ -1,6 +1,6 @@
 var React = require('react');
 var {RouteHandler} = require('react-router');
-var NavMain = require('../nav-main');
+var NavMain = require('../components/nav-main');
 
 var BaseTemplate = React.createClass({
   displayName: 'PageBaseTemplate',

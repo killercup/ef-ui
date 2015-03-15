@@ -1,10 +1,10 @@
 var React = require('react');
 var {State} = require('react-router');
 
-var {dispatch} = require('../../data');
+var {dispatch} = require('../data');
 
-var SearchResults = require('../search-results');
-var Alert = require('../alert');
+var SearchResults = require('../components/search-results');
+var Alert = require('../components/alert');
 
 module.exports = React.createClass({
   displayName: 'SearchPage',
@@ -12,9 +12,9 @@ module.exports = React.createClass({
 
   mixins: [
     State,
-    require('../../helpers/mixins/page_title'),
-    require('../../helpers/mixins/events'),
-    require('../../helpers/mixins/keys')
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/keys')
   ],
 
   events: {

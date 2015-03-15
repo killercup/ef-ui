@@ -2,18 +2,18 @@ var l = require('lodash');
 var React = require('react');
 var Router = require('react-router');
 
-var bus = require('../../data');
-var Auth = require('../../data/auth');
-var LatestVotesStore = require('../../data/latest-votes');
-var ShowsStore = require('../../data/shows');
-var EpStore = require('../../data/episodes');
-var VotesStore = require('../../data/votes');
+var bus = require('../data');
+var Auth = require('../data/auth');
+var LatestVotesStore = require('../data/latest-votes');
+var ShowsStore = require('../data/shows');
+var EpStore = require('../data/episodes');
+var VotesStore = require('../data/votes');
 
 var VICINITY_SIZE = 3;
-var getNearbyEpisodes = require('../../helpers/episodes_in_vicinity')
+var getNearbyEpisodes = require('../helpers/episodes_in_vicinity')
   .bind(null, VICINITY_SIZE);
 
-var Template = require('../_templates/voting');
+var Template = require('../components/_templates/voting');
 
 module.exports = React.createClass({
   displayName: 'VotingPage',
@@ -21,8 +21,8 @@ module.exports = React.createClass({
 
   mixins: [
     Router.Navigation,
-    require('../../helpers/mixins/events'),
-    require('../../helpers/mixins/page_title')
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/page_title')
   ],
 
   getInitialState() {

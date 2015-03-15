@@ -5,35 +5,35 @@ var React = require('react');
 var {Route, DefaultRoute, NotFoundRoute} = require('react-router');
 
 module.exports = (
-  <Route name="index" path="/" handler={require('./components/_pages/_base')}>
+  <Route name="index" path="/" handler={require('./pages/_base')}>
     <DefaultRoute name="start"
-      handler={require('./components/_pages/start')} />
+      handler={require('./pages/start')} />
 
     <Route name="register" path="/register"
-      handler={require('./components/_pages/auth-register')} />
+      handler={require('./pages/auth-register')} />
     <Route name="verify" path="/verify"
-      handler={require('./components/_pages/auth-verify')} />
+      handler={require('./pages/auth-verify')} />
     <Route name="login" path="/login"
-      handler={require('./components/_pages/auth-login')} />
+      handler={require('./pages/auth-login')} />
     <Route name="logout" path="/logout"
-      handler={require('./components/_pages/auth-logout')} />
+      handler={require('./pages/auth-logout')} />
     <Route name="profile" path="/profile"
-      handler={require('./components/_pages/profile')} />
+      handler={require('./pages/profile')} />
 
     <Route name="voting" path="/vote"
-      handler={require('./components/_pages/voting')} />
+      handler={require('./pages/voting')} />
 
     <Route name="shows" path="/shows"
-      handler={require('./components/_pages/shows')} />
+      handler={require('./pages/shows')} />
     <Route name="show" path="/shows/:id"
-      handler={require('./components/_pages/show')} />
+      handler={require('./pages/show')} />
     <Route name="episode" path="/episodes/:id"
-      handler={require('./components/_pages/episode')} />
+      handler={require('./pages/episode')} />
 
     <Route name="search" path="/search"
-      handler={require('./components/_pages/search')} />
+      handler={require('./pages/search')} />
 
     <NotFoundRoute
-      handler={require('./components/_pages/error404')} />
+      handler={require('./pages/error404')} />
   </Route>
 );

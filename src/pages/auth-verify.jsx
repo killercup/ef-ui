@@ -1,9 +1,9 @@
 var React = require('react');
 var Router = require('react-router');
 
-var {dispatch} = require('../../data');
+var {dispatch} = require('../data');
 
-var Alert = require('../alert');
+var Alert = require('../components/alert');
 
 module.exports = React.createClass({
   displayName: 'VerifyPage',
@@ -12,8 +12,8 @@ module.exports = React.createClass({
   mixins: [
     Router.Navigation,
     Router.State,
-    require('../../helpers/mixins/events'),
-    require('../../helpers/mixins/keys')
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/keys')
   ],
 
   getInitialState() {

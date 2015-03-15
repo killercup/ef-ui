@@ -1,14 +1,14 @@
 var React = require('react');
 var Router = require('react-router');
-var padDigits = require('../../helpers/pad_digits');
+var padDigits = require('../helpers/pad_digits');
 
-var bus = require('../../data');
-var Auth = require('../../data/auth');
-var ShowsStore = require('../../data/shows');
-var EpisodesStore = require('../../data/episodes');
-var VotesStore = require('../../data/votes');
+var bus = require('../data');
+var Auth = require('../data/auth');
+var ShowsStore = require('../data/shows');
+var EpisodesStore = require('../data/episodes');
+var VotesStore = require('../data/votes');
 
-var Vote = require('../vote');
+var Vote = require('../components/vote');
 
 module.exports = React.createClass({
   displayName: 'EpisodePage',
@@ -16,9 +16,9 @@ module.exports = React.createClass({
 
   mixins: [
     Router.State,
-    require('../../helpers/mixins/page_title'),
-    require('../../helpers/mixins/keys'),
-    require('../../helpers/mixins/events')
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys'),
+    require('../helpers/mixins/events')
   ],
 
   getInitialState() {

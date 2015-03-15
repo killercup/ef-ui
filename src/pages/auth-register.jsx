@@ -1,8 +1,8 @@
 var React = require('react');
 
-var {dispatch} = require('../../data');
+var {dispatch} = require('../data');
 
-var FormField = require('../form-field');
+var FormField = require('../components/form-field');
 
 function fieldOpts(name) {
   return {
@@ -18,9 +18,9 @@ module.exports = React.createClass({
   pageTitle: 'Register',
 
   mixins: [
-    require('../../helpers/mixins/events'),
-    require('../../helpers/mixins/page_title'),
-    require('../../helpers/mixins/keys')
+    require('../helpers/mixins/events'),
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/keys')
   ],
 
   triggerRegister(event) {

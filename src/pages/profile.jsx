@@ -1,9 +1,9 @@
 var React = require('react');
 var Router = require('react-router');
 
-var Auth = require('../../data/auth');
+var Auth = require('../data/auth');
 
-var Template = require('../_templates/profile');
+var Template = require('../components/_templates/profile');
 
 module.exports = React.createClass({
   displayName: 'ProfilePage',
@@ -11,8 +11,8 @@ module.exports = React.createClass({
 
   mixins: [
     Router.Navigation,
-    require('../../helpers/mixins/page_title'),
-    require('../../helpers/mixins/events')
+    require('../helpers/mixins/page_title'),
+    require('../helpers/mixins/events')
   ],
 
   componentWillMount() {
