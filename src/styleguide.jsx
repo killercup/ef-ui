@@ -12,7 +12,7 @@ if (process.env.BROWSER) {
   require('./style/styleguide.less');
 }
 
-if ((process.env.NODE_ENV !== 'production') && window) {
+if ((process.env.NODE_ENV !== 'production') && process.env.BROWSER) {
   // Enable dev tools
   window.React = React;
 }
